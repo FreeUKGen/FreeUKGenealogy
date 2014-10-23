@@ -1,0 +1,37 @@
+{% import "_macros/article" as article %}
+
+<article class="article  grid"{% block articleAttributes %}{% endblock %}>
+
+  {# when embedding this just allows us to add something inside the .article.grid wrapper #}
+  {% block articlePrependMain %}{% endblock %}
+
+
+  {# header space #}
+  {% block articleHeader %}
+
+    {# default header content if hideTitle is ticked with a dynamic parent title #}
+    {% if entry.hideTitle is not defined or entry.hideTitle == '0' %}
+    <header class="article__header  grid__item  two-thirds palm-one-whole">
+      <h1 class="title">{{ entry.title }}</h1>
+    </header>
+    {% endif %}
+
+  {% endblock %}
+
+
+  {# subnav #}
+  {% include '_includes/navs/sub' %}
+
+
+  {# Add content to top of article loop, below title #}
+  {% block articlePrependLoop %}{% endblock %}
+
+
+  {# main article loop, contains all the blocks with their appropriate widths and content #}
+  {{ article.loop(entry.article) }}
+
+
+  {# same as articlePrependMain but for the end of .article #}
+  {% block articleAppendMain %}{% endblock %}
+
+</article>

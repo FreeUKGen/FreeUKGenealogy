@@ -1,0 +1,228 @@
+{#
+ # Computes a range from two given dates and outputs
+ # them in <time>'s with pretty formats
+ #}
+{%- macro makerange(start, end) -%}
+
+  {# check contents of given vars and compute formatted dates #}
+  {% if end is empty or end|date('Y-m-d') == start|date('Y-m-d') %}
+
+    {# end is empty or matches start, so just set start date #}
+    {% if start|date('Y') == now|date('Y') %}
+
+      {# year is current, so don't show it #}
+      {% set fStart = start|date('D j M') %}
+
+    {% else %}
+
+      {# year is not current, so do show it #}
+      {% set fStart = start|date('D j M Y') %}
+
+    {% endif %}
+
+  {% else %}
+
+    {# check year #}
+    {% if end|date('Y') == start|date('Y') %}
+
+      {# check month #}
+      {% if end|date('m') == start|date('m') %}
+
+        {# same months, same years #}
+        {% set fStart = start|date('D j') %}
+
+      {% else %}
+
+        {# different months, same years #}
+        {% set fStart = start|date('D j M') %}
+
+      {% endif %}
+
+
+      {# check if year is current for end date #}
+      {% if end|date('Y') == now|date('Y') %}
+
+        {# year is current, so don't show it #}
+        {% set fEnd = end|date('D j M') %}
+
+      {% else %}
+
+        {# year is not current, so do show it #}
+        {% set fEnd = end|date('D j M Y') %}
+
+      {% endif %}
+
+    {% else %}
+
+      {# different years #}
+      {% set fStart = start|date('D j M Y') %}
+      {% set fEnd = end|date('D j M Y') %}
+
+    {% endif %}
+
+  {% endif %}
+
+
+  {# output, using whitespace control #}
+  <time datetime="{{ start|date('c') }}" itemprop="startDate">{{ fStart }}</time>
+  {%- if fEnd is defined %} &ndash; <time datetime="{{ end|date('c') }}" itemprop="endDate">{{ fEnd }}</time>{% endif -%}
+
+{%- endmacro -%}
+
+
+
+
+{#
+ # Using the outputted range above, wrap in span and trim left/right whitespace
+ #}
+{%- macro range(start, end) -%}
+  {%- import _self as date -%}
+
+  <span class='time'>{{ date.makerange(start, end)|trim|raw }}</span>
+
+{%- endmacro -%}
+
+
+
+
+{#
+ # Taking a given date, mark it up and make it human readable
+ #}
+{%- macro human(date) -%}
+  <time class="time" datetime="{{ date|date('c') }}">Posted: {{ date|nicetime('d M Y') }}</time>
+{%- endmacro -%}
+
+
+
+
+{#
+ # Datetime
+ #}
+{%- macro datetime(date) -%}
+  <time class="time" datetime="{{ date|date('c') }}">{% if date|date('Y') == now|date('Y') %}{{ date|date('D j M') }}{% else %}{{ date|date('D j M Y') }}{% endif %} <span>{{ date|date('g:i A') }}</span></time>
+{%- endmacro -%}
+
+
+
+
+{#
+ # Is the time in the past?
+ # Outputs class
+ #}
+{%- macro isTimePast(date) -%}
+  {%- if date|date('U') < now|date('U') %}time__past{% endif -%}
+{%- endmacro -%}
+
+
+
+
+{#
+ # Day links - given a date, produce prev and next links in 'day' format
+ # output should be #{prefix}/2013/dec/20#{postfix}
+ #}
+{%- macro dayLinks(date, prefix, postfix) -%}
+
+  {% set prev = date|date_modify('midnight -1 day')|date('Y/M/d')|lower %}
+  {% set current = date|date('Y/M/d')|lower %}
+  {% set next = date|date_modify('midnight +1 day')|date('Y/M/d')|lower %}
+
+  {% spaceless %}
+  <ul class="nav  pagination  push-double--bottom">
+    <li class="pagination__prev">
+      <a href='{{ url("#{prefix}/#{prev}#{postfix}") }}'><i class="icon-triangle-left" aria-hidden="true"></i><span class="accessibility">Previous Day</span></a>
+    </li>
+    <li class="pagination__link  current">
+      <a href='{{ url("#{prefix}/#{current}#{postfix}") }}'>
+        {% if date|date('Y-m-d') == now|date('Y-m-d') %}
+          Today
+        {% elseif date|date('Y-m-d') == now|date_modify('midnight -1 day')|date('Y-m-d') %}
+          Yesterday
+        {% elseif date|date('Y-m-d') == now|date_modify('midnight +1 day')|date('Y-m-d') %}
+          Tomorrow
+        {% else %}
+          {{ date|date('Y') == now|date('Y') ? date|date('D j M') : date|date('D j M Y') }}
+        {% endif %}
+      </a>
+    </li>
+    <li class="pagination__next">
+      <a href='{{ url("#{prefix}/#{next}#{postfix}") }}'><i class="icon-triangle-right" aria-hidden="true"></i><span class="accessibility">Next Day</span></a>
+    </li>
+  </ul>
+  {% endspaceless %}
+
+{%- endmacro -%}
+
+
+
+{#
+ # Month links - given a date, produce prev and next links in 'month' format
+ # output should be #{prefix}/2013/dec#{postfix}
+ #}
+{%- macro monthLinks(date, prefix, postfix) -%}
+
+  {% set prev = date|date_modify('midnight -1 month')|date('Y/M')|lower %}
+  {% set current = date|date('Y/M')|lower %}
+  {% set next = date|date_modify('midnight +1 month')|date('Y/M')|lower %}
+
+  {% spaceless %}
+  <ul class="nav  pagination  push-double--bottom">
+    <li class="pagination__prev">
+      <a href='{{ url("#{prefix}/#{prev}#{postfix}") }}'><i class="icon-triangle-left" aria-hidden="true"></i><span class="accessibility">Previous Month</span></a>
+    </li>
+    <li class="pagination__link  current">
+      <a href='{{ url("#{prefix}/#{current}#{postfix}") }}'>
+        {{ date|date('Y') == now|date('Y') ? date|date('F') : date|date('F Y') }}
+      </a>
+    </li>
+    <li class="pagination__next">
+      <a href='{{ url("#{prefix}/#{next}#{postfix}") }}'><i class="icon-triangle-right" aria-hidden="true"></i><span class="accessibility">Next Month</span></a>
+    </li>
+  </ul>
+  {% endspaceless %}
+
+{%- endmacro -%}
+
+
+
+{#
+ # Week links - given a date, produce prev and next links in 'week' format
+ # output should be #{prefix}/2013/week-51#{postfix}
+ #}
+{%- macro weekLinks(date, prefix, postfix) -%}
+  {# for safety's sake move to the middle of the week, prevents end of year errors #}
+  {% set date = date|date_modify('+3 days') %}
+
+  {% set prev = date|date_modify('midnight -1 week') %}
+  {% set prev = prev|date('Y')~'/week-'~prev|date('W')|lower %}
+
+  {% set current = date|date('Y')~'/week-'~date|date('W')|lower %}
+
+  {% set next = date|date_modify('midnight +1 week') %}
+  {% set next = next|date('Y')~'/week-'~next|date('W')|lower %}
+
+  {% spaceless %}
+  <ul class="nav  pagination  push-double--bottom">
+    <li class="pagination__prev">
+      <a href='{{ url("#{prefix}/#{prev}#{postfix}") }}'><i class="icon-triangle-left" aria-hidden="true"></i><span class="accessibility">Previous Week</span></a>
+    </li>
+    <li class="pagination__link  current">
+      <a href='{{ url("#{prefix}/#{current}#{postfix}") }}'>
+        {% if date|date('Y-W') == now|date('Y-W') %}
+          This week
+        {% elseif date|date('Y-W') == now|date_modify('midnight -1 week')|date('Y-W') %}
+          Last week
+        {% elseif date|date('Y-W') == now|date_modify('midnight +1 week')|date('Y-W') %}
+          Next week
+        {% else %}
+          {% set cleanNum = date|date('W')|first == 0 ? date|date('W')|trim('0') : date|date('W') %}
+          {{ date|date('Y') == now|date('Y') ? 'Week '~cleanNum : 'Week '~cleanNum~date|date(' Y') }}
+        {% endif %}
+      </a>
+    </li>
+    <li class="pagination__next">
+      <a href='{{ url("#{prefix}/#{next}#{postfix}") }}'><i class="icon-triangle-right" aria-hidden="true"></i><span class="accessibility">Next Week</span></a>
+    </li>
+  </ul>
+  {% endspaceless %}
+
+{%- endmacro -%}

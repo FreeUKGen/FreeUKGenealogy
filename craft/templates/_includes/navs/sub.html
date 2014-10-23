@@ -1,0 +1,56 @@
+{# get top parent using segment one and matching our current section #}
+{%- set subnavParent = craft.entries.first({
+  section : entry.section.handle,
+  slug    : craft.request.getSegment(1)
+}) -%}
+
+{# get the children #}
+{%- if subnavParent -%}
+  {%- set subnavChildren = subnavParent.getDescendants() -%}
+{%- endif -%}
+
+
+{%- if subnavChildren is defined -%}
+
+  {%- if subnavChildren|length >= 1 -%}
+
+    {%- set output -%}
+
+      <h3 class="pre-title  palm-hide"><a href="{{ subnavParent.url }}">{{ subnavParent.title }}</a></h3>
+
+      <ul class="sub-nav">
+      {% nav page in subnavChildren %}
+        <li class="
+          {%- if page.slug == craft.request.segment(page.depth) -%}
+            active
+            {%- if page.id != entry.id or page.subpageDisplayStyle == '' %}  visible{%- endif -%}
+          {%- endif -%}
+          ">
+          <a href="{{ page.url }}">{{ page.title }}</a>
+          {% ifchildren %}
+            <ul>
+              {% children %}
+            </ul>
+          {% endifchildren %}
+        </li>
+      {% endnav %}
+      </ul>
+
+    {%- endset -%}
+
+  {%- endif -%}
+
+{%- endif -%}
+
+{# check if the top entry is the entry we're on and then if subnav should even be shown #}
+{%- if subnavParent is not null and subnavParent.id == entry.id and output is defined -%}
+  {%- if entry.subpageDisplayStyle == '' -%}
+    <aside class="grid__item  one-third  palm-one-whole  float--right">
+      {{ output }}
+    </aside>
+  {%- endif -%}
+{%- elseif output is defined -%}
+  <aside class="grid__item  one-third  palm-one-whole  float--right">
+    {{ output }}
+  </aside>
+{%- endif -%}

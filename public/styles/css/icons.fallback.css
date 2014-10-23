@@ -1,0 +1,108 @@
+
+.icon__cancel {
+  background-image: url('../../images/png/cancel.png');
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__chevron-down {
+  background-image: url('../../images/png/chevron-down.png');
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__chevron-left {
+  background-image: url('../../images/png/chevron-left.png');
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__chevron-right {
+  background-image: url('../../images/png/chevron-right.png');
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__chevron-up {
+  background-image: url('../../images/png/chevron-up.png');
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__search {
+  background-image: url('../../images/png/search.png');
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__select {
+  background-image: url('../../images/png/select.png');
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__soup-logo {
+  background-image: url('../../images/png/soup-logo.png');
+  background-repeat: no-repeat;
+  width: 227px;
+  height: 70px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__supercool {
+  background-image: url('../../images/png/supercool.png');
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+

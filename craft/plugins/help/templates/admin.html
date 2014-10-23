@@ -1,0 +1,49 @@
+{% extends "help/_layout" %}
+
+{% set content %}
+
+
+#Administration
+
+
+##Managing Users
+Control what your administrators see in the control panel
+
+###How permissions work
+Users’ access can be granted on a ‘per section’ basis (note; that is sections and not pages), and can be limited to:
+
+* Edit existing entries
+* Create new
+* Publish live
+* Edit other people’s entries
+     ** Delete other people’s entries
+     ** Publish other people’s drafts
+     ** Delete other people’s drafts
+* Delete entries
+
+Along with sections, there is also some key functionality certain users may need access to:
+
+* Form-builder
+* Site Notices
+* Text snippets (small bits of random text)
+* Manage users and their permissions
+* Manage images
+
+###Member groups
+Given the number of sections, setting permissions for individual members can get messy; however we can put them in groups.
+
+Member groups are essentially a preset for the permissions checklist. Extra privileges can be unlocked on a per-user basis (however you cannot lock things that are open to a group if a member is part of that group), and a member can be attached to one or more groups. Multiple groups will combine all of the privileges from each group.
+
+
+Groups should really be a collection of ‘content types’ that particular sets of users are likely to all need access to.
+
+
+**Group 1: Admins**
+
+Access all areas!
+
+**Group 2: Editors**
+
+* News Articles
+
+{% endset %}

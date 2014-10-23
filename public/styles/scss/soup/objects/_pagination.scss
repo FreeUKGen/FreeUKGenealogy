@@ -1,0 +1,24 @@
+@if $use-pagination == true{
+/*------------------------------------*\
+    $PAGINATION
+\*------------------------------------*/
+/**
+ * Building on inuit's and swapping in our icons
+ */
+
+.pagination {
+  /**
+   * Taking off inuit's whitespace hack, stick with commenting method.
+   */
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+  .pagination__first a:before,
+  .pagination__last a:after {
+    @include inline-block;
+    vertical-align: top;
+    font-size: 1.2em;
+    margin-top: 0.13em;
+  }
+
+}//endif

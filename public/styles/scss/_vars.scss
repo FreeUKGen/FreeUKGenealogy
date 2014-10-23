@@ -1,0 +1,127 @@
+/*------------------------------------*\
+    VARS.SCSS
+\*------------------------------------*/
+/**
+ * Any variables you find set in inuit.cssâ€™ `_vars.scss` that you do not wish to
+ * keep, simply redefine here. This means that if inuit.css, for example, sets
+ * your `$base-font-size` at 16px and you wish it to be 14px, simply redeclare
+ * that variable in this file. inuit.css ignores its own variables in favour of
+ * using your own, so you can completely modify how inuit.css works without ever
+ * having to alter the framework itself.
+ */
+
+
+
+
+
+/*------------------------------------*\
+    $OBJECTS-AND-ABSTRACTIONS
+\*------------------------------------*/
+/**
+ * All of inuit.cssâ€™ objects and abstractions are initially turned off by
+ * default. This means that you start any project with as little as possible,
+ * and introducing objects and abstractions is as simple as switching the
+ * following variables to `true`.
+ */
+$use-grids:         true;
+$use-flexbox:       true;
+$use-columns:       true;
+$use-nav:           true;
+$use-options:       true;
+$use-pagination:    true;
+$use-breadcrumb:    true;
+$use-media:         true;
+$use-marginalia:    true;
+$use-island:        true;
+$use-block-list:    true;
+$use-matrix:        true;
+$use-split:         true;
+$use-this-or-this:  true;
+$use-link-complex:  true;
+$use-flyout:        true;
+$use-arrows:        true;
+$use-sprite:        true;
+$use-icon-text:     true;
+$use-beautons:      true;
+$use-lozenges:      true;
+$use-rules:         true;
+$use-stats:         true;
+$use-greybox:       true;
+
+
+
+
+
+/*------------------------------------*\
+    $OVERRIDES
+\*------------------------------------*/
+/**
+ * Place any variables that should override inuit.css' defaults here.
+ *
+ * For example: $base-font-size: 18px;
+ */
+$lap-start:         570px;
+$desk-start:        1024px;
+$desk-wide-start:   1200px;
+
+
+
+
+
+/*------------------------------------*\
+    $COLOURS
+\*------------------------------------*/
+
+// vars
+$blue-light:        #3dbcd6;
+$blue:              #2ba6cb;
+$blue-dark:         #1e728c;
+
+$green-light:       #5DA423;
+$green:             #457a1a;
+$green-dark:        #396516;
+
+$red-light:         #c60f13;
+$red:               #970b0e;
+$red-dark:          #7f0a0c;
+
+
+// aliases
+$brand-color-light: $blue-light;
+$brand-color:       $blue;
+$brand-color-dark:  $blue-dark;
+
+$pos-color-light:   $green-light;
+$pos-color:         $green;
+$pos-color-dark:    $green-dark;
+
+$neg-color-light:   $red-light;
+$neg-color:         $red;
+$neg-color-dark:    $red-dark;
+
+$alert-color-light: $red-light;
+$alert-color:       $red;
+$alert-color-dark:  $red-dark;
+
+
+// an array for loops in this format:
+// name | primary | dark | light | text inside
+$colours:(
+  "green" $green $green-dark $green-light #ffffff,
+  "red" $red $red-dark $red-light #ffffff,
+  "blue" $blue $blue-dark $blue-light #ffffff
+);
+
+
+
+/*------------------------------------*\
+    $SOUP OBJECTS AND ABSTRACTIONS
+\*------------------------------------*/
+
+$use-alerts:        true;
+$use-container:     true;
+$use-offcanvas:     true;
+$use-twitter:       true;
+$use-tabs:          true;
+$use-shade:         true;
+$use-modal:         true;

@@ -1,0 +1,15 @@
+{% extends "_layouts/cp" %}
+
+{% set title = "Release Notes"|t %}
+
+{% set tabs = {
+  releaseNotes: { label: "Release Notes"|t, url: url('toolbox') }
+} %}
+
+{% set releaseNotes = craft.toolbox.getReleaseNotes() %}
+
+{% includeCssResource 'toolbox/css/toolbox-dashboard.css' %}
+
+{% set content %}
+  {% include 'toolbox/_includes/release-notes' %}
+{% endset %}

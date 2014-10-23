@@ -1,0 +1,26 @@
+{#
+ # Image block type
+ #}
+
+{% if block.image.first %}
+  {% set image = block.image.first %}
+  <figure class="article__image  grid__item  {{ block.width }}  palm-one-whole">
+
+    <img src="{{ image.getUrl('articleLarge') }}" alt="{{ image.caption }}">
+
+    {% if image.caption != '' or image.credit != '' or image.year %}
+    <figcaption>
+      <p>
+        {% if image.caption != '' %}
+          <strong>{{ image.caption }}</strong>
+        {% endif %}
+
+        {% if image.credit != '' or image.year != '0' %}
+          <span class="credit">&copy; {{ image.year != '0' ? image.year : '' }} {{ image.credit }}</span>
+        {% endif %}
+      </p>
+    </figcaption>
+    {% endif %}
+
+  </figure>
+{% endif %}

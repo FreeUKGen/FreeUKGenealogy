@@ -1,0 +1,81 @@
+@if $use-tabs == true{
+/*------------------------------------*\
+    $TABS
+\*------------------------------------*/
+
+/**
+ * Tab nav
+ */
+.tab-nav {
+  position: relative;
+  height: 49px;
+  width: 100%;
+
+  // the border across the bottom
+  ul:after {
+    content: " ";
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    position: absolute;
+    z-index: 2; // pull over li's
+  }
+
+  // fullwidth
+  ul {
+    @extend .nav;
+    margin: 0;
+    width: 100%;
+  }
+
+  li {
+    margin-right: $b;
+    position: relative;
+    z-index: 1; // suck behind ul:after
+  }
+  a {
+    @include font-size(16px);
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    padding: $b-half ($b * 0.75);
+    background: $brand-color;
+    color: #fff;
+    border-top: 1px solid $brand-color;
+    border-left: 1px solid $brand-color;
+    border-right: 1px solid $brand-color;
+    margin-bottom: -1px;
+    &:hover {
+      color: #fff;
+      background: $brand-color-dark;
+      border-color: $brand-color-dark;
+    }
+    i {
+      @include font-size(42px);
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  .ui-state-active {
+    z-index: 3; // pull over the top of ul:after
+    a {
+      color: $brand-color;
+      background: #fff;
+      border-color: #ddd;
+    }
+  }
+}
+  // smaller text and aligned right
+  .tab-nav--alt {
+    ul {
+      text-align: right;
+    }
+    li {
+      margin-left: $b;
+      margin-right: 0;
+    }
+    a {
+      @include font-size(14px);
+    }
+  }
+}//endif

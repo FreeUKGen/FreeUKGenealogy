@@ -1,0 +1,24 @@
+{% extends "_layouts/main" %}
+
+{% set title = 'Server Error' %}
+
+{% block main %}
+  <article class="grid">
+    <header class="page-header  grid__item  one-whole">
+      <h1 class="title">Server Error</h1>
+    </header>
+
+    <section class="grid__item  seven-twelfths  palm-one-whole  body">
+      <p class="lede">Sorry the server didn't understand that request. Please try again.</p>
+      <p>{{ message }}</p>
+    </section>
+  </article>
+{% endblock %}
+
+{% block foot %}
+  <script type="text/javascript">
+    if ( typeof ga !== 'undefined' ) {
+      ga('send', 'event', 'Error Pages', '500', 'URL: '+ window.location.href );
+    }
+  </script>
+{% endblock %}

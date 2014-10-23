@@ -1,0 +1,56 @@
+{% if paginateBase is not defined %}
+  {% set paginateBase = '/'~craft.request.firstSegment~'/page-' %}
+{% endif %}
+
+
+{% if query is not defined %}
+  {% set query = '' %}
+{% endif %}
+
+
+{% if paginate.totalPages > 1 %}
+<ul class="nav  pagination">
+
+  {% if paginate.prevUrl %}
+    <li class="pagination__prev"><a href="{{ paginate.prevUrl ~ query }}"><i class="icon-triangle-left" aria-hidden="true"></i><span class="accessibility">Previous Page</span></a></li>
+  {% endif %}
+
+  {% if paginate.totalPages > 4 %}
+
+    {% set lhs = paginate.currentPage - 3 %}
+    {% set rhs = paginate.currentPage + 3 %}
+
+    {% for pageNumber in lhs..rhs %}
+      {% if pageNumber >= 1 and pageNumber <= paginate.totalPages %}
+
+        {% if paginate.currentPage == pageNumber %}
+          <li class="pagination__link  current">{{ pageNumber }}</li>
+        {% else %}
+          <li class="pagination__link">
+            <a href="{{ paginateBase ~ pageNumber ~ query }}">{{ pageNumber }}</a>
+          </li>
+        {% endif %}
+
+      {% endif %}
+    {% endfor %}
+
+  {% else %}
+
+    {% for pageNumber in 1..paginate.totalPages %}
+      {% if paginate.currentPage == pageNumber %}
+        <li class="pagination__link  current">{{ pageNumber }}</li>
+      {% else %}
+        <li class="pagination__link">
+          <a href="{{ paginateBase ~ pageNumber ~ query }}">{{ pageNumber }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+  {% endif %}
+
+  {% if paginate.nextUrl %}
+    <li class="pagination__next"><a href="{{ paginate.nextUrl ~ query }}"><i class="icon-triangle-right" aria-hidden="true"></i><span class="accessibility">Next Page</span></a></li>
+  {% endif %}
+
+</ul>
+{% endif %}

@@ -1,0 +1,33 @@
+{
+  "folders":
+  [
+    {
+      "follow_symlinks": true,
+      "name": "Main",
+      "path": "~/Sites/freeukgenealogy"
+    },
+    {
+      "follow_symlinks": true,
+      "name": "Plugins",
+      "path": "craft/plugins"
+    },
+    {
+      "file_exclude_patterns":"*.scssc",
+      "follow_symlinks": true,
+      "name": "Public",
+      "path": "public"
+    },
+    {
+      "follow_symlinks": true,
+      "name": "Templates",
+      "path": "craft/templates"
+    }
+  ],
+  "settings":
+  {
+    "tab_size": 2,
+    "translate_tabs_to_spaces": true,
+    "trim_trailing_white_space_on_save": true,
+    "ensure_newline_at_eof_on_save": true
+  }
+}

@@ -1,0 +1,42 @@
+@charset "UTF-8";
+/*------------------------------------*\
+    LAP_AND_UP.CSS
+\*------------------------------------*/
+/**
+ * Here we add any layout or other bits of styling specific to
+ * the desktop and the tablet breakpoints.
+ *
+ * This is so phones which are often on bad internet connections
+ * don't have to download all the extra css.
+ */
+
+
+/**
+ * Setup
+ */
+@import "vars";
+@import "../../bower_components/inuit.css/defaults";
+@import "../../bower_components/inuit.css/generic/mixins";
+@import "soup/generic/aliases";
+@import "soup/soup_lau";
+
+
+
+/**
+ * She’s all yours, cap’n... Begin importing your stuff here.
+ */
+
+#sidebar {
+  max-width: 300px;
+  &.affix {
+    position: fixed;
+    top: $base-spacing-unit;
+    // weird padding fix, think its due to the percentages
+    padding-right: $base-spacing-unit;
+    @include media-query(desk-wide){ padding-right: $base-spacing-unit*2; }
+  }
+}
+#main {
+  padding-left: $base-spacing-unit*2;
+  float: right;
+}

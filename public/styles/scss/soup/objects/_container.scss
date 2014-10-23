@@ -1,0 +1,13 @@
+@if $use-container == true{
+/*------------------------------------*\
+    $CONTAINER
+\*------------------------------------*/
+/**
+ * A 960 container on lap_and_up, we just leave it
+ * fullwidth and pad the sides here on palm
+ */
+.container {
+  padding-left: $b;
+  padding-right: $b;
+}
+}//endif

@@ -1,0 +1,73 @@
+@if $use-beautons == true{
+/*------------------------------------*\
+    BEAUTONS.CSS
+\*------------------------------------*/
+
+/**
+ * General style adjustments
+ */
+.btn {
+  background: $brand-color;
+  color: #fff;
+  text-align: center;
+
+  // slightly temper inuits overly large sizing
+  padding-right: 0.75em;
+  padding-left: 0.75em;
+  line-height: 2.5;
+
+  @include vendor(transition, all 0.15s ease-in-out);
+  @include vendor(border-radius, $b-quarter);
+  &:hover {
+    background: $brand-color-dark;
+    color: #fff;
+  }
+  &:focus, &:active { text-decoration: none; }
+}
+
+
+  /**
+   * Pretty colours
+   */
+  @each $colour in $colours {
+    .btn--#{nth($colour, 1)} {
+      background: nth($colour, 2);
+      &:hover { background: nth($colour, 3); }
+    }
+  }
+
+
+  /**
+   * Caps
+   */
+  .btn--caps {
+    @include font-size(14px, false);
+    line-height: 2.3;
+    padding-top: 0.05em;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+
+  /**
+   * Small
+   *
+   * Just turns down the font size and lets the line-height change the verticals
+   */
+  .btn--small { @include font-size(12px); }
+
+
+  /**
+   * Large
+   *
+   * Turns up the text size and re-does the surrounding space
+   */
+  .btn--large {
+    @include font-size(20px, false);
+    line-height: 3;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+
+}//endif

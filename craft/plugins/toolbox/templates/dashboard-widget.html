@@ -1,0 +1,240 @@
+{#----------#}
+{# SECTIONS #}
+{#----------#}
+
+{% set sections = craft.sections.getEditableSections() %}
+{% set newEntrySections = [] %}
+
+{% for section in sections %}
+	{% if section.type != 'single' and currentUser.can('createEntries:'~section.id) %}
+		{% set newEntrySections = newEntrySections|merge([section]) %}
+	{% endif %}
+{% endfor %}
+
+{% set mainSections = [
+  {
+    'title' : 'Blog',
+    'path'  : 'entries/blog',
+    'icon'  : 'enabled'
+  },
+  {
+    'title' : 'Blog',
+    'path'  : 'entries/blog',
+    'icon'  : 'enabled'
+  },
+  {
+    'title' : 'Blog',
+    'path'  : 'entries/blog',
+    'icon'  : 'enabled'
+  },
+  {
+    'title' : 'Blog',
+    'path'  : 'entries/blog',
+    'icon'  : 'enabled'
+  },
+  {
+    'title' : 'Blog',
+    'path'  : 'entries/blog',
+    'icon'  : 'enabled'
+  },
+  {
+    'title' : 'Blog',
+    'path'  : 'entries/blog',
+    'icon'  : 'enabled'
+  }
+] %}
+
+
+{% set secondarySections = [
+  {
+    'title' : 'Homepage',
+    'path'  : 'entries/blog'
+  },
+  {
+    'title' : 'Something',
+    'path'  : 'entries/blog'
+  },
+  {
+    'title' : 'Else',
+    'path'  : 'entries/blog'
+  },
+  {
+    'title' : 'Blog',
+    'path'  : 'entries/blog'
+  },
+  {
+    'title' : 'Flute one two',
+    'path'  : 'entries/blog'
+  },
+  {
+    'title' : 'Tooting',
+    'path'  : 'entries/blog'
+  }
+] %}
+
+
+{#---------#}
+{# NOTICES #}
+{#---------#}
+{% set notices = [
+  {
+    'data'   : '30',
+    'string' : 'new comments',
+    'path'   : 'some/path/thing'
+  },
+  {
+    'data'   : '3',
+    'string' : 'new enquiries',
+    'path'   : 'some/path/thing'
+  },
+  {
+    'data'   : '203',
+    'string' : 'events imported',
+    'path'   : 'some/path/thing'
+  }
+] %}
+
+
+{#---------#}
+{# SUPPORT #}
+{#---------#}
+{% set helpUrl = url('help') %}
+{% set freshDesk = true %}
+
+{#---------------#}
+{# RELEASE NOTES #}
+{#---------------#}
+{% set releaseNotes = craft.toolbox.getReleaseNotes('10') %}
+
+
+{#--------#}
+{# MARKUP #}
+{#--------#}
+<div class="toolbox-grid">
+
+  <div class="toolbox-grid__item  one-whole">
+    <div class="pane  toolbox__header">
+      <h1>Howdy {{ user.firstName }}!</h1>
+
+      <a href="{{ url('myaccount') }}#profile" class="toolbox__header__profile-link">
+        <img src="{{ user.photoUrl ? user.photoUrl : url('resources/defaultuserphoto/100') }}" />
+        <div>
+          <span>Edit Profile</span>
+          <span>Change Password</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="toolbox-grid__item  two-thirds">
+    <h1 class="toolbox__title">Sections</h1>
+
+    <div class="pane">
+
+
+      <div class="toolbox__sections  toolbox-grid">
+
+        <div class="toolbox-grid__item  three-quarters  toolbox__sections__main">
+          <ul class="toolbox-grid">
+            {% for i in mainSections %}
+            <li class="toolbox-grid__item  one-third">
+              <a href="{{ url(i.path) }}">
+                <div data-icon="{{ i.icon }}"></div>
+                {{ i.title }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+          <div class="clear"></div>
+        </div>
+
+        <div class="toolbox-grid__item  one-quarter  toolbox__sections__secondary">
+
+          {% if newEntrySections|length %}
+          <div class="buttons">
+            {% if newEntrySections|length > 1 %}
+            <div class="btngroup submit">
+              <div class="btn submit menubtn add icon">{{ "New Entry"|t }}</div>
+              <div class="menu">
+                <ul>
+                  {% for section in newEntrySections %}
+                  <li><a href="{{ url('entries/'~section.handle~'/new') }}">{{ section.name|t }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+            {% else %}
+            <a class="btn submit add icon" href="{{ url('entries/'~newEntrySections[0].handle~'/new') }}">{{ "New " ~ newEntrySections[0].name ~ " Entry"|t }}</a>
+            {% endif %}
+          </div>
+          {% endif %}
+
+          <div class="toolbox__sections__secondary__inner">
+            <h2 class="toolbox__title">Landing Pages</h2>
+            <ul>
+              {% for i in secondarySections %}
+              <li>
+                <a href="{{ url(i.path) }}">
+                  {{ i.title }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbox-grid__item  one-third">
+    <h1 class="toolbox__title">Notices</h1>
+
+    {% if notices is defined and notices | length %}
+    <ul class="pane  toolbox__notice-links">
+      {% for n in notices %}
+      <li>
+        <a href="{{ url(n.path) }}"><span>{{ n.data }}</span>&nbsp;{{ n.string }}&nbsp;<i data-icon="&#x40;"></i></a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <ul class="toolbox-grid  toolbox-grid--sml">
+    {% if helpUrl is defined and helpUrl is not empty %}
+      <li class="toolbox-grid__item  one-half"><a href="{{ helpUrl }}" class="toolbox__btn"><i data-icon="info"></i>Help docs</a></li>
+    {% endif %}
+
+    {% if freshDesk is defined %}
+      <li class="toolbox-grid__item  one-half"><a class="toolbox__btn  toolbox-freshdesk-trigger"><i data-icon="help"></i>Tech Support</a></li>
+    {% endif %}
+    </ul>
+    <div class="clear"></div>
+
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="toolbox-grid__item  two-thirds">
+    <h1 class="toolbox__title">Site Stats</h1>
+
+    <div class="pane">
+      <img src="http://f.cl.ly/items/0A1F2E3e321L2V1N2F3I/Screen%20Shot%202014-10-07%20at%2009.35.15.png">
+    </div>
+  </div>
+
+  {% if releaseNotes is defined and releaseNotes | length %}
+  <div class="toolbox-grid__item  one-third">
+    <h1 class="toolbox__title">Updates</h1>
+
+    <div class="pane  toolbox__release-notes__wrapper">
+      <div class="toolbox__release-notes__inner">
+        {% include 'toolbox/_includes/release-notes' %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+<div class="clear"></div>

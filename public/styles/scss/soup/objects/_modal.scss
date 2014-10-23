@@ -1,0 +1,73 @@
+@if $use-modal == true{
+/*------------------------------------*\
+    $MODAL
+\*------------------------------------*/
+
+  .modal {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: url(/images/spinner.gif) center center no-repeat;
+  }
+
+    .modal-inner {
+      position: absolute;
+
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .modal-close {
+      position: absolute;
+      z-index: 300;
+      top: $b-half;
+      right: $b-half;
+      border: 0;
+      background-color: transparent;
+      outline: 0;
+    }
+    .icon__cancel {
+      @include sizeSvgIcon(20px);
+    }
+
+
+  /**
+   * Owls inside modals
+   */
+  .owl-theme .owl-controls .owl-nav {
+    display: none;
+  }
+
+  .owl-theme .owl-controls {
+    margin-top: 0;
+  }
+
+  .owl-dots {
+    position: absolute;
+    bottom: $b-half;
+    left: 0;
+    right: 0;
+  }
+
+  .owl-item {
+    figure {
+      margin-bottom: 0;
+    }
+    figcaption {
+      position: absolute;
+      bottom: $b-double;
+      left: 0;
+      right: 0;
+
+      background: rgba(255,255,255,0.8);
+      padding: $b-half;
+      text-align: center;
+    }
+  }
+
+
+}//endif

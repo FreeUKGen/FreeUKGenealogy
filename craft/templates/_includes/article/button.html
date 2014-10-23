@@ -1,0 +1,9 @@
+{#
+ # Button block type
+ #}
+<section class="article__link  grid__item  {{ block.width }} palm-one-whole">
+  <a href="{{ block.buttonLink }}" title="Go to {{ block.label }}" class="btn btn--full btn--caps size-{{ block.weight }} btn--{{ block.colour }}">
+    {{ block.label is not empty ? block.label : block.buttonLink }}
+  </a>
+</section>
+

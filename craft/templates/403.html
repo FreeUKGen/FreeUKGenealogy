@@ -1,0 +1,23 @@
+{% extends "_layouts/main" %}
+
+{% set title = 'Unauthorized' %}
+
+{% block main %}
+  <article class="grid">
+    <header class="page-header  grid__item  one-whole">
+      <h1 class="title">Unauthorized</h1>
+    </header>
+
+    <section class="grid__item  seven-twelfths  palm-one-whole  body">
+      <p class="lede">You don’t have the proper credentials to access this page.</p>
+    </section>
+  </article>
+{% endblock %}
+
+{% block foot %}
+  <script type="text/javascript">
+    if ( typeof ga !== 'undefined' ) {
+      ga('send', 'event', 'Error Pages', '403', 'URL: '+ window.location.href );
+    }
+  </script>
+{% endblock %}

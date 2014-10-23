@@ -1,0 +1,23 @@
+{% extends "_layouts/main" %}
+
+{% set title = 'Site Offline' %}
+
+{% block main %}
+  <article class="grid">
+    <header class="page-header  grid__item  one-whole">
+      <h1 class="title">Site Offline</h1>
+    </header>
+
+    <section class="grid__item  seven-twelfths  palm-one-whole  body">
+      <p class="lede">We’re currently doing some maintenance and should be back online shortly.<br>Sorry for any inconvenience this may have caused you.</p>
+    </section>
+  </article>
+{% endblock %}
+
+{% block foot %}
+  <script type="text/javascript">
+    if ( typeof ga !== 'undefined' ) {
+      ga('send', 'event', 'Error Pages', 'offline', 'URL: '+ window.location.href );
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,18 @@
+/*------------------------------------*\
+    SOUP_LAU.CSS
+\*------------------------------------*/
+/**
+ * Same as soup.scss but for lap-and-up only.
+ */
+
+/**
+ * Generic utility styles etc.
+ */
+@import "generic/mixins";
+
+/**
+ * Objects and abstractions
+ */
+@import "objects/container_lau";
+@import "objects/shade_lau";
+@import "objects/modal_lau";

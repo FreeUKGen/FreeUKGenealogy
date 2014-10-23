@@ -1,0 +1,22 @@
+{#
+ # Heading block type
+ #}
+<header class="article__header  grid__item  {{ block.width }}  palm-one-whole  text--{{ block.align }}">
+
+  {% switch block.fontSize %}
+
+    {% case 'mega' %}
+      <h1 class="mega">{{ block.heading }}</h1>
+
+    {% case 'large' %}
+      <h1>{{ block.heading }}</h1>
+
+    {% case 'medium' %}
+      <h2>{{ block.heading }}</h2>
+
+    {% case 'small' %}
+      <h3>{{ block.heading }}</h3>
+
+  {% endswitch %}
+
+</header>

@@ -1,0 +1,65 @@
+@if $use-modal == true{
+/*------------------------------------*\
+    $MODAL
+\*------------------------------------*/
+
+  .modal {
+    top: $b * 1.5;
+    left: $b * 1.5;
+    right: $b * 1.5;
+    bottom: $b * 1.5;
+
+    background: #fff url(/images/spinner.gif) center center no-repeat;
+  }
+
+    .modal-inner {
+      top: $b * 1.5;
+      left: $b * 1.5;
+      right: $b * 1.5;
+      bottom: $b * 1.5;
+    }
+
+    .modal-close {
+      top: $b / 2.5;
+      right: $b / 2.5;
+    }
+
+    .icon__cancel {
+      @include sizeSvgIcon(26px);
+    }
+
+
+  /**
+   * Owls inside modals
+   */
+  .owl-theme .owl-controls .owl-nav {
+    display: block;
+    .owl-next,
+    .owl-prev {
+      position: absolute;
+      top: 50%;
+      margin-top: -16px; // half the icon height
+
+      padding: 0;
+      margin: 0;
+      background: none;
+      display: block;
+      height: 32px;
+      &:hover { background: none; }
+    }
+    .owl-prev { left: -($b * 1.5); }
+    .owl-next { right: -($b * 1.5); }
+  }
+
+  .owl-dots {
+    bottom: -34px;
+  }
+
+  .owl-item {
+    figcaption {
+      bottom: 0;
+    }
+  }
+
+
+}//endif

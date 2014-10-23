@@ -1,0 +1,23 @@
+{% extends "_layouts/main" %}
+
+{% set title = 'Bad Request' %}
+
+{% block main %}
+  <article class="grid">
+    <header class="page-header  grid__item  one-whole">
+      <h1 class="title">Bad Request</h1>
+    </header>
+
+    <section class="grid__item  seven-twelfths  palm-one-whole  body">
+      <p class="lede">The request could not be understood by the server due to malformed syntax.</p>
+    </section>
+  </article>
+{% endblock %}
+
+{% block foot %}
+  <script type="text/javascript">
+    if ( typeof ga !== 'undefined' ) {
+      ga('send', 'event', 'Error Pages', '400', 'URL: '+ window.location.href );
+    }
+  </script>
+{% endblock %}
