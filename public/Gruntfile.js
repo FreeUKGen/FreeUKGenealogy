@@ -31,6 +31,15 @@ module.exports = function(grunt) {
       shiv: {
         src: 'bower_components/html5shiv/dist/html5shiv.min.js',
         dest: 'scripts/dist/html5shiv.js'
+      },
+
+      fonts: {
+        expand: true,
+        cwd: 'bower_components/FreeUKGenealogy-Core-Frontend/fonts/',
+        src: '**',
+        dest: 'fonts/',
+        flatten: true,
+        filter: 'isFile',
       }
 
     },
