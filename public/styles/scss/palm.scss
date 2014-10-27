@@ -10,12 +10,16 @@
  */
 @import "FreeUKGenealogy-Core-Frontend/styles/scss/palm";
 
+html, body {
+  background: #444444;
+}
 
 
 /**
  * Site header
  */
 .site__header {
+  background: #fff;
   overflow: hidden;
   position: relative;
   z-index: 2;
@@ -124,6 +128,7 @@
   position: relative;
   z-index: 1;
   padding-top: $base-spacing-unit * 2;
+  background: #fff;
 }
 
 
