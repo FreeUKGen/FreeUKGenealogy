@@ -82,9 +82,10 @@
     display: block !important;
   }
 
-  .site__header__freeukgen-logo {
-    margin: 0 auto $base-spacing-unit auto;
-    display: block !important;
+  .icon__freeukgen {
+    @include sizeSvgIcon(242.9185px, 43.553px);
+    width: 243px;
+    height: 44px;
   }
 
 
