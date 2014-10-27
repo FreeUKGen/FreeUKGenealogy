@@ -154,7 +154,7 @@
 }
 
 
-
+.icon__comment:hover,
 .icon__comment--brighter {
   background-image: url('../../images/png/comment--brighter.png');
   background-repeat: no-repeat;
@@ -442,7 +442,7 @@
 }
 
 
-
+.icon__search:hover,
 .icon__search--dark {
   background-image: url('../../images/png/search--dark.png');
   background-repeat: no-repeat;

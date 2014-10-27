@@ -96,6 +96,8 @@ module.exports = function(grunt) {
             "googleplus--dark" : [".icon__googleplus:hover"],
             "facebook--dark" : [".icon__facebook:hover"],
             "github--dark" : [".icon__github:hover"],
+            "search--dark" : [".icon__search:hover"],
+            "comment--brighter" : [".icon__comment:hover"],
           },
           cssprefix: '.icon__',
           template: 'bower_components/FreeUKGenealogy-Core-Frontend/grunticon.hbs'
