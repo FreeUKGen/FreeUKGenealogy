@@ -1,10 +1,8 @@
 {
-  "name": "Soup",
-  "version": "2.0.0",
-  "authors": [
-    "Josh Angell <josh@supercooldesign.co.uk>"
-  ],
-  "description": "Soup. Install these things to make it nice.",
+  "name": "FreeUKGenealogy-Website",
+  "version": "1.0.0",
+  "authors": "Josh Angell <josh@supercooldesign.co.uk>",
+  "description": "Frontend resources for the Free UK Genealogy Website",
   "license": "MIT",
   "homepage": "http://supercooldesign.co.uk/",
   "private": true,
@@ -16,19 +14,6 @@
     "tests"
   ],
   "dependencies": {
-    "html5shiv": "~3.7.0",
-    "jquery": "~1.11.1",
-    "jquery-placeholder": "~2.0.7",
-    "riotjs": "~1.0.4",
-    "respond": "~1.4.2",
-    "jquery-form": "~3.46.0",
-    "imagesloaded": "~3.1.4",
-    "parsleyjs": "~2.0.0-rc4",
-    "inuit.css": "~5.0.1",
-    "owl-carousel2": "*",
-    "imgLiquid": "~0.9.944"
-  },
-  "resolutions": {
-    "jquery": "~1.11.1"
+    "FreeUKGenealogy-Core-Frontend": "git@github.com:supercool/FreeUKGen-Core-Frontend.git"
   }
 }

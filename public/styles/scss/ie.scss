@@ -4,24 +4,10 @@
 \*------------------------------------*/
 
 /**
- * We all know why this file is here.
+ * Import ie from core
  */
-@import "../../bower_components/inuit.css/defaults";
-@import "../../bower_components/inuit.css/generic/mixins";
-@import "vars";
-
+@import "FreeUKGenealogy-Core-Frontend/styles/scss/ie";
 
 /**
- * IE opacity hack for hidden but still working inputs
- *
- * Ref: soup/base/_forms.scss
+ * Go!
  */
-.hide-inputs input {
-  height: $base-spacing-unit;
-  width: 70px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  filter: alpha(opacity=0);
-  z-index: 4;
-}
