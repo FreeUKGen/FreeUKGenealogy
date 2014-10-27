@@ -106,21 +106,13 @@
 /**
  * Site footer
  */
-.site__footer {
-  .icon__freeukgen__project--light {
-    margin-top: $base-spacing-unit / 3;
+.site__footer {}
+
+  .site__footer__nav {
+
+    li {
+      width: auto;
+      margin-right: $b-half;
+    }
+
   }
-}
-
-
-
-/**
- * A list of icons
- */
-.icon-list {
-  li {
-    @include inline-block;
-    margin-left: $base-spacing-unit * 2;
-    margin-right: $base-spacing-unit * 2;
-  }
-}

@@ -127,22 +127,29 @@
 }
 
 
-
 /**
  * Site footer
  */
 .site__footer {}
 
+  .site__footer__nav {
 
+    @extend %nav;
+    @extend %milli;
+    margin-top: -$b-half;
 
-/**
- * A list of icons
- */
-.icon-list {
-  @extend %nav;
-  margin: ($base-spacing-unit * 2) 0;
-  li {
-    display: block;
-    margin-bottom: $base-spacing-unit;
+    li {
+      float: left;
+      width: 50%;
+      margin-top: $b-half;
+    }
+
+    a {
+      color: #fff;
+      &:active,
+      &:hover {
+        color: #bcbcbc;
+      }
+    }
+
   }
-}
