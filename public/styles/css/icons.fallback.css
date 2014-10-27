@@ -1,6 +1,6 @@
 
-.icon__arrow-down-white {
-  background-image: url('../../images/png/arrow-down-white.png');
+.icon__arrow-down--white {
+  background-image: url('../../images/png/arrow-down--white.png');
   background-repeat: no-repeat;
   width: 24px;
   height: 18px;
@@ -23,8 +23,8 @@
 
 
 
-.icon__arrow-left-white {
-  background-image: url('../../images/png/arrow-left-white.png');
+.icon__arrow-left--white {
+  background-image: url('../../images/png/arrow-left--white.png');
   background-repeat: no-repeat;
   width: 18px;
   height: 24px;
@@ -47,8 +47,8 @@
 
 
 
-.icon__arrow-right-white {
-  background-image: url('../../images/png/arrow-right-white.png');
+.icon__arrow-right--white {
+  background-image: url('../../images/png/arrow-right--white.png');
   background-repeat: no-repeat;
   width: 18px;
   height: 24px;
@@ -71,8 +71,8 @@
 
 
 
-.icon__arrow-up-white {
-  background-image: url('../../images/png/arrow-up-white.png');
+.icon__arrow-up--white {
+  background-image: url('../../images/png/arrow-up--white.png');
   background-repeat: no-repeat;
   width: 24px;
   height: 18px;
@@ -155,6 +155,30 @@
 
 
 
+.icon__comment--brighter {
+  background-image: url('../../images/png/comment--brighter.png');
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 13px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__comment {
+  background-image: url('../../images/png/comment.png');
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 13px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
 .icon__error {
   background-image: url('../../images/png/error.png');
   background-repeat: no-repeat;
@@ -178,11 +202,35 @@
 }
 
 
+.icon__facebook:hover,
+.icon__facebook--dark {
+  background-image: url('../../images/png/facebook--dark.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__facebook {
+  background-image: url('../../images/png/facebook.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
 
 .icon__freebmd {
   background-image: url('../../images/png/freebmd.png');
   background-repeat: no-repeat;
-  width: 290px;
+  width: 287px;
   height: 87px;
   display: inline-block;
  *display: inline;
@@ -194,7 +242,7 @@
 .icon__freecen {
   background-image: url('../../images/png/freecen.png');
   background-repeat: no-repeat;
-  width: 276px;
+  width: 274px;
   height: 87px;
   display: inline-block;
  *display: inline;
@@ -206,7 +254,19 @@
 .icon__freereg {
   background-image: url('../../images/png/freereg.png');
   background-repeat: no-repeat;
-  width: 270px;
+  width: 266px;
+  height: 87px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__freeukgen {
+  background-image: url('../../images/png/freeukgen.png');
+  background-repeat: no-repeat;
+  width: 486px;
   height: 87px;
   display: inline-block;
  *display: inline;
@@ -218,7 +278,7 @@
 .icon__freeukgen__project--dark {
   background-image: url('../../images/png/freeukgen__project--dark.png');
   background-repeat: no-repeat;
-  width: 213px;
+  width: 211px;
   height: 49px;
   display: inline-block;
  *display: inline;
@@ -230,8 +290,56 @@
 .icon__freeukgen__project--light {
   background-image: url('../../images/png/freeukgen__project--light.png');
   background-repeat: no-repeat;
-  width: 213px;
+  width: 211px;
   height: 50px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+.icon__github:hover,
+.icon__github--dark {
+  background-image: url('../../images/png/github--dark.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__github {
+  background-image: url('../../images/png/github.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+.icon__googleplus:hover,
+.icon__googleplus--dark {
+  background-image: url('../../images/png/googleplus--dark.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__googleplus {
+  background-image: url('../../images/png/googleplus.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
   display: inline-block;
  *display: inline;
   zoom: 1;
@@ -262,7 +370,7 @@
 }
 
 
-
+.icon__reply:hover,
 .icon__reply--dark {
   background-image: url('../../images/png/reply--dark.png');
   background-repeat: no-repeat;
@@ -286,7 +394,7 @@
 }
 
 
-
+.icon__repost:hover,
 .icon__repost--dark {
   background-image: url('../../images/png/repost--dark.png');
   background-repeat: no-repeat;
@@ -304,6 +412,54 @@
   background-repeat: no-repeat;
   width: 22px;
   height: 13px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+.icon__rss:hover,
+.icon__rss--dark {
+  background-image: url('../../images/png/rss--dark.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__rss {
+  background-image: url('../../images/png/rss.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__search--dark {
+  background-image: url('../../images/png/search--dark.png');
+  background-repeat: no-repeat;
+  width: 26px;
+  height: 20px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__search {
+  background-image: url('../../images/png/search.png');
+  background-repeat: no-repeat;
+  width: 26px;
+  height: 20px;
   display: inline-block;
  *display: inline;
   zoom: 1;
@@ -346,7 +502,7 @@
 }
 
 
-
+.icon__star:hover,
 .icon__star--dark {
   background-image: url('../../images/png/star--dark.png');
   background-repeat: no-repeat;
@@ -388,6 +544,30 @@
   background-repeat: no-repeat;
   width: 27px;
   height: 23px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+.icon__youtube:hover,
+.icon__youtube--dark {
+  background-image: url('../../images/png/youtube--dark.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__youtube {
+  background-image: url('../../images/png/youtube.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
   display: inline-block;
  *display: inline;
   zoom: 1;
