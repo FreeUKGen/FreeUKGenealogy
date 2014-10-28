@@ -9,12 +9,9 @@
   {# header space #}
   {% block articleHeader %}
 
-    {# default header content if hideTitle is ticked with a dynamic parent title #}
-    {% if entry.hideTitle is not defined or entry.hideTitle == '0' %}
-    <header class="article__header  grid__item  two-thirds palm-one-whole">
-      <h1 class="title">{{ entry.title }}</h1>
+    <header class="article__header  grid__item  one-whole">
+      {% include '_includes/title-bar' %}
     </header>
-    {% endif %}
 
   {% endblock %}
 

@@ -1,0 +1,22 @@
+<div class="title-bar">
+
+  <h1>{{ entry.title }}</h1>
+
+  <ul>
+    <li><a href="#">Some</a></li>
+    <li><a href="#">Breadcrumb</a></li>
+    <li><a href="#">Navigation Pages</a></li>
+    <li><a href="#">Go</a></li>
+    <li><a href="#">Here</a></li>
+  </ul>
+
+  <form action="{{ url('search') }}" method="get">
+    <input type="search" name="q" value="" placeholder="Search">
+    <button type="submit">
+      <i class="icon__search" aria-hidden="true"></i>
+      <span class="accessibility">Search</span>
+    </button>
+  </form>
+
+
+</div>
