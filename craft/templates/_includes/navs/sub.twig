@@ -9,7 +9,7 @@
   {% set subnavChildren = subnavParent.getDescendants() %}
 {% endif %}
 
-
+{#  #}
 {% if subnavChildren is defined and subnavChildren | length %}
 
   {% set output %}
@@ -40,6 +40,7 @@
 
 {% endif %}
 
+{# output #}
 {% if output is defined and entry.hideSubNav != '1' %}
   <aside class="grid__item  one-third  palm-one-whole  float--right">
     {{ output }}

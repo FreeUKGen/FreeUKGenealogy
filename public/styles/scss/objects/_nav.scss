@@ -1,0 +1,31 @@
+/*------------------------------------*\
+    $NAV
+\*------------------------------------*/
+
+.sub-nav {
+
+  background: $light;
+
+  ul {
+
+    // hide nested navs by default
+    display: none;
+
+    // make nested navs look nested
+    li {
+      padding-left: $b-half;
+    }
+
+    // reset padding from core
+    ul a {
+      padding-left: $b-half;
+    }
+  }
+
+  // only show immediately nested navs
+  li.open > ul,
+  li.active > ul {
+    display: block;
+  }
+
+}
