@@ -1,56 +1,47 @@
 {# get top parent using segment one and matching our current section #}
-{%- set subnavParent = craft.entries.first({
+{% set subnavParent = craft.entries.first({
   section : entry.section.handle,
   slug    : craft.request.getSegment(1)
-}) -%}
+}) %}
 
 {# get the children #}
-{%- if subnavParent -%}
-  {%- set subnavChildren = subnavParent.getDescendants() -%}
-{%- endif -%}
+{% if subnavParent %}
+  {% set subnavChildren = subnavParent.getDescendants() %}
+{% endif %}
 
 
-{%- if subnavChildren is defined -%}
+{% if subnavChildren is defined and subnavChildren | length %}
 
-  {%- if subnavChildren|length >= 1 -%}
+  {% set output %}
 
-    {%- set output -%}
+    <h1 class="title-block"><a href="{{ subnavParent.url }}">{{ subnavParent.title }}</a></h1>
 
-      <h3 class="pre-title  palm-hide"><a href="{{ subnavParent.url }}">{{ subnavParent.title }}</a></h3>
+    <ul class="sub-nav">
+    {% nav page in subnavChildren %}
 
-      <ul class="sub-nav">
-      {% nav page in subnavChildren %}
-        <li class="
-          {%- if page.slug == craft.request.segment(page.depth) -%}
-            active
-            {%- if page.id != entry.id or page.subpageDisplayStyle == '' %}  visible{%- endif -%}
-          {%- endif -%}
-          ">
-          <a href="{{ page.url }}">{{ page.title }}</a>
-          {% ifchildren %}
-            <ul>
-              {% children %}
-            </ul>
-          {% endifchildren %}
-        </li>
-      {% endnav %}
-      </ul>
+      {% set class -%}
+        {%- if page.slug == craft.request.segment(page.depth) -%}
+          {%- if page.id == entry.id %}active{% else %}open{% endif -%}
+        {%- endif -%}
+      {%- endset %}
 
-    {%- endset -%}
+      <li{% if class is not empty %} class="{{ class }}"{% endif %}>
+        <a href="{{ page.url }}">{{ page.title }}</a>
+        {% ifchildren %}
+          <ul>
+            {% children %}
+          </ul>
+        {% endifchildren %}
+      </li>
+    {% endnav %}
+    </ul>
 
-  {%- endif -%}
+  {% endset %}
 
-{%- endif -%}
+{% endif %}
 
-{# check if the top entry is the entry we're on and then if subnav should even be shown #}
-{%- if subnavParent is not null and subnavParent.id == entry.id and output is defined -%}
-  {%- if entry.subpageDisplayStyle == '' -%}
-    <aside class="grid__item  one-third  palm-one-whole  float--right">
-      {{ output }}
-    </aside>
-  {%- endif -%}
-{%- elseif output is defined -%}
+{% if output is defined and entry.hideSubNav != '1' %}
   <aside class="grid__item  one-third  palm-one-whole  float--right">
     {{ output }}
   </aside>
-{%- endif -%}
+{% endif %}
