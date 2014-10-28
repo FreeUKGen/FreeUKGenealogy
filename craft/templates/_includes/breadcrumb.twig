@@ -1,7 +1,13 @@
-{% if entry.ancestors | length %}
-<ul class="breadcrumb">
-  {% for a in entry.ancestors %}
-  <li><a href="{{ a.url }}">{{ a.title }}</a></li>
-  {% endfor %}
-</ul>
+{% if entry is defined and entry.ancestors | length %}
+  <ul class="breadcrumb">
+    {% for a in entry.ancestors %}
+    <li><a href="{{ a.url }}">{{ a.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% elseif breadcrumb is defined and breadcrumb | length %}
+  <ul class="breadcrumb">
+    {% for b in breadcrumb %}
+    <li><a href="{{ b.url }}">{{ b.title }}</a></li>
+    {% endfor %}
+  </ul>
 {% endif %}

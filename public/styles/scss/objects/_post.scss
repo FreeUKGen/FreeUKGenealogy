@@ -6,6 +6,27 @@
 
 
   /**
+   * Header
+   */
+  .post__header {
+
+    .title a {
+
+      color: #333;
+      display: block;
+
+      &:active,
+      &:hover {
+        color: $teal;
+      }
+
+    }
+
+  }
+
+
+
+  /**
    * Quotes
    */
   .post__quote {
@@ -130,3 +151,14 @@
     }
 
   }
+
+
+
+
+/**
+ * A list of the above `.post` objects
+ */
+.post-list {
+  @extend %nav;
+  @extend %nav--stacked;
+}

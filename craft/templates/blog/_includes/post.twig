@@ -12,12 +12,34 @@
     </ul>
     {% endif %}
 
-    <h1 class="title">{{ entry.title }}</h1>
+    {% if entry.url == craft.request.url %}
+      <h1 class="title">{{ entry.title }}</h1>
+    {% else %}
+      <h1 class="title"><a href="{{ entry.url }}">{{ entry.title }}</a></h1>
+    {% endif %}
 
   </header>
 
   <div class="grid">
-    {{ article.loop(entry, entry.post, 'post') }}
+    {% if showSummary %}
+
+      {% set textBlock = entry.post.type('text').first() %}
+
+      {% if textBlock and textBlock.text.getTotalPages() > 1 %}
+        <section class="post__text  grid__item  one-whole">
+          {{ textBlock.text.getPage(1) }}
+
+          <a href="{{ entry.url }}">Read more</a>
+        </section>
+      {% else %}
+        {{ article.loop(entry, entry.post, 'post') }}
+      {% endif %}
+
+    {% else %}
+
+      {{ article.loop(entry, entry.post, 'post') }}
+
+    {% endif %}
   </div>
 
   <footer class="post__footer">
