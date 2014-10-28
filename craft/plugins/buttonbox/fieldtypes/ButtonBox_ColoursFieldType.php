@@ -70,25 +70,30 @@ class ButtonBox_ColoursFieldType extends BaseOptionsFieldType
 			// Give it a default row
 			$options = array(
 				array(
-					'label'     => 'Red',
-					'value'     => 'red',
-					'cssColour' => '#d9603b'
-				),
-				array(
-					'label'     => 'Green',
-					'value'     => 'green',
-					'cssColour' => '#328d7e',
+					'label'     => 'Grey',
+					'value'     => 'grey',
+					'cssColour' => '#444444',
 					'default'   => true
 				),
 				array(
-					'label'     => 'Navy',
-					'value'     => 'navy',
-					'cssColour' => '#17333a'
+					'label'     => 'Yellow',
+					'value'     => 'yellow',
+					'cssColour' => '#ffff00'
+				),
+				array(
+					'label'     => 'Magenta',
+					'value'     => 'magenta',
+					'cssColour' => '#a1185a'
+				),
+				array(
+					'label'     => 'Green',
+					'value'     => 'teal',
+					'cssColour' => '#009f98'
 				),
 				array(
 					'label'     => 'Brown',
 					'value'     => 'brown',
-					'cssColour' => '#818b80'
+					'cssColour' => '#a28879'
 				)
 			);
 		}
