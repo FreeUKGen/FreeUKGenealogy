@@ -1504,7 +1504,6 @@ Craft.BaseElementIndex = Garnish.Base.extend(
 
 		// Load up the elements!
 		this.initialized = true;
-		this.updateElements();
 
 		// Status changes
 		if (this.$statusMenuBtn.length)
@@ -3864,6 +3863,11 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 		};
 
 		this.selectSource($targetSource);
+		
+		this.$source = $targetSource;
+		this.sourceKey = $targetSource.data('key');
+		this.setInstanceState('selectedSource', this.sourceKey);
+
 		this.updateElements();
 	},
 
@@ -4739,6 +4743,13 @@ Craft.AssetSelectInput = Craft.BaseElementSelectInput.extend(
 			}
 		};
 
+		// If CSRF protection isn't enabled, these won't be defined.
+		if (typeof Craft.csrfTokenName !== 'undefined' && typeof Craft.csrfTokenValue !== 'undefined')
+		{
+			// Add the CSRF token
+			options.formData[Craft.csrfTokenName] = Craft.csrfTokenValue;
+		}
+
 		if (typeof this.criteria.kind != "undefined")
 		{
 			options.allowedKinds = this.criteria.kind;
@@ -4824,10 +4835,16 @@ Craft.AssetSelectInput = Craft.BaseElementSelectInput.extend(
 	 */
 	_onUploadComplete: function(event, data)
 	{
-		var html = $(data.result.html);
-		$('head').append(data.result.css);
-
-		this.selectUploadedFile(Craft.getElementInfo(html));
+		if (data.result.error)
+		{
+			alert(data.result.error);
+		}
+		else
+		{
+			var html = $(data.result.html);
+			$('head').append(data.result.css);
+			this.selectUploadedFile(Craft.getElementInfo(html));
+		}
 
 		// Last file
 		if (this.uploader.isLastUpload())

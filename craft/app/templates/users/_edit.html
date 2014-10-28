@@ -90,7 +90,7 @@
 								name: 'firstName',
 								value: (account is defined ? account.firstName : null),
 								errors: (account is defined ? account.getErrors('firstName') : null),
-								autofocus: true
+								autofocus: craft.config.useEmailAsUsername
 							}) }}
 						</div>
 						<div class="item" data-colspan="1">

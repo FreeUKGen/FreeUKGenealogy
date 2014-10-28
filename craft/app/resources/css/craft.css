@@ -505,7 +505,9 @@ body.rtl .btngroup .btn:not(:last-child) { border-left: 1px solid rgba(0, 0, 0, 
 body.ltr .btn + .spinner { margin-left: 7px; }
 body.rtl .btn + .spinner { margin-right: 7px; }
 
-.buttons .spinner { display: block; float: left; margin-top: 5px; }
+.buttons .spinner { display: block; margin-top: 5px; }
+body.ltr .buttons .spinner { float: left; }
+body.rtl .buttons .spinner { float: right; }
 
 body.ltr .buttons .btn + .spinner { margin-left: 0; }
 body.rtl .buttons .btn + .spinner { margin-right: 0; }
@@ -1305,7 +1307,7 @@ body #redactor_modal footer button:last-child { border-bottom-right-radius: 3px;
   .select:after { font-family: 'Craft'; speak: none; -webkit-font-feature-settings: "liga", "dlig"; -moz-font-feature-settings: "liga=1, dlig=1"; -moz-font-feature-settings: "liga", "dlig"; -ms-font-feature-settings: "liga", "dlig"; -o-font-feature-settings: "liga", "dlig"; font-feature-settings: "liga", "dlig"; text-rendering: optimizeLegibility; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; text-align: center; font-style: normal; vertical-align: middle; word-wrap: normal !important; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; position: absolute; top: 10px; font-size: 10px; content: '▼'; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
   body.ltr .select:after { right: 9px; }
   body.rtl .select:after { left: 9px; }
-  .select select { position: relative; border: 0; font-size: 13px; color: #29323d; background: none; -webkit-box-shadow: 0 0 2px rgba(51, 170, 255, 0), inset 0 0 0 1px rgba(51, 170, 255, 0); -moz-box-shadow: 0 0 2px rgba(51, 170, 255, 0), inset 0 0 0 1px rgba(51, 170, 255, 0); box-shadow: 0 0 2px rgba(51, 170, 255, 0), inset 0 0 0 1px rgba(51, 170, 255, 0); -webkit-transition: border linear 100ms, -webkit-box-shadow linear 100ms; -moz-transition: border linear 100ms, box-shadow linear 100ms; -webkit-appearance: none; }
+  .select select { display: block; position: relative; border: 0; font-size: 13px; color: #29323d; background: none; -webkit-box-shadow: 0 0 2px rgba(51, 170, 255, 0), inset 0 0 0 1px rgba(51, 170, 255, 0); -moz-box-shadow: 0 0 2px rgba(51, 170, 255, 0), inset 0 0 0 1px rgba(51, 170, 255, 0); box-shadow: 0 0 2px rgba(51, 170, 255, 0), inset 0 0 0 1px rgba(51, 170, 255, 0); -webkit-transition: border linear 100ms, -webkit-box-shadow linear 100ms; -moz-transition: border linear 100ms, box-shadow linear 100ms; -webkit-appearance: none; }
   body.ltr .select select { padding: 7px 22px 7px 10px; }
   body.rtl .select select { padding: 7px 10px 7px 22px; }
   .select.fullwidth select { min-width: 100%; }

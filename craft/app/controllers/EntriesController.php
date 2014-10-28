@@ -238,11 +238,11 @@ class EntriesController extends BaseEntriesController
 		else
 		{
 			$variables['docTitle'] = Craft::t($variables['entry']->title);
-			$variables['title'] = HtmlHelper::encode(Craft::t($variables['entry']->title));
+			$variables['title'] = Craft::t($variables['entry']->title);
 
 			if (craft()->getEdition() >= Craft::Client && $variables['entry']->getClassHandle() != 'Entry')
 			{
-				$variables['title'] .= ' <span class="hidden">('.$variables['revisionLabel'].')</span>';
+				$variables['docTitle'] .= ' ('.$variables['revisionLabel'].')';
 			}
 		}
 
@@ -480,7 +480,15 @@ class EntriesController extends BaseEntriesController
 				$return['success']   = true;
 				$return['title']     = $entry->title;
 				$return['cpEditUrl'] = $entry->getCpEditUrl();
-				$return['author']    = $entry->getAuthor()->getAttributes();
+
+				$author = $entry->getAuthor()->getAttributes();
+
+				if (isset($author['password']))
+				{
+					unset($author['password']);
+				}
+
+				$return['author']    = $author;
 				$return['postDate']  = ($entry->postDate ? $entry->postDate->localeDate() : null);
 
 				$this->returnJson($return);
