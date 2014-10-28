@@ -2,6 +2,138 @@
     $TITLE-BAR
 \*------------------------------------*/
 .title-bar {
+
   background: $light;
   margin-bottom: $b;
+  overflow: hidden;
+  height: 46px;
+
+
+  h1 {
+
+    @include font-size(18px);
+    text-transform: uppercase;
+    font-weight: bold;
+    color: $teal;
+    float: left;
+    padding: 10px $b-half;
+    margin-bottom: 0;
+
+  }
+
+
+  .breadcrumb {
+
+    @extend %nav;
+    float: left;
+    padding: 9px $b-half;
+    margin-bottom: 0;
+
+    text-transform: lowercase;
+    color: #a3a3a3;
+    @include font-size(18px);
+
+    > li + li:before {
+      content: "/";
+    }
+
+    a {
+      color: #a3a3a3;
+      &:active,
+      &:hover {
+        color: $teal;
+      }
+    }
+
+  }
+
+
+  .search {
+    float: right;
+
+    input {
+      @include font-size(18px, false);
+      float: left;
+      background-color: transparent;
+      border: 0;
+      height: 44px;
+      width: 52px;
+      padding-left: $b-quarter;
+      padding-right: $b-quarter;
+      color: #a3a3a3;
+
+      @include vendor(transition, all 0.15s linear);
+
+      &::-webkit-input-placeholder {
+        color: #cccccc;
+      }
+      &:-moz-placeholder {
+        color: #cccccc;
+      }
+      &:-ms-placeholder {
+        color: #cccccc;
+      }
+      &.placeholder {
+        color: #cccccc;
+      }
+
+      &:focus,
+      &:hover {
+        &::-webkit-input-placeholder {
+          color: #a3a3a3;
+        }
+        &:-moz-placeholder {
+          color: #a3a3a3;
+        }
+        &:-ms-placeholder {
+          color: #a3a3a3;
+        }
+        &.placeholder {
+          color: #a3a3a3;
+        }
+      }
+
+      &:focus {
+        background-color: #e7e7e7;
+        outline: none;
+        width: 130px;
+      }
+
+    }
+
+    button {
+      float: left;
+      border: 0;
+      background: none;
+      padding: 0;
+      margin: 0;
+      height: 46px;
+      width: 46px;
+      padding-top: 2px;
+
+      &:focus {
+        background-color: #e7e7e7;
+        outline: none;
+      }
+    }
+
+  }
+
+
+  .social-links {
+
+    @extend %nav;
+    float: right;
+    margin-bottom: 0;
+
+    > li {
+
+      border-left: 2px solid #fff;
+      float: left;
+      height: 46px;
+
+    }
+
+  }
+
 }
