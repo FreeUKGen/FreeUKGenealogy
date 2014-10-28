@@ -20,7 +20,7 @@
     {% nav page in subnavChildren %}
 
       {% set class -%}
-        {%- if page.slug == craft.request.segment(page.depth) -%}
+        {%- if page.slug == craft.request.segment(page.level) -%}
           {%- if page.id == entry.id %}active{% else %}open{% endif -%}
         {%- endif -%}
       {%- endset %}
