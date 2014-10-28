@@ -22,7 +22,8 @@ return array(
     'usePathInfo' => true,
     'pageTrigger' => 'page-',
     'backupDbOnUpdate' => true,
-    'restoreDbOnUpdateFailure' => true
+    'restoreDbOnUpdateFailure' => true,
+    'userSessionDuration' => 'PT4H'
   ),
   '.net' => array( 'devMode' => true ),
   '.dev' => array( 'devMode' => true ),
