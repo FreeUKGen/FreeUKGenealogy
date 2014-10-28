@@ -26,7 +26,7 @@
 
     {% if entry.disableComments != '1' %}
       {% if entry.url != craft.request.url %}
-      <a href="{{ entry.url }}#disqus_thread" class="float--right  btn  btn--compressed  btn--alt">Comments</a>
+      <a href="{{ entry.url }}#disqus_thread" class="icon__comment">Comments</a>
       {% else %}
       <div id="disqus_thread"></div>
       <script type="text/javascript">

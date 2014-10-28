@@ -95,6 +95,7 @@
    * Footer
    */
   .post__footer {
+
     @include font-size(16px);
     color: #999999;
 
@@ -102,4 +103,23 @@
     margin-top: $b;
     margin-bottom: $b;
     padding-top: $b-quarter;
+    overflow: hidden;
+
+    p {
+      float: left;
+    }
+
+    .icon__comment {
+      float: right;
+      width: auto;
+      height: auto;
+      padding-left: 22px;
+      background-position: 0 8px;
+
+      &:active,
+      &:hover {
+        color: $magenta-brighter;
+      }
+    }
+
   }
