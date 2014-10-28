@@ -1,0 +1,47 @@
+{% import "_macros/article" as article %}
+
+<article class="post">
+
+  <header class="post__header">
+
+    {% if entry.blogCategories | length %}
+    <ul class="category-nav">
+      {% for cat in entry.blogCategories %}
+        <li><a href='{{ url("blog/category/#{cat.slug}") }}'>{{ cat.title }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <h1 class="title">{{ entry.title }}</h1>
+
+  </header>
+
+  <div class="grid">
+    {{ article.loop(entry, entry.post, 'post') }}
+  </div>
+
+  <footer class="post__footer">
+
+    <p>By {{ entry.author.fullName }}&nbsp;&nbsp;&nbsp;&nbsp;Posted on <time datetime="{{ entry.postDate }}" class="time">{{ entry.postDate | date('jS F Y') }}</time></p>
+
+    {% if entry.disableComments != '1' %}
+      {% if entry.url != craft.request.url %}
+      <a href="{{ entry.url }}#disqus_thread" class="float--right  btn  btn--compressed  btn--alt">Comments</a>
+      {% else %}
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_shortname = 'freeukgenealogy';
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      {% endif %}
+    {% endif %}
+
+  </footer>
+
+</article>

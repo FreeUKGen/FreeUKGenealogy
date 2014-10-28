@@ -1,0 +1,50 @@
+{% set transform = {
+  'mode' : 'fit',
+  'width' : '631'
+} %}
+
+
+{% set images = block.images %}
+
+
+{% if images | length >= 2 %}
+
+  {% switch block.columns %}
+
+    {% case 'one-half' %}
+      {% set transform = {
+        'mode' : 'crop',
+        'width' : '308',
+        'height' : '150',
+        'position' : 'center-center'
+      } %}
+
+    {% case 'one-third' %}
+      {% set transform = {
+        'mode' : 'crop',
+        'width' : '201',
+        'height' : '150',
+        'position' : 'center-center'
+      } %}
+
+  {% endswitch %}
+
+  <div class="grid__item  one-whole{% if block.getNext().type != 'images' %}  push-half--bottom{% endif %}">
+    <div class="grid  grid--half">
+      {% for img in images %}
+      <figure class="grid__item  {{ block.columns }}  palm-one-whole">
+        <img src="{{ img.getUrl(transform) }}" alt="{{ img.altText }}" title="{{ img.caption }}" />
+      </figure>
+      {% endfor %}
+    </div>
+  </div>
+
+{% elseif images | length == 1 %}
+
+  {% set img = images.first %}
+
+  <figure class="grid__item  one-whole">
+    <img src="{{ img.getUrl(transform) }}" alt="{{ img.altText }}" title="{{ img.caption }}" />
+  </figure>
+
+{% endif %}

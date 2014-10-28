@@ -29,3 +29,33 @@
   }
 
 }
+
+
+/**
+ * Used in the header of the blog post
+ */
+.category-nav {
+  @extend %nav;
+  @extend .breadcrumb;
+  margin-bottom: $b-half;
+
+  > li + li:before {
+    @include font-size(22px);
+    color: #a3a3a3;
+    font-weight: lighter;
+    margin-top: -1px;
+    content: "|";
+  }
+
+
+  a {
+    @include font-size(22px);
+    color: #a3a3a3;
+    font-weight: lighter;
+    &:active,
+    &:hover {
+      color: #808080;
+    }
+  }
+
+}
