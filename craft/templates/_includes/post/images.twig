@@ -32,7 +32,7 @@
   <div class="grid__item  one-whole{% if block.getNext().type != 'images' %}  push-half--bottom{% endif %}">
     <div class="grid  grid--half">
       {% for img in images %}
-      <figure class="grid__item  {{ block.columns }}  palm-one-whole">
+      <figure class="post__image  grid__item  {{ block.columns }}  palm-one-whole">
         <img src="{{ img.getUrl(transform) }}" alt="{{ img.altText }}" title="{{ img.caption }}" />
       </figure>
       {% endfor %}
@@ -43,7 +43,7 @@
 
   {% set img = images.first %}
 
-  <figure class="grid__item  one-whole">
+  <figure class="post__image  grid__item  one-whole">
     <img src="{{ img.getUrl(transform) }}" alt="{{ img.altText }}" title="{{ img.caption }}" />
   </figure>
 
