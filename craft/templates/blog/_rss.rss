@@ -17,7 +17,7 @@
                 <author>{{ entry.author }}</author>
                 <guid>{{ entry.url }}</guid>
                 <description><![CDATA[
-                  {# {% for block in entry.post %}
+                  {% for block in entry.post %}
 
                     {% switch block.type %}
 
@@ -30,11 +30,26 @@
                         {% endfor %}
 
                       {% case 'embed' %}
-                        {{ craft.fetch.embed(block.embedUrl) }}
+                        {{ block.embedUrl.html }}
+
+                      {% case 'blockqoute' %}
+                        <blockquote>
+                          {{ block.quote }}
+                          {% if block.sourceHeading != '' and block.sourceUrl != '' %}
+                            <footer><a href="{{ block.sourceUrl }}">{{ block.sourceHeading }}</a></footer>
+                          {% elseif block.sourceHeading != '' %}
+                            <footer>{{ block.sourceHeading }}</footer>
+                          {% elseif block.sourceUrl != '' %}
+                            <footer>{{ block.sourceUrl }}</footer>
+                          {% endif %}
+                        </blockquote>
+
+                      {% case 'html' %}
+                        {{ block.html | raw }}
 
                     {% endswitch %}
 
-                  {% endfor %} #}
+                  {% endfor %}
                 ]]></description>
             </item>
         {% endfor %}
