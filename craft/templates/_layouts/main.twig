@@ -14,7 +14,7 @@
   <meta name="keywords" content="{% if metaKeywords is defined %}{{ metaKeywords }}{% elseif entry is defined and entry.metaKeywords is not empty %}{{ entry.metaKeywords }}{% endif %}">
 
   <!--[if lt IE 9]>
-    <script src="scripts/dist/html5shiv.js"></script>
+    <script src="/scripts/dist/html5shiv.js"></script>
   <![endif]-->
 
   <meta name="HandheldFriendly" content="True">
@@ -35,19 +35,19 @@
   <script type="text/javascript">
   /* grunticon Stylesheet Loader | https://github.com/filamentgroup/grunticon | (c) 2012 Scott Jehl, Filament Group, Inc. | MIT license. */
   window.grunticon=function(e){if(e&&3===e.length){var t=window,n=!(!t.document.createElementNS||!t.document.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect||!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image","1.1")||window.opera&&-1===navigator.userAgent.indexOf("Chrome")),o=function(o){var r=t.document.createElement("link"),a=t.document.getElementsByTagName("script")[0];r.rel="stylesheet",r.href=e[o&&n?0:o?1:2],a.parentNode.insertBefore(r,a)},r=new t.Image;r.onerror=function(){o(!1)},r.onload=function(){o(1===r.width&&1===r.height)},r.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="}};
-  grunticon( [ "styles/css/icons.data.svg.css", "styles/css/icons.data.png.css", "styles/css/icons.fallback.css" ] );
+  grunticon( [ "/styles/css/icons.data.svg.css", "/styles/css/icons.data.png.css", "/styles/css/icons.fallback.css" ] );
   </script>
-  <noscript><link rel="stylesheet" type="text/css" href="styles/css/icons.fallback.css"></noscript>
+  <noscript><link rel="stylesheet" type="text/css" href="/styles/css/icons.fallback.css"></noscript>
 
-  <link rel="stylesheet" href="styles/css/palm.min.css">
-  <link rel="stylesheet" href="styles/css/lap_and_up.min.css" media="(min-width:571px)">
+  <link rel="stylesheet" href="/styles/css/palm.min.css">
+  <link rel="stylesheet" href="/styles/css/lap_and_up.min.css" media="(min-width:571px)">
 
   <!--[if (lt IE 9) & (!IEMobile)]>
-    <link rel="stylesheet" href="styles/css/lap_and_up.min.css">
+    <link rel="stylesheet" href="/styles/css/lap_and_up.min.css">
   <![endif]-->
 
   <!--[if lte IE 7]>
-    <link rel="stylesheet" href="styles/css/ie.min.css">
+    <link rel="stylesheet" href="/styles/css/ie.min.css">
   <![endif]-->
 
   {% block head %}{% endblock %}
@@ -151,7 +151,7 @@
 
 
   <!-- example offcanvas switching code -->
-  <script src="scripts/dist/classie.js"></script>
+  <script src="/scripts/dist/classie.js"></script>
   <script charset="utf-8">
 
     var el = document.getElementById("trigger-offcanvas");
