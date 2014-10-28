@@ -21,7 +21,7 @@
   </header>
 
   <div class="grid">
-    {% if showSummary %}
+    {% if showSummary is defined and showSummary == true %}
 
       {% set textBlock = entry.post.type('text').first() %}
 

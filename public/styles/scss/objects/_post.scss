@@ -154,11 +154,14 @@
 
 
 
-
 /**
  * A list of the above `.post` objects
  */
 .post-list {
   @extend %nav;
   @extend %nav--stacked;
+
+  > li {
+    margin-bottom: $b-quad;
+  }
 }
