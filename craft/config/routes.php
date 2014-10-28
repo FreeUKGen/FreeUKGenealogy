@@ -24,6 +24,7 @@ return array(
   'blog/category/(?P<category>[^/]*)'     => 'blog/_category',
   'blog/tag/(?P<tag>[^/]*)'               => 'blog/_tag',
   'blog/rss'                              => 'blog/_rss.rss',
+  'blog/author/(?P<username>[^/]*)'       => 'blog/_author',
 
 
   'sitemap'                               => '_pages/sitemap',

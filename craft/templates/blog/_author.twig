@@ -2,16 +2,16 @@
 
 {% set titleBarEntry = craft.entries.section('blog').first() %}
 
-{% set category = craft.categories.group('blog').slug(category).first() %}
+{% set activeAuthor = craft.users.username(username).first() %}
 
-{% if not category %}
+{% if not activeAuthor %}
   {% exit 404 %}
 {% endif %}
 
 {% set breadcrumb = [
   {
-    'url'   : category.url,
-    'title' : category.title
+    'url'   : url('blog/author' ~ activeAuthor.username ),
+    'title' : activeAuthor.fullName
   }
 ] %}
 
@@ -24,10 +24,7 @@
     <div class="grid__item  two-thirds  palm-one-whole">
       {% include 'blog/_includes/list' with {
         criteria : {
-          relatedTo: {
-            targetElement: category,
-            field: "blogCategories"
-          }
+          author: activeAuthor
         }
       } %}
     </div>
