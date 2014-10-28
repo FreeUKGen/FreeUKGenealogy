@@ -1,0 +1,7 @@
+{% if entry.ancestors | length %}
+<ul class="breadcrumb">
+  {% for a in entry.ancestors %}
+  <li><a href="{{ a.url }}">{{ a.title }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}

@@ -1,14 +1,12 @@
 <div class="title-bar">
 
-  <h1>{{ entry.title }}</h1>
+  {% if titleBarEntry is not defined and entry is defined %}
+    {% set titleBarEntry = entry %}
+  {% endif %}
 
-  <ul class="breadcrumb">
-    <li><a href="#">Some</a></li>
-    <li><a href="#">Breadcrumb</a></li>
-    <li><a href="#">Navigation Pages</a></li>
-    <li><a href="#">Go</a></li>
-    <li><a href="#">Here</a></li>
-  </ul>
+  {% if titleBarEntry is defined %}<h1><a href="{{ titleBarEntry.url }}">{{ titleBarEntry.title }}</a></h1>{% endif %}
+
+  {% include '_includes/breadcrumb' %}
 
   <ul class="social-links">
     <li><a href="#"><i class="icon__youtube" aria-hidden="true"></i><span class="accessibility">YouTube</span></a></li>
