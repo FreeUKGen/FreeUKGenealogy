@@ -22,7 +22,7 @@
 
   <footer class="post__footer">
 
-    <p>By {{ entry.author.fullName }}&nbsp;&nbsp;&nbsp;&nbsp;Posted on <time datetime="{{ entry.postDate }}" class="time">{{ entry.postDate | date('jS F Y') }}</time></p>
+    <p>By <a href="{{ url('blog/author/' ~ entry.author) }}">{{ entry.author.fullName }}</a>&nbsp;&nbsp;&nbsp;&nbsp;Posted on <time datetime="{{ entry.postDate }}" class="time">{{ entry.postDate | date('jS F Y') }}</time></p>
 
     {% if entry.disableComments != '1' %}
       {% if entry.url != craft.request.url %}

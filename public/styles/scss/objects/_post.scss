@@ -24,8 +24,7 @@
 
         &:active,
         &:hover {
-          color: #999999;
-          text-decoration: underline;
+          color: $magenta-brighter;
         }
       }
     }
@@ -107,6 +106,14 @@
 
     p {
       float: left;
+
+      a {
+        color: #999999;
+        &:active,
+        &:hover {
+          color: $magenta-brighter;
+        }
+      }
     }
 
     .icon__comment {
