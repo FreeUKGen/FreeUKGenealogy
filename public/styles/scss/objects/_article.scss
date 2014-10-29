@@ -3,3 +3,13 @@
 \*------------------------------------*/
 
 .article {}
+
+
+  .article__highlight {
+
+    h2 {
+      @include font-size(52px);
+      font-weight: lighter;
+    }
+
+  }
