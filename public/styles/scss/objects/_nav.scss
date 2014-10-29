@@ -4,29 +4,40 @@
 
 .sub-nav {
 
-  background: $light;
-
+  // hide nested navs by default
   ul {
-
-    // hide nested navs by default
     display: none;
-
-    // make nested navs look nested
-    li {
-      padding-left: $b-half;
-    }
-
-    // reset padding from core
-    ul a {
-      padding-left: $b-half;
-    }
   }
+
 
   // only show immediately nested navs
   li.open > ul,
   li.active > ul {
     display: block;
   }
+
+
+  // paddings to 5 levels deep, no more.
+  > li > ul > li {
+
+    a {
+      padding-left: $b-half;
+    }
+
+    > ul > li {
+
+      a {
+        padding-left: $b;
+      }
+
+      > ul > li a {
+        padding-left: $b * 1.5;
+      }
+
+    }
+
+  }
+
 
 }
 
