@@ -1,8 +1,13 @@
 {# get top parent using segment one and matching our current section #}
-{% set subnavParent = craft.entries.first({
-  section : entry.section.handle,
-  slug    : craft.request.getSegment(1)
-}) %}
+
+{% if titleBarEntry is defined %}
+  {% set subnavParent = titleBarEntry %}
+{% else %}
+  {% set subnavParent = craft.entries.first({
+    section : entry.section.handle,
+    slug    : craft.request.getSegment(1)
+  }) %}
+{% endif %}
 
 {# get the children #}
 {% if subnavParent %}

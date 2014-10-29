@@ -1,8 +1,9 @@
-{% if entry is defined and entry.ancestors | length %}
+{% if entry is defined and entry.getAncestors() | length %}
   <ul class="breadcrumb">
-    {% for a in entry.ancestors %}
+    {% for a in entry.getAncestors() if titleBarEntry.id != a.id %}
     <li><a href="{{ a.url }}">{{ a.title }}</a></li>
     {% endfor %}
+    <li>{{ entry.title }}</li>
   </ul>
 {% elseif breadcrumb is defined and breadcrumb | length %}
   <ul class="breadcrumb">

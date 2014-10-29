@@ -1,7 +1,10 @@
 <div class="title-bar">
 
   {% if titleBarEntry is not defined and entry is defined %}
-    {% set titleBarEntry = entry %}
+    {% set titleBarEntry = craft.entries.first({
+      section : entry.section.handle,
+      slug    : craft.request.getSegment(1)
+    }) %}
   {% endif %}
 
   {% if titleBarEntry is defined %}<h1><a href="{{ titleBarEntry.url }}">{{ titleBarEntry.title }}</a></h1>{% endif %}

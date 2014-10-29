@@ -9,9 +9,15 @@
   {# header space #}
   {% block articleHeader %}
 
-    <header class="article__header  grid__item  one-whole">
+    <div class="grid__item  one-whole">
       {% include '_includes/title-bar' %}
+    </div>
+
+    {% if entry.hideTitle is defined and entry.hideTitle != '1' %}
+    <header class="article__header  grid__item  two-thirds  palm-one-whole">
+      <h1 class="title">{{ entry.title }}</h1>
     </header>
+    {% endif %}
 
   {% endblock %}
 
