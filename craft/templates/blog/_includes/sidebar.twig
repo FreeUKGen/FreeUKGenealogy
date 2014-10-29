@@ -1,0 +1,7 @@
+<aside>
+  {% set tweet = craft.twitter.get('statuses/user_timeline', { count : 1 }) %}
+
+  {% set tweet = tweet[0] %}
+
+  {{ tweet.text }}
+</aside>
