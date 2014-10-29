@@ -1,3 +1,58 @@
+{# hmmmmm! #}
+{% set allBlogEntries = craft.entries({
+  section : 'blogPost',
+  limit : null
+}) %}
+
+{% set blogCats = craft.categories({
+  relatedTo : allBlogEntries,
+  group : 'blog',
+  limit : null
+}) %}
+
+{% set sidebarEntry = sidebarWidget.sidebarEntry.first %}
+
+<aside>
+
+  {% if sidebarEntry %}<h2 class="title-block"><a href="{{ sidebarEntry.url }}">{{ sidebarEntry.title }}</a></h2>{% endif %}
+
+  <div class="islet  islet--light">
+    <p>{{ sidebarWidget.sidebarText }}</p>
+  </div>
+
+</aside>
+
+
+{% if blogCats | length %}
+<aside>
+
+  <h2 class="title-block">Categories</h2>
+
+  <ul class="boxed-nav">
+    {% for cat in blogCats %}
+    <li><a href="{{ cat.url }}">{{ cat.title }}</a></li>
+    {% endfor %}
+  </ul>
+
+</aside>
+{% endif %}
+
+
+{% if allBlogEntries | length %}
+<aside>
+
+  <h2 class="title-block">Archive</h2>
+
+  <ul class="boxed-nav">
+  {% for yearMonth, entries in allBlogEntries | group("postDate|date('Y-m')") %}
+    <li><a href="{{ url('blog/' ~ yearMonth | date('Y/m') ) }}">{{ yearMonth | date('F Y') }}</a></li>
+  {% endfor %}
+  </ul>
+
+</aside>
+{% endif %}
+
+
 {% set tweet = craft.twitter.get('statuses/user_timeline', { count : 1 }) %}
 
 {% if tweet | length %}
