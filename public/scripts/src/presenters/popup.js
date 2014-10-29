@@ -14,7 +14,7 @@
 
     e.preventDefault();
 
-    popup.open($(this).attr('href'), 'Twitter', '640', '400');
+    popup.open($(this).attr('href'), 'Twitter', '640', '420');
 
   });
 
