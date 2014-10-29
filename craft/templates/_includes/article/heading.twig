@@ -1,21 +1,21 @@
 {#
  # Heading block type
  #}
-<header class="article__header  grid__item  {{ block.width }}  palm-one-whole  text--{{ block.align }}">
+<header class="article__header  grid__item  {{ block.width }}  palm-one-whole  text--{{ block.align }}  text--{{ block.colour }}">
 
-  {% switch block.fontSize %}
+  {% switch block.size %}
 
     {% case 'mega' %}
-      <h1 class="mega">{{ block.heading }}</h1>
+      <h1 class="mega  text-weight--{{ block.bold }}">{{ block.text }}</h1>
 
     {% case 'large' %}
-      <h1>{{ block.heading }}</h1>
-
-    {% case 'medium' %}
-      <h2>{{ block.heading }}</h2>
+      <h1 class="text-weight--{{ block.bold }}">{{ block.text }}</h1>
 
     {% case 'small' %}
-      <h3>{{ block.heading }}</h3>
+      <h3 class="text-weight--{{ block.bold }}">{{ block.text }}</h3>
+
+    {% default %}
+      <h2 class="text-weight--{{ block.bold }}">{{ block.text }}</h2>
 
   {% endswitch %}
 

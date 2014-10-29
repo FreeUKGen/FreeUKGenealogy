@@ -13,6 +13,7 @@
  * Import all project specific stuff
  */
 @import "base/main";
+@import "base/type";
 
 @import "owl-carousel2/src/scss/owl.carousel";
 @import "owl-carousel2/src/scss/owl.animate";
@@ -28,3 +29,4 @@
 @import "objects/site";
 @import "objects/title-bar";
 @import "objects/post";
+@import "objects/article";
