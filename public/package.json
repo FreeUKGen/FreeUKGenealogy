@@ -9,9 +9,11 @@
   "license": "MIT",
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-contrib-sass": "~0.7.3",
-    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-concat": "^0.5.0",
     "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-sass": "~0.7.3",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-contrib-watch": "~0.5.3",
     "grunt-grunticon": "^1.2.13",
     "grunt-svgmin": "~0.4.0",
     "mustache": "~0.8.1",

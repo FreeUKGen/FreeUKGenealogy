@@ -85,7 +85,7 @@
           <img src="http://dummyimage.com/728x90/000/fff/?text=banner+ad">
         </div>
 
-        <button type="button" id="trigger-offcanvas" class="site__header__menu-btn">
+        <button type="button" class="site__header__menu-btn" data-sc-offcanvas-trigger data-sc-offcanvas-primary=".offcanvas__primary" data-sc-offcanvas-secondary=".offcanvas__secondary">
           <span>Menu</span>
           <i class="icon__cancel" aria-hidden="true"></i>
         </button>
@@ -149,25 +149,12 @@
 
   </div>
 
+  <script type="text/javascript" src="/scripts/dist/lib.min.js"></script>
+  <script type="text/javascript" src="/scripts/dist/main.min.js"></script>
 
-  <!-- example offcanvas switching code -->
-  <script src="/scripts/dist/classie.js"></script>
-  <script charset="utf-8">
-
-    var el = document.getElementById("trigger-offcanvas");
-
-    var switchOffCanvas = function() {
-      classie.toggle( document.body, 'offcanvas--active' );
-      classie.toggle( el, 'site__header__menu-btn--active' );
-    }
-
-    if (el.addEventListener) {
-      el.addEventListener('click', switchOffCanvas, false);
-    } else if (el.attachEvent)  {
-      el.attachEvent('onclick', switchOffCanvas);
-    }
-
-  </script>
+  <!--[if lte IE 7]>
+    <script src="/scripts/dist/lte-ie7-polyfills.min.js"></script>
+  <![endif]-->
 
   {% block foot %}{% endblock %}
 </body>

@@ -14,6 +14,12 @@
  */
 @import "base/main";
 
+@import "owl-carousel2/src/scss/owl.carousel";
+@import "owl-carousel2/src/scss/owl.animate";
+@import "owl-carousel2/src/scss/owl.autoheight";
+@import "owl-carousel2/src/scss/owl.lazyload";
+@import "owl-carousel2/src/scss/owl.theme.default";
+
 @import "objects/nav";
 @import "objects/pagination";
 @import "objects/site";
