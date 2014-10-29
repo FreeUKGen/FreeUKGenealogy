@@ -118,9 +118,33 @@
 }
 
 
+.icon__chevron-left:hover,
+.icon__chevron-left--dark {
+  background-image: url('../../images/png/chevron-left--dark.png');
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 24px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
 
 .icon__chevron-left {
   background-image: url('../../images/png/chevron-left.png');
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 24px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+.icon__chevron-right:hover,
+.icon__chevron-right--dark {
+  background-image: url('../../images/png/chevron-right--dark.png');
   background-repeat: no-repeat;
   width: 20px;
   height: 24px;

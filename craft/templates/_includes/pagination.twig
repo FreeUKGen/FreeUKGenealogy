@@ -1,56 +1,27 @@
-{% if paginateBase is not defined %}
-  {% set paginateBase = '/'~craft.request.firstSegment~'/page-' %}
-{% endif %}
-
-
-{% if query is not defined %}
-  {% set query = '' %}
-{% endif %}
-
-
 {% if paginate.totalPages > 1 %}
-<ul class="nav  pagination">
+<nav class="text--center">
 
-  {% if paginate.prevUrl %}
-    <li class="pagination__prev"><a href="{{ paginate.prevUrl ~ query }}"><i class="icon-triangle-left" aria-hidden="true"></i><span class="accessibility">Previous Page</span></a></li>
-  {% endif %}
+  <ul class="nav  pagination">
 
-  {% if paginate.totalPages > 4 %}
+    {% if paginate.prevUrl %}
+      <li class="pagination__prev"><a href="{{ paginate.prevUrl }}{{ q is defined ? '?q=' ~ q : '' }}"><i class="icon__chevron-left" aria-hidden="true"></i><span class="accessibility">Previous Page</span></a></li>
+    {% endif %}
 
-    {% set lhs = paginate.currentPage - 3 %}
-    {% set rhs = paginate.currentPage + 3 %}
-
-    {% for pageNumber in lhs..rhs %}
-      {% if pageNumber >= 1 and pageNumber <= paginate.totalPages %}
-
-        {% if paginate.currentPage == pageNumber %}
-          <li class="pagination__link  current">{{ pageNumber }}</li>
-        {% else %}
-          <li class="pagination__link">
-            <a href="{{ paginateBase ~ pageNumber ~ query }}">{{ pageNumber }}</a>
-          </li>
-        {% endif %}
-
-      {% endif %}
+    {% for page, url in paginate.getPrevUrls(3) %}
+      <li class="pagination__link"><a href="{{ url }}{{ q is defined ? '?q=' ~ q : '' }}">{{ page }}</a></li>
     {% endfor %}
 
-  {% else %}
+    <li class="pagination__link  pagination__link--current"><span>{{ paginate.currentPage }}</span></li>
 
-    {% for pageNumber in 1..paginate.totalPages %}
-      {% if paginate.currentPage == pageNumber %}
-        <li class="pagination__link  current">{{ pageNumber }}</li>
-      {% else %}
-        <li class="pagination__link">
-          <a href="{{ paginateBase ~ pageNumber ~ query }}">{{ pageNumber }}</a>
-        </li>
-      {% endif %}
+    {% for page, url in paginate.getNextUrls(3) %}
+      <li class="pagination__link"><a href="{{ url }}{{ q is defined ? '?q=' ~ q : '' }}">{{ page }}</a></li>
     {% endfor %}
 
-  {% endif %}
+    {% if paginate.nextUrl %}
+      <li class="pagination__next"><a href="{{ paginate.nextUrl }}{{ q is defined ? '?q=' ~ q : '' }}"><i class="icon__chevron-right" aria-hidden="true"></i><span class="accessibility">Next Page</span></a></li>
+    {% endif %}
 
-  {% if paginate.nextUrl %}
-    <li class="pagination__next"><a href="{{ paginate.nextUrl ~ query }}"><i class="icon-triangle-right" aria-hidden="true"></i><span class="accessibility">Next Page</span></a></li>
-  {% endif %}
+  </ul>
 
-</ul>
+</nav>
 {% endif %}

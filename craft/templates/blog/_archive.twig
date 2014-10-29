@@ -1,0 +1,73 @@
+{% extends '_layouts/main' %}
+
+{% set titleBarEntry = craft.entries.section('blog').first() %}
+
+{% if day is defined and month is defined and year is defined %}
+  {% set after = year ~ '-' ~ month ~ '-' ~ day %}
+  {% set before = after | date_modify('+1 day') | date('Y-m-d') %}
+  {% set breadcrumb = [
+    {
+      'url'   : url('blog/' ~ year ),
+      'title' : year
+    },
+    {
+      'url'   : url('blog/' ~ year ~ '/' ~ month),
+      'title' : month
+    },
+    {
+      'url'   : url('blog/' ~ year ~ '/' ~ month ~ '/' ~ day),
+      'title' : day
+    }
+  ] %}
+{% elseif month is defined and year is defined %}
+  {% set after = year ~ '-' ~ month %}
+  {% set before = after | date_modify('+1 month') | date('Y-m') %}
+  {% set breadcrumb = [
+    {
+      'url'   : url('blog/' ~ year ),
+      'title' : year
+    },
+    {
+      'url'   : url('blog/' ~ year ~ '/' ~ month),
+      'title' : month
+    }
+  ] %}
+{% elseif year is defined %}
+  {% set after = year %}
+  {% set before = year + 1 %}
+  {% set breadcrumb = [
+    {
+      'url'   : url('blog/' ~ year ),
+      'title' : year
+    }
+  ] %}
+{% endif %}
+
+
+{% if after is not defined or before is not defined %}
+  {% exit 404 %}
+{% endif %}
+
+
+{% block main %}
+
+  {% include '_includes/title-bar' %}
+
+  <div class="grid">
+
+    <div class="grid__item  two-thirds  palm-one-whole">
+      {% include 'blog/_includes/list' with {
+        criteria : {
+          after : after,
+          before : before
+        }
+      } %}
+    </div>
+
+    <div class="grid__item  one-third  palm-one-whole">
+      {% include 'blog/_includes/sidebar' %}
+    </div>
+
+  </div>
+
+{% endblock %}

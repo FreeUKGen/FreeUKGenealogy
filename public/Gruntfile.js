@@ -107,6 +107,8 @@ module.exports = function(grunt) {
             "github--dark" : [".icon__github:hover"],
             "search--dark" : [".icon__search:hover"],
             "comment--brighter" : [".icon__comment:hover"],
+            "chevron-left--dark" : [".icon__chevron-left:hover"],
+            "chevron-right--dark" : [".icon__chevron-right:hover"],
           },
           cssprefix: '.icon__',
           template: 'bower_components/FreeUKGenealogy-Core-Frontend/grunticon.hbs'

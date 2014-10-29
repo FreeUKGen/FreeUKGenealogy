@@ -118,12 +118,36 @@
 }
 
 
-
-.icon__chevron-left {
-  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2224.105%22%20viewBox%3D%220%200%2020%2024.105%22%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M9.27%2024.105H20l-9.27-12.053L20%200H9.27L0%2012.052z%22%2F%3E%3C%2Fsvg%3E');
+.icon__chevron-left:hover,
+.icon__chevron-left--dark {
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2224%22%20viewBox%3D%220%200%2020%2024%22%3E%3Cpath%20fill%3D%22%237C7C7C%22%20d%3D%22M9.27%2024H20l-9.27-12L20%200H9.27L0%2012z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;
   width: 20px;
-  height: 24.105px;
+  height: 24px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__chevron-left {
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2224%22%20viewBox%3D%220%200%2020%2024%22%3E%3Cpath%20fill%3D%22%23ccc%22%20d%3D%22M9.27%2024H20l-9.27-12L20%200H9.27L0%2012z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 24px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+.icon__chevron-right:hover,
+.icon__chevron-right--dark {
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2224%22%20viewBox%3D%220%200%2020%2024%22%3E%3Cpath%20fill%3D%22%237C7C7C%22%20d%3D%22M10.73%200H0l9.27%2012L0%2024h10.73L20%2012z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 24px;
   display: inline-block;
  *display: inline;
   zoom: 1;
@@ -132,10 +156,10 @@
 
 
 .icon__chevron-right {
-  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2224.105%22%20viewBox%3D%220%200%2020%2024.105%22%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M10.73%200H0l9.27%2012.052L0%2024.105h10.73L20%2012.052z%22%2F%3E%3C%2Fsvg%3E');
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2224%22%20viewBox%3D%220%200%2020%2024%22%3E%3Cpath%20fill%3D%22%23ccc%22%20d%3D%22M10.73%200H0l9.27%2012L0%2024h10.73L20%2012z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;
   width: 20px;
-  height: 24.105px;
+  height: 24px;
   display: inline-block;
  *display: inline;
   zoom: 1;

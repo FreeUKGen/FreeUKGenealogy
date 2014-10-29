@@ -19,14 +19,13 @@
  */
 
 return array(
-  'blog/(?P<year>\d{4})'                  => 'blog/_archive',
-  'blog/(?P<year>\d{4})/(?P<month>\d{2})' => 'blog/_archive',
-  'blog/category/(?P<category>[^/]*)'     => 'blog/_category',
-  'blog/tag/(?P<tag>[^/]*)'               => 'blog/_tag',
-  'blog/rss'                              => 'blog/_rss.rss',
-  'blog/author/(?P<username>[^/]*)'       => 'blog/_author',
+  'blog/(?P<year>\d{4})'                                 => 'blog/_archive',
+  'blog/(?P<year>\d{4})/(?P<month>\d{2})'                => 'blog/_archive',
+  'blog/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})' => 'blog/_archive',
+  'blog/category/(?P<category>[^/]*)'                    => 'blog/_category',
+  'blog/author/(?P<username>[^/]*)'                      => 'blog/_author',
+  'blog/rss'                                             => 'blog/_rss.rss',
 
-
-  'sitemap'                               => '_pages/sitemap',
-  'search'                                => '_pages/search'
+  'sitemap' => '_pages/sitemap',
+  'search'  => '_pages/search'
 );
