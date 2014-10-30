@@ -8,13 +8,11 @@
 
 .site__header {
   padding-bottom: 40px;
+  padding-top: 40px;
 
   @include manual-media-query(890px) {
     padding-bottom: 60px;
-  }
-
-  .banner-horz {
-    margin-bottom: $base-spacing-unit * 2;
+    // padding-top: 60px;
   }
 
 }
@@ -45,13 +43,11 @@
     right: 0;
     left: 0;
     top: 240px;
+    top: 106px;
     z-index: 3;
 
     @include manual-media-query(890px) {
-      top: 260px;
-    }
-    @include manual-media-query(660px) {
-      top: 265px;
+      top: 126px;
     }
 
     nav {
@@ -67,20 +63,11 @@
     li {
       margin-left: $base-spacing-unit * 1.5;
       float: left;
-
-      @include manual-media-query(660px) {
-        margin-left: $base-spacing-unit;
-      }
-
     }
 
     a {
       padding: $half-spacing-unit 0;
       background: none;
-
-      @include manual-media-query(660px) {
-        @include font-size(17px, false);
-      }
 
       &:active,
       &:hover {
