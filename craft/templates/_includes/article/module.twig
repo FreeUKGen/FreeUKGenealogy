@@ -1,0 +1,22 @@
+{#
+ # Module block type
+ #}
+<section class="article__module  grid__item  one-third  palm-one-whole">
+
+  {% switch block.module %}
+
+    {% case 'donation-box' %}
+      <div class="island  island--teal">DONATION BOX</div>
+
+    {% case 'mailing-list' %}
+      <div class="island  island--magenta">MAILING LIST</div>
+
+    {% case 'twitter' %}
+      {% include '_includes/twitter' %}
+
+    {% case 'sub-nav' %}
+      {% include '_includes/navs/sub' %}
+
+  {% endswitch %}
+
+</section>

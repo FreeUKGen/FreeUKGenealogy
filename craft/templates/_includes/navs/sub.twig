@@ -47,7 +47,11 @@
 
 {# output #}
 {% if output is defined and entry.hideSubNav != '1' %}
-  <aside class="grid__item  one-third  palm-one-whole  float--right">
+  {% if wrap is defined and wrap == true %}
+    <aside class="grid__item  one-third  palm-one-whole  float--right">
+      {{ output }}
+    </aside>
+  {% else %}
     {{ output }}
-  </aside>
+  {% endif %}
 {% endif %}

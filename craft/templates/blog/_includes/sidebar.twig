@@ -53,25 +53,4 @@
 {% endif %}
 
 
-{% set tweet = craft.twitter.get('statuses/user_timeline', { count : 1 }) %}
-
-{% if tweet | length %}
-
-  {% set tweet = tweet[0] %}
-
-  <aside class="twitter">
-
-    <h2 class="twitter__title">Twitter <a href="https://twitter.com/intent/follow?user_id=2373584142" data-sc-popup>@FreeUKGen</a></h2>
-
-    <p class="twitter__text">{{ tweet.text | autoLinkTweet }}</p>
-
-    <ul class="twitter__tools">
-      <li class="twitter__tools__follow"><a href="https://twitter.com/intent/follow?user_id=2373584142" data-sc-popup>Follow</a></li>
-      <li><a href="https://twitter.com/intent/tweet?in_reply_to={{ tweet.id }}" data-sc-popup><i class="icon__reply" aria-hidden="true"></i><span class="accessibility">Reply</span></a></li>
-      <li><a href="https://twitter.com/intent/retweet?tweet_id={{ tweet.id }}" data-sc-popup><i class="icon__repost" aria-hidden="true"></i><span class="accessibility">Retweet</span></a></li>
-      <li><a href="https://twitter.com/intent/favorite?tweet_id={{ tweet.id }}" data-sc-popup><i class="icon__star" aria-hidden="true"></i><span class="accessibility">Favourite</span></a></li>
-    </ul>
-
-  </aside>
-
-{% endif %}
+{% include '_includes/twitter' %}
