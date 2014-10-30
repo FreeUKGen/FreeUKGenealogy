@@ -185,7 +185,7 @@ function Gallery() {
               items:1,
               nav:true,
               loop:true,
-              navText:['<i class="icon__chevron-left"></i>','<i class="icon__chevron-right"></i>']
+              navText:['<i class="icon__chevron-alt-left"></i>','<i class="icon__chevron-alt-right"></i>']
             });
 
             // skip to right slide

@@ -94,12 +94,84 @@
 }
 
 
+.icon__cancel-white:hover,.icon__cancel-white:active,
+.icon__cancel-grey {
+  background-image: url('../../images/png/cancel-grey.png');
+  background-repeat: no-repeat;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__cancel-white {
+  background-image: url('../../images/png/cancel-white.png');
+  background-repeat: no-repeat;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
 
 .icon__cancel {
   background-image: url('../../images/png/cancel.png');
   background-repeat: no-repeat;
   width: 23px;
   height: 23px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+.icon__chevron-alt-left:hover,.icon__chevron-alt-left:active,
+.icon__chevron-alt-left--dark {
+  background-image: url('../../images/png/chevron-alt-left--dark.png');
+  background-repeat: no-repeat;
+  width: 13px;
+  height: 22px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__chevron-alt-left {
+  background-image: url('../../images/png/chevron-alt-left.png');
+  background-repeat: no-repeat;
+  width: 13px;
+  height: 22px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+.icon__chevron-alt-right:hover,.icon__chevron-alt-right:active,
+.icon__chevron-alt-right--dark {
+  background-image: url('../../images/png/chevron-alt-right--dark.png');
+  background-repeat: no-repeat;
+  width: 13px;
+  height: 22px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__chevron-alt-right {
+  background-image: url('../../images/png/chevron-alt-right.png');
+  background-repeat: no-repeat;
+  width: 13px;
+  height: 22px;
   display: inline-block;
  *display: inline;
   zoom: 1;
@@ -118,7 +190,7 @@
 }
 
 
-.icon__chevron-left:hover,
+.icon__chevron-left:hover,.icon__chevron-left:active,
 .icon__chevron-left--dark {
   background-image: url('../../images/png/chevron-left--dark.png');
   background-repeat: no-repeat;
@@ -142,7 +214,7 @@
 }
 
 
-.icon__chevron-right:hover,
+.icon__chevron-right:hover,.icon__chevron-right:active,
 .icon__chevron-right--dark {
   background-image: url('../../images/png/chevron-right--dark.png');
   background-repeat: no-repeat;
@@ -178,7 +250,7 @@
 }
 
 
-.icon__comment:hover,
+.icon__comment:hover,.icon__comment:active,
 .icon__comment--brighter {
   background-image: url('../../images/png/comment--brighter.png');
   background-repeat: no-repeat;
@@ -226,7 +298,7 @@
 }
 
 
-.icon__facebook:hover,
+.icon__facebook:hover,.icon__facebook:active,
 .icon__facebook--dark {
   background-image: url('../../images/png/facebook--dark.png');
   background-repeat: no-repeat;
@@ -322,7 +394,7 @@
 }
 
 
-.icon__github:hover,
+.icon__github:hover,.icon__github:active,
 .icon__github--dark {
   background-image: url('../../images/png/github--dark.png');
   background-repeat: no-repeat;
@@ -346,7 +418,7 @@
 }
 
 
-.icon__googleplus:hover,
+.icon__googleplus:hover,.icon__googleplus:active,
 .icon__googleplus--dark {
   background-image: url('../../images/png/googleplus--dark.png');
   background-repeat: no-repeat;
@@ -394,7 +466,7 @@
 }
 
 
-.icon__reply:hover,
+.icon__reply:hover,.icon__reply:active,
 .icon__reply--dark {
   background-image: url('../../images/png/reply--dark.png');
   background-repeat: no-repeat;
@@ -418,7 +490,7 @@
 }
 
 
-.icon__repost:hover,
+.icon__repost:hover,.icon__repost:active,
 .icon__repost--dark {
   background-image: url('../../images/png/repost--dark.png');
   background-repeat: no-repeat;
@@ -442,7 +514,7 @@
 }
 
 
-.icon__rss:hover,
+.icon__rss:hover,.icon__rss:active,
 .icon__rss--dark {
   background-image: url('../../images/png/rss--dark.png');
   background-repeat: no-repeat;
@@ -466,7 +538,7 @@
 }
 
 
-.icon__search:hover,
+.icon__search:hover,.icon__search:active,
 .icon__search--dark {
   background-image: url('../../images/png/search--dark.png');
   background-repeat: no-repeat;
@@ -526,7 +598,7 @@
 }
 
 
-.icon__star:hover,
+.icon__star:hover,.icon__star:active,
 .icon__star--dark {
   background-image: url('../../images/png/star--dark.png');
   background-repeat: no-repeat;
@@ -574,7 +646,7 @@
 }
 
 
-.icon__youtube:hover,
+.icon__youtube:hover,.icon__youtube:active,
 .icon__youtube--dark {
   background-image: url('../../images/png/youtube--dark.png');
   background-repeat: no-repeat;

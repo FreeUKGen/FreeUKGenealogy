@@ -3,27 +3,21 @@
 \*------------------------------------*/
 
 .modal {
-  top: $b * 1.5;
-  left: $b * 1.5;
-  right: $b * 1.5;
-  bottom: $b * 1.5;
 
-  background: #fff url(/images/spinner.gif) center center no-repeat;
 }
-
-  .modal-inner {
-    top: $b * 1.5;
-    left: $b * 1.5;
-    right: $b * 1.5;
-    bottom: $b * 1.5;
-  }
+  //
+  // .modal-inner {
+  //
+  // }
 
   .modal-close {
     top: $b / 2.5;
     right: $b / 2.5;
   }
 
-  .icon__cancel {
+  .icon__cancel-white,
+  .icon__cancel-white:hover,
+  .icon__cancel-white:active {
     @include sizeSvgIcon(26px);
   }
 
@@ -33,25 +27,38 @@
  */
 .owl-theme .owl-controls .owl-nav {
   display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
   .owl-next,
   .owl-prev {
     position: absolute;
-    top: 50%;
-    margin-top: -16px; // half the icon height
-
+    bottom: $b-quarter;
     padding: 0;
     margin: 0;
     background: none;
     display: block;
-    height: 32px;
+    height: 26px;
     &:hover { background: none; }
   }
-  .owl-prev { left: -($b * 1.5); }
-  .owl-next { right: -($b * 1.5); }
+  .owl-prev { left: $b-quarter; }
+  .owl-next { right: $b-quarter; }
+
+
+  .icon__chevron-alt-left,
+  .icon__chevron-alt-left:hover,
+  .icon__chevron-alt-left:active,
+  .icon__chevron-alt-right,
+  .icon__chevron-alt-right:hover,
+  .icon__chevron-alt-right:active {
+    @include sizeSvgIcon(26px);
+  }
 }
 
 .owl-dots {
-  bottom: -34px;
+
 }
 
 .owl-item {

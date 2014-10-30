@@ -536,7 +536,7 @@ function Gallery() {
               items:1,
               nav:true,
               loop:true,
-              navText:['<i class="icon__chevron-left"></i>','<i class="icon__chevron-right"></i>']
+              navText:['<i class="icon__chevron-alt-left"></i>','<i class="icon__chevron-alt-right"></i>']
             });
 
             // skip to right slide
@@ -572,8 +572,7 @@ function Modal() {
   var self        = riot.observable(this),
       $modal      = $('<div class="modal"/>'),
       $modalInner = $('<div class="modal-inner"/>'),
-      $modalClose = $('<button type="button" class="modal-close  icon__cancel"/>'),
-      shade       = new Shade();
+      $modalClose = $('<button type="button" class="modal-close  icon__cancel-white"/>');
 
   $modal.hide().css({
     'position' : 'fixed',
@@ -587,23 +586,15 @@ function Modal() {
 
   self.show = function() {
 
-    // show shade
-    shade.show();
+    // add the model if it's not already there
+    if ( $('body').find($modal).length < 1 ) {
+      $('body').append($modal);
+    }
 
-    // once its open, show modal
-    shade.on('shadeOpen', function(){
-
-      // add the model if it's not already there
-      if ( $('body').find($modal).length < 1 ) {
-        $('body').append($modal);
-      }
-
-      // show it
-      self.trigger('modalBeforeOpen', $modalInner);
-      $modal.fadeIn(250, function(){
-        self.trigger('modalOpen', $modalInner);
-      });
-
+    // show it
+    self.trigger('modalBeforeOpen', $modalInner);
+    $modal.fadeIn(250, function(){
+      self.trigger('modalOpen', $modalInner);
     });
 
   }
@@ -614,9 +605,6 @@ function Modal() {
     // hide modal
     $modal.fadeOut(250, function(){
       self.trigger('modalClosed');
-
-      // hide shade
-      shade.hide();
     });
 
   }

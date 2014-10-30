@@ -197,18 +197,21 @@ module.exports = function(grunt) {
           pngfolder: '../../images/png',
           // add more hover styles here following this pattern
           customselectors: {
-            "reply--dark" : [".icon__reply:hover"],
-            "repost--dark" : [".icon__repost:hover"],
-            "star--dark" : [".icon__star:hover"],
-            "youtube--dark" : [".icon__youtube:hover"],
-            "rss--dark" : [".icon__rss:hover"],
-            "googleplus--dark" : [".icon__googleplus:hover"],
-            "facebook--dark" : [".icon__facebook:hover"],
-            "github--dark" : [".icon__github:hover"],
-            "search--dark" : [".icon__search:hover"],
-            "comment--brighter" : [".icon__comment:hover"],
-            "chevron-left--dark" : [".icon__chevron-left:hover"],
-            "chevron-right--dark" : [".icon__chevron-right:hover"],
+            "reply--dark" : [".icon__reply:hover",".icon__reply:active"],
+            "repost--dark" : [".icon__repost:hover",".icon__repost:active"],
+            "star--dark" : [".icon__star:hover",".icon__star:active"],
+            "youtube--dark" : [".icon__youtube:hover",".icon__youtube:active"],
+            "rss--dark" : [".icon__rss:hover",".icon__rss:active"],
+            "googleplus--dark" : [".icon__googleplus:hover",".icon__googleplus:active"],
+            "facebook--dark" : [".icon__facebook:hover",".icon__facebook:active"],
+            "github--dark" : [".icon__github:hover",".icon__github:active"],
+            "search--dark" : [".icon__search:hover",".icon__search:active"],
+            "comment--brighter" : [".icon__comment:hover",".icon__comment:active"],
+            "chevron-left--dark" : [".icon__chevron-left:hover",".icon__chevron-left:active"],
+            "chevron-right--dark" : [".icon__chevron-right:hover",".icon__chevron-right:active"],
+            "chevron-alt-left--dark" : [".icon__chevron-alt-left:hover",".icon__chevron-alt-left:active"],
+            "chevron-alt-right--dark" : [".icon__chevron-alt-right:hover",".icon__chevron-alt-right:active"],
+            "cancel-grey" : [".icon__cancel-white:hover",".icon__cancel-white:active"],
           },
           cssprefix: '.icon__',
           template: 'bower_components/FreeUKGenealogy-Core-Frontend/grunticon.hbs'
@@ -252,7 +255,7 @@ module.exports = function(grunt) {
       },
       svg: {
         files: ['images/svg/src/**/*.svg'],
-        tasks: ['svgmin:grunticon','grunticon']
+        tasks: ['svgmin','grunticon']
       }
     },
 
