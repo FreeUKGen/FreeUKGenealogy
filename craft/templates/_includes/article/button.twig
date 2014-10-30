@@ -1,9 +1,26 @@
 {#
  # Button block type
  #}
+{% set link = '' %}
+{% set label = '' %}
+
+{% if block.entry.first %}
+  {% set link = block.entry.first.url %}
+  {% set label = block.entry.first.title %}
+{% elseif block.file.first %}
+  {% set link = block.file.first.getUrl() %}
+  {% set label = block.file.first.title %}
+{% elseif block.buttonUrl %}
+  {% set link = block.buttonUrl %}
+  {% set label = block.buttonUrl %}
+{% endif %}
+
+{% if block.label %}
+  {% set label = block.label %}
+{% endif %}
+
 <section class="article__link  grid__item  {{ block.width }} palm-one-whole">
-  <a href="{{ block.buttonLink }}" title="Go to {{ block.label }}" class="btn btn--full btn--caps size-{{ block.weight }} btn--{{ block.colour }}">
-    {{ block.label is not empty ? block.label : block.buttonLink }}
+  <a href="{{ link }}" title="Go to {{ label }}" class="btn  btn--full  btn--caps  btn--{{ block.colour }}">
+    {{ label }}
   </a>
 </section>
-
