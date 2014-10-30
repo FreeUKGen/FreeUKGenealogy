@@ -365,7 +365,8 @@ function Gallery() {
 
   var self  = riot.observable(this),
       modal = new Modal(),
-      attr  = '';
+      attr  = '',
+      startingImage = 0;
 
   /**
    * Init
@@ -488,7 +489,7 @@ function Gallery() {
 
 
       // get current position
-      var startingImage = $trigger.index($(this));
+      startingImage = $trigger.index($(this));
 
 
       // show modal
@@ -501,6 +502,7 @@ function Gallery() {
 
         if ( $modal.find('[data-sc-gallery]').length > 0 ) {
           $modal.find('[data-sc-gallery]').trigger('to.owl.carousel', [startingImage, '0']);
+          console.log(startingImage);
         }
 
       });
