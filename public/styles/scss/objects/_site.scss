@@ -116,6 +116,7 @@
   z-index: 1;
   padding-top: $base-spacing-unit * 2;
   background: #fff;
+  overflow-x: hidden; // clear the footer properly without hurting left/right overflows
 }
 
 

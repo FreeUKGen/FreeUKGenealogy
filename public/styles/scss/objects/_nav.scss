@@ -2,6 +2,23 @@
     $NAV
 \*------------------------------------*/
 
+
+/**
+ * Bigger stacked list
+ */
+.nav--double-stacked {
+  @extend %nav--stacked;
+
+  li {
+    margin-bottom: $b-double;
+  }
+
+}
+
+
+/**
+ * Adjust standard subnav to cope with Craft
+ */
 .sub-nav {
 
   // hide nested navs by default
