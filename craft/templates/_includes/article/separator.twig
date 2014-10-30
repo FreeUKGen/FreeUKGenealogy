@@ -1,13 +1,11 @@
 {#
  # Separator block type
  #}
-{% spaceless %}
-  {% if block.isItVisible %}
-  <section class="article__separator  grid__item  one-whole">
-    <hr>
-  </section>
-  {% else %}
-  <div class="cf"></div>
-  {% endif %}
 
-{% endspaceless %}
+{% if block.colour == 'invisible' %}
+<div class="cf"></div>
+{% else %}
+<section class="article__separator  article__separator--{{ block.colour }}  grid__item  one-whole">
+  <hr>
+</section>
+{% endif %}

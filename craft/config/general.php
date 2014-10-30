@@ -25,7 +25,10 @@ return array(
     'restoreDbOnUpdateFailure' => true
   ),
   '.net' => array( 'devMode' => true ),
-  '.dev' => array( 'devMode' => true ),
+  '.dev' => array(
+    'devMode' => true,
+    'requireMatchingUserAgentForSession' => false
+  ),
   '.xip.io' => array( 'devMode' => false ),
   '.co.uk' => array( 'devMode' => false )
 );
