@@ -646,9 +646,9 @@
 }
 
 
-.icon__youtube:hover,.icon__youtube:active,
-.icon__youtube--dark {
-  background-image: url('../../images/png/youtube--dark.png');
+.icon__twitter:hover,.icon__twitter:active,
+.icon__twitter--dark {
+  background-image: url('../../images/png/twitter--dark.png');
   background-repeat: no-repeat;
   width: 46px;
   height: 46px;
@@ -659,8 +659,8 @@
 
 
 
-.icon__youtube {
-  background-image: url('../../images/png/youtube.png');
+.icon__twitter {
+  background-image: url('../../images/png/twitter.png');
   background-repeat: no-repeat;
   width: 46px;
   height: 46px;

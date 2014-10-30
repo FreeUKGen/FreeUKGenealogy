@@ -200,7 +200,7 @@ module.exports = function(grunt) {
             "reply--dark" : [".icon__reply:hover",".icon__reply:active"],
             "repost--dark" : [".icon__repost:hover",".icon__repost:active"],
             "star--dark" : [".icon__star:hover",".icon__star:active"],
-            "youtube--dark" : [".icon__youtube:hover",".icon__youtube:active"],
+            "twitter--dark" : [".icon__twitter:hover",".icon__twitter:active"],
             "rss--dark" : [".icon__rss:hover",".icon__rss:active"],
             "googleplus--dark" : [".icon__googleplus:hover",".icon__googleplus:active"],
             "facebook--dark" : [".icon__facebook:hover",".icon__facebook:active"],
