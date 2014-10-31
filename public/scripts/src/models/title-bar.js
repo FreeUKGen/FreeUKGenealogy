@@ -17,6 +17,8 @@ function Titlebar()
 
     $('.title-bar').addClass('title-bar--active');
 
+    $('.title-bar .search input').focus();
+
   }
 
 

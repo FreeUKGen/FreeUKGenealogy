@@ -205,7 +205,7 @@ module.exports = function(grunt) {
             "googleplus--dark" : [".icon__googleplus:hover",".icon__googleplus:active"],
             "facebook--dark" : [".icon__facebook:hover",".icon__facebook:active"],
             "github--dark" : [".icon__github:hover",".icon__github:active"],
-            "search--dark" : [".icon__search:hover",".icon__search:active"],
+            "search--dark" : [".search:hover .icon__search",".search:active .icon__search"],
             "comment--brighter" : [".icon__comment:hover",".icon__comment:active"],
             "chevron-left--dark" : [".icon__chevron-left:hover",".icon__chevron-left:active"],
             "chevron-right--dark" : [".icon__chevron-right:hover",".icon__chevron-right:active"],

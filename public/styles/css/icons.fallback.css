@@ -550,9 +550,21 @@
 }
 
 
-.icon__search:hover,.icon__search:active,
+.search:hover .icon__search,.search:active .icon__search,
 .icon__search--dark {
   background-image: url('../../images/png/search--dark.png');
+  background-repeat: no-repeat;
+  width: 26px;
+  height: 20px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__search--white {
+  background-image: url('../../images/png/search--white.png');
   background-repeat: no-repeat;
   width: 26px;
   height: 20px;

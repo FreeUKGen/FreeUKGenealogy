@@ -84,8 +84,36 @@
 
     }
 
-    button {
+    &:active input,
+    &:hover input {
+      &::-webkit-input-placeholder {
+        color: #7c7c7c;
+      }
+      &:-moz-placeholder {
+        color: #7c7c7c;
+      }
+      &:-ms-placeholder {
+        color: #7c7c7c;
+      }
+      &.placeholder {
+        color: #7c7c7c;
+      }
+    }
+
+    .icon__search {
       float: left;
+      height: 46px;
+      width: 46px;
+      // padding-top: 2px;
+      background-position: center center;
+      &:active,
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    button {
+      display: none;
       border: 0;
       background: none;
       padding: 0;
@@ -93,9 +121,7 @@
       height: 46px;
       width: 46px;
       padding-top: 2px;
-
       &:focus {
-        // background-color: #e7e7e7;
         outline: none;
       }
     }
@@ -140,6 +166,11 @@
 
     input {
       width: 300px;
+    }
+
+    input,
+    &:active input,
+    &:hover input {
       &::-webkit-input-placeholder {
         color: #fff;
       }
@@ -152,6 +183,20 @@
       &.placeholder {
         color: #fff;
       }
+    }
+
+    button {
+      display: block;
+      @include opacity(0.8);
+      &:focus,
+      &:active,
+      &:hover {
+        @include opacity(1);
+      }
+    }
+
+    .icon__search {
+      display: none;
     }
 
   }
@@ -172,7 +217,7 @@
     @extend %nav--stacked;
 
     li {
-      background: $red;
+      background: $magenta;
       padding: ($b / 8) $b-half;
       color: #fff;
       @include font-size(15px);
