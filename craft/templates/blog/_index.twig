@@ -2,6 +2,12 @@
 
 {% set titleBarEntry = craft.entries.section('blog').first() %}
 
+
+{% if craft.request.getPageNum() != 1 %}
+  {% set title = 'Page ' ~ craft.request.getPageNum() ~ ' - ' ~ (titleBarEntry.pageTitle is not empty ? titleBarEntry.pageTitle : titleBarEntry.title) %}
+{% endif %}
+
+
 {% block main %}
 
   {% include '_includes/title-bar' %}

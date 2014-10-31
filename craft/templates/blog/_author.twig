@@ -15,6 +15,12 @@
   }
 ] %}
 
+{% set title = activeAuthor.fullName ~ ' - ' ~ (titleBarEntry.pageTitle is not empty ? titleBarEntry.pageTitle : titleBarEntry.title) %}
+
+{% if craft.request.getPageNum() != 1 %}
+  {% set title =  'Page ' ~ craft.request.getPageNum() ~ ' - ' ~ title %}
+{% endif %}
+
 {% block main %}
 
   {% include '_includes/title-bar' %}

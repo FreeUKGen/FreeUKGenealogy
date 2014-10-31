@@ -8,7 +8,7 @@
 <head>
   <meta charset="utf-8"/>
 
-  <title>{% if title is defined %}{{ title }} | {% elseif entry is defined and entry.pageTitle is not empty %}{{ entry.pageTitle }} | {% elseif entry is defined %}{{ entry.title }} | {% endif %}{{ siteName }}</title>
+  <title>{% if title is defined %}{{ title }} - {% elseif entry is defined and entry.pageTitle is not empty %}{{ entry.pageTitle }} - {% elseif entry is defined %}{{ entry.title }} - {% endif %}{{ siteName }}</title>
 
   <meta name="description" content="{% if metaDescription is defined %}{{ metaDescription }}{% elseif entry is defined and entry.metaDescription is not empty %}{{ entry.metaDescription }}{% endif %}">
   <meta name="keywords" content="{% if metaKeywords is defined %}{{ metaKeywords }}{% elseif entry is defined and entry.metaKeywords is not empty %}{{ entry.metaKeywords }}{% endif %}">
