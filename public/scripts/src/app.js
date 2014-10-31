@@ -16,4 +16,13 @@
   $('input, textarea').placeholder();
 
 
+  $('.show-sub-nav').on('click', function(e){
+
+    e.preventDefault();
+
+    $(this).toggleClass('show-sub-nav--active');
+    $(this).parents('.title-block').next('.sub-nav').toggleClass('sub-nav--active');
+
+  });
+
 })();

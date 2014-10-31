@@ -21,6 +21,9 @@
  */
 .sub-nav {
 
+  // hide all sub navs on palm
+  display: none;
+
   // hide nested navs by default
   ul {
     display: none;
@@ -57,6 +60,41 @@
 
 
 }
+
+// show sub nav on active
+.sub-nav--active {
+  display: block;
+}
+
+.show-sub-nav {
+
+  padding-top: 2px;
+
+  .icon__cancel {
+    display: none;
+  }
+
+  &:active,
+  &:hover {
+    cursor: pointer;
+  }
+
+}
+
+.show-sub-nav--active {
+
+  .icon__cancel {
+    display: block;
+  }
+
+  .icon__burger {
+    display: none;
+  }
+
+}
+
+
+
 
 
 /**

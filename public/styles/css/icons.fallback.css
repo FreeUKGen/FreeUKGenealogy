@@ -94,6 +94,30 @@
 }
 
 
+.icon__burger:hover,.icon__burger:active,
+.icon__burger--brighter {
+  background-image: url('../../images/png/burger--brighter.png');
+  background-repeat: no-repeat;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__burger {
+  background-image: url('../../images/png/burger.png');
+  background-repeat: no-repeat;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
 .icon__cancel:hover,.icon__cancel:active,
 .icon__cancel--brighter {
   background-image: url('../../images/png/cancel--brighter.png');

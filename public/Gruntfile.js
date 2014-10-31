@@ -213,6 +213,7 @@ module.exports = function(grunt) {
             "chevron-alt-left--dark" : [".icon__chevron-alt-left:hover",".icon__chevron-alt-left:active"],
             "chevron-alt-right--dark" : [".icon__chevron-alt-right:hover",".icon__chevron-alt-right:active"],
             "cancel-grey" : [".icon__cancel-white:hover",".icon__cancel-white:active"],
+            "burger--brighter" : [".icon__burger:hover",".icon__burger:active"],
           },
           cssprefix: '.icon__',
           template: 'bower_components/FreeUKGenealogy-Core-Frontend/grunticon.hbs'

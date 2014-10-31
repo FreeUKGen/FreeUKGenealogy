@@ -19,3 +19,12 @@
 @import "objects/shade_lau";
 @import "objects/site_lau";
 @import "objects/title-bar_lau";
+
+
+// force show all sub navs on desk
+.sub-nav {
+  display: block;
+}
+.show-sub-nav {
+  display: none;
+}
