@@ -16,7 +16,7 @@
 
   });
 
-  $('.title-bar').on('focus click', '.search', function(e){
+  $('.title-bar').on('click', '.search', function(e){
 
     e.stopPropagation();
 

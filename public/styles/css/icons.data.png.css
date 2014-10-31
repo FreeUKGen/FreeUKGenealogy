@@ -94,7 +94,7 @@
 }
 
 
-
+.icon__cancel:hover,.icon__cancel:active,
 .icon__cancel--brighter {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAURJREFUOI2l1E1SwkAQBeD3mj3xOMkJPAFuiFS5VCGi57CKQGApG5OFFyFwGAvi3mkXEKKSnyH0bqp7vumZmhl2N8k1vs2HUJY7r/+CC+IqTSZGzR3Y6bG7et+JiAMAqjrPPH/UBnXSOCI53I/MVoSyzJMkh04aR5ehAIy8sSxxTucnqCLcef1nVhXY4FUoALCusA6vQ09gW7wJLYWbcBu0Eq7Cgf3NaUJr4dLufkcN2ghX4g0oAEgT3Dbqj2KVzCl4LE22PYoTVBEeZoxt8PLrto4XBB/KgO46DgV8ylMGOv1y/fF/4y+sSmeTzKvQPGzwArZEi10lUwJBUYpZ5vaPi7FA4wUh9zaoDc62aIHHM4LHv0ShUeb6AW3f/jk4FBNR1dtLUADIXD/I/5KDMxCw0wPMFgavbdAj7vkjKEIYfKrw5gcIH/XPBXJ/vwAAAABJRU5ErkJggg==');
   background-repeat: no-repeat;

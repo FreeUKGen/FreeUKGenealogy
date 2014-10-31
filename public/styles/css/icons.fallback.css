@@ -94,7 +94,7 @@
 }
 
 
-
+.icon__cancel:hover,.icon__cancel:active,
 .icon__cancel--brighter {
   background-image: url('../../images/png/cancel--brighter.png');
   background-repeat: no-repeat;
