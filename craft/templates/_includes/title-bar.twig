@@ -19,8 +19,8 @@
     <li><a href="https://github.com/FreeUKGen" target="_blank"><i class="icon__github" aria-hidden="true"></i><span class="accessibility">Github</span></a></li>
   </ul>
 
-  <form action="{{ url('search') }}" method="get" class="search">
-    <input type="search" name="q" value="" placeholder="Search">
+  <form action="{{ url('search') }}" method="get" class="search" data-parsley-validate>
+    <input type="search" name="q" value="" placeholder="Search" required data-parsley-required-message="Please enter a search term">
     <button type="submit">
       <i class="icon__search" aria-hidden="true"></i>
       <span class="accessibility">Search</span>
