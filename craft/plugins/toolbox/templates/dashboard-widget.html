@@ -189,17 +189,6 @@
   </div>
 
   <div class="toolbox-grid__item  one-third">
-    <h1 class="toolbox__title">Notices</h1>
-
-    {% if notices is defined and notices | length %}
-    <ul class="pane  toolbox__notice-links">
-      {% for n in notices %}
-      <li>
-        <a href="{{ url(n.path) }}"><span>{{ n.data }}</span>&nbsp;{{ n.string }}&nbsp;<i data-icon="&#x40;"></i></a>
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
 
     <ul class="toolbox-grid  toolbox-grid--sml">
     {% if helpUrl is defined and helpUrl is not empty %}
@@ -216,13 +205,6 @@
 
   <div class="clear"></div>
 
-  <div class="toolbox-grid__item  two-thirds">
-    <h1 class="toolbox__title">Site Stats</h1>
-
-    <div class="pane">
-      <img src="http://f.cl.ly/items/0A1F2E3e321L2V1N2F3I/Screen%20Shot%202014-10-07%20at%2009.35.15.png">
-    </div>
-  </div>
 
   {% if releaseNotes is defined and releaseNotes | length %}
   <div class="toolbox-grid__item  one-third">
