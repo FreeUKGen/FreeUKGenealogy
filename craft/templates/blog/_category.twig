@@ -2,6 +2,8 @@
 
 {% set titleBarEntry = craft.entries.section('blog').first() %}
 
+{% set wrapWithCombs = true %}
+
 {% set category = craft.categories.group('blog').slug(category).first() %}
 
 {% if not category %}

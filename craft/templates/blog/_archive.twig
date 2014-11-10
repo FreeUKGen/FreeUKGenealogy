@@ -2,6 +2,8 @@
 
 {% set titleBarEntry = craft.entries.section('blog').first() %}
 
+{% set wrapWithCombs = true %}
+
 {% set title = (titleBarEntry.pageTitle is not empty ? titleBarEntry.pageTitle : titleBarEntry.title) %}
 
 {% if day is defined and month is defined and year is defined %}

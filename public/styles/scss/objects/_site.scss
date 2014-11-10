@@ -133,17 +133,18 @@
   border-top: 1px solid #ddd;
 
   .icon__honeycomb--bottom-left {
+
     width: 100%;
     height: auto;
-    min-height: 300px;
-    background-position: left bottom;
     display: block;
-    padding-top: $b * 4;
+
+    @include media-query(palm){
+      background-image: none;
+    }
+
   }
+
 }
-  .site__footer--has-honey {
-    border-top: 0;
-  }
 
   .site__footer__nav {
 
