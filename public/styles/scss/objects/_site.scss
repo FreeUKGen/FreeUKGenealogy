@@ -123,7 +123,9 @@
 /**
  * Site footer
  */
-.site__footer {}
+.site__footer {
+  border-top: 1px solid #ddd;
+}
 
   .site__footer__nav {
 
@@ -146,3 +148,29 @@
     }
 
   }
+
+
+/**
+ * Only used in footer - group of 3 logos
+ */
+.project-links {
+  @extend %nav;
+
+  li {
+    margin-top: $b;
+    display: block;
+  }
+
+  a {
+    display: block;
+  }
+  .icon__freebmd {
+    @include sizeSvgIcon( floor(287.144px / 1.5), floor(87.153px / 1.5) );
+  }
+  .icon__freereg {
+    @include sizeSvgIcon( floor(266.436px / 1.5), floor(86.9px / 1.5) );
+  }
+  .icon__freecen {
+    @include sizeSvgIcon( floor(274.181px / 1.5), floor(86.794px / 1.5) );
+  }
+}

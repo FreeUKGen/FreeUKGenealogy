@@ -2,10 +2,6 @@
     $VARS
 \*------------------------------------*/
 
-$yellow-lighter:  #faf14b;
-$yellow:          #eee317;
-$yellow-brighter: #ffff00;
-
 $colours:(
   "brand" $brand-color $brand-color-brighter $brand-color-lighter #fff,
   "positive" $positive $positive-brighter $positive-lighter #fff,
@@ -19,6 +15,6 @@ $colours:(
   "blue" $blue $blue-brighter $blue-lighter #fff,
   "orange" $orange $orange-brighter $orange-lighter #fff,
   "light" $light $light $light #666,
-  "yellow" $yellow $yellow-brighter $yellow-lighter #333,
+  "white" #fff #fff #fff #444,
   "grey" #444 #555 #333 #fff
 );

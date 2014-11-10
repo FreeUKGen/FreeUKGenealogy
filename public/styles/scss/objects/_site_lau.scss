@@ -96,3 +96,18 @@
     }
 
   }
+
+
+
+/**
+ * Only used in footer - group of 3 logos
+ */
+.project-links {
+  text-align: center;
+
+  li {
+    @include inline-block;
+    margin-left: $b;
+    margin-right: $b;
+  }
+}
