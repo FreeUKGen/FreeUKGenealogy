@@ -2,10 +2,7 @@
     $ARTICLE
 \*------------------------------------*/
 
-.article {
-  margin-bottom: $b;
-}
-
+.article {}
 
 
   /**
@@ -121,13 +118,10 @@
       background-image: none;
     }
 
-    .article {
+    .article > .grid__item:last-child {
       margin-bottom: 0;
-      > .grid__item:last-child {
+      > :last-child {
         margin-bottom: 0;
-        > :last-child {
-          margin-bottom: 0;
-        }
       }
     }
 
