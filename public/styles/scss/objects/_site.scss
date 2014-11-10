@@ -123,6 +123,10 @@
   height: auto;
   background-position: right top;
   display: block;
+
+  @include media-query(palm){
+    @include vendor(background-size, 90%);
+  }
 }
 
 
