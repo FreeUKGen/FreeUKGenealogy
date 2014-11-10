@@ -6,6 +6,26 @@
   margin-bottom: $b;
 }
 
+
+  /**
+   * Modules
+   */
+  .show-mailchimp-form {
+    background-position: left bottom;
+    @include vendor(background-size, 80%);
+    width: 100%;
+    height: auto;
+
+    h2 {
+      @include font-size(26px);
+    }
+
+  }
+
+
+  /**
+   * Highlights
+   */
   .article__highlight {
 
     h2 {
