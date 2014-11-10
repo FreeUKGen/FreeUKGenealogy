@@ -117,6 +117,12 @@
   padding-top: $base-spacing-unit * 2;
   background-color: #fff;
   overflow-x: hidden; // clear the footer properly without hurting left/right overflows
+
+  // top honeycomb
+  width: 100%;
+  height: auto;
+  background-position: right top;
+  display: block;
 }
 
 
@@ -125,7 +131,19 @@
  */
 .site__footer {
   border-top: 1px solid #ddd;
+
+  .icon__honeycomb--bottom-left {
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+    background-position: left bottom;
+    display: block;
+    padding-top: $b * 4;
+  }
 }
+  .site__footer--has-honey {
+    border-top: 0;
+  }
 
   .site__footer__nav {
 

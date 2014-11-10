@@ -95,7 +95,7 @@
     </header>
 
 
-    <main role="main" class="site__content">
+    <main role="main" class="site__content{% if wrapWithCombs is defined %}  icon__honeycomb--top-right{% endif %}">
 
       <div class="container">
 
@@ -114,9 +114,9 @@
     </main>
 
 
-    <footer class="site__footer" role="contentinfo">
+    <footer class="site__footer{% if wrapWithCombs is defined %}  site__footer--has-honey{% endif %}" role="contentinfo">
 
-      <div class="island  island--white  flush--bottom">
+      <div class="island  island--white  flush--bottom{% if wrapWithCombs is defined %}  icon__honeycomb--bottom-left{% endif %}">
         <h5 class="flush--bottom  text--center">FreeUKGenealogy Projects</h5>
 
         <ul class="project-links">

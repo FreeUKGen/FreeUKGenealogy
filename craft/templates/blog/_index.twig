@@ -2,6 +2,7 @@
 
 {% set titleBarEntry = craft.entries.section('blog').first() %}
 
+{% set wrapWithCombs = true %}
 
 {% if craft.request.getPageNum() != 1 %}
   {% set title = 'Page ' ~ craft.request.getPageNum() ~ ' - ' ~ (titleBarEntry.pageTitle is not empty ? titleBarEntry.pageTitle : titleBarEntry.title) %}
