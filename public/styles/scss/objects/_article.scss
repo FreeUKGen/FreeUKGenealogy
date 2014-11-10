@@ -7,12 +7,13 @@
 }
 
 
+
   /**
    * Modules
    */
   .show-mailchimp-form {
     background-position: left bottom;
-    @include vendor(background-size, 80%);
+    @include vendor(background-size, 82%);
     width: 100%;
     height: auto;
 
@@ -98,3 +99,76 @@
         background: nth($colour, 2);
       }
     }
+
+
+
+  /**
+   * Backgrounds with honey
+   */
+  .article__background {
+    display: block;
+    height: auto;
+    width: 100%;
+    background-position: left bottom;
+
+    overflow-y: hidden;
+    padding-top: $b-quad;
+    padding-bottom: $b-quad;
+    margin-bottom: 0;
+    position: relative;
+
+    @include media-query(palm) {
+      background-image: none;
+    }
+
+    .article {
+      margin-bottom: 0;
+      > .grid__item:last-child {
+        margin-bottom: 0;
+        > :last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .icon__honeycomb--top-right {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+
+      @include media-query(palm) {
+        display: block;
+        width: 100%;
+        background-position: right top;
+        @include vendor(background-size, 90%);
+      }
+    }
+    > .container {
+      position: relative;
+      z-index: 2;
+    }
+  }
+
+  // colours
+  .article__background--grey {
+    background-color: #e7e7e7;
+  }
+  .article__background--magenta {
+    background-color: $magenta;
+    &, * {
+      color: #fff;
+    }
+  }
+  .article__background--teal {
+    background-color: $teal;
+    &, * {
+      color: #fff;
+    }
+  }
+  .article__background--white {
+    background-color: #fff;
+    &, * {
+      color: #fff;
+    }
+  }
