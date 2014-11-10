@@ -59,7 +59,7 @@
   <div class="site__header__nav  offcanvas__secondary">
     <nav role="navigation">
       <ul>
-        {% for item in mainMenu.menu %}
+        {% for item in header.menu %}
         {% switch item.type %}
           {% case 'internalLink' %}
             {% set page = item.internalLink.first %}
@@ -144,7 +144,7 @@
       <div class="island  island--dark  flush--bottom">
         <div class="container">
           <ul class="site__footer__nav">
-            {% for item in footerMenu.menu %}
+            {% for item in footer.menu %}
             {% switch item.type %}
               {% case 'internalLink' %}
                 {% set page = item.internalLink.first %}
@@ -166,7 +166,7 @@
 
       <div class="island  island--grey  flush--bottom">
         <div class="container  text--center">
-          <p class="micro">Search engine, layout and database Copyright © 1998-2013 The Trustees of Free UK Genealogy (Ben Laurie, Graham Hart, Camilla von Massenbach, David Mayall and Jim Killock), a charity registered in England and Wales, Number 1096940. We make no warranty whatsoever as to the accuracy or completeness of the FreeBMD data.</p>
+          <p class="micro">{{ include(template_from_string(footer.copyright)) }}</p>
         </div>
       </div>
 
