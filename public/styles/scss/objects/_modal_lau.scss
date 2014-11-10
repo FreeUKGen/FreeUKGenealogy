@@ -66,3 +66,45 @@
     bottom: 0;
   }
 }
+
+
+
+/**
+ * Mailchimp modal
+ */
+.modal--mailchimp {
+
+
+  .modal-inner {
+    top: 50%;
+    margin-top: -165px;
+    left: 50%;
+    margin-left: -350px;
+    right: auto;
+    bottom: auto;
+
+    width: 700px;
+
+    // media query
+  }
+
+  .modal-close {
+    top: $b * 1.5;
+    right: $b * 1.5;
+  }
+
+  .text-input {
+    width: 420px;
+  }
+
+  .btn {
+    float: right;
+    margin-top: - ($b * 1.6);
+  }
+
+  .email {
+    margin-bottom: 0;
+  }
+
+
+}

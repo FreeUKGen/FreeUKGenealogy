@@ -214,6 +214,8 @@ module.exports = function(grunt) {
             "chevron-alt-right--dark" : [".icon__chevron-alt-right:hover",".icon__chevron-alt-right:active"],
             "cancel-grey" : [".icon__cancel-white:hover",".icon__cancel-white:active"],
             "burger--brighter" : [".icon__burger:hover",".icon__burger:active"],
+            "error" : [".parsley-error"],
+            "success" : [".parsley-success"]
           },
           cssprefix: '.icon__',
           template: 'bower_components/FreeUKGenealogy-Core-Frontend/grunticon.hbs'

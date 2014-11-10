@@ -1,0 +1,20 @@
+/**
+ * Make it work with parsley
+ */
+.parsley-errors-list {
+  @extend .validation-list;
+  margin-bottom: 0;
+
+  li {
+    @extend .validation-list__error;
+  }
+}
+
+.text-input.parsley-error {
+  @extend .text-input--error;
+}
+
+.text-input.parsley-success {
+  @extend .text-input--success;
+  margin-bottom: $b;
+}

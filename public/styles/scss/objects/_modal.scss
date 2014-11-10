@@ -67,3 +67,58 @@
     color: #fff;
   }
 }
+
+
+/**
+ * Mailchimp modal
+ */
+.modal--mailchimp {
+  background: #fff;
+  color: #fff;
+
+  .modal-inner {
+    top: $b;
+    left: $b;
+    right: $b;
+    bottom: $b;
+
+    background: $teal;
+    padding: $b;
+    @include vendor(border-radius, 3px);
+  }
+
+  .modal-close {
+    display: none;
+  }
+  .mailchimp-close {
+    @extend .modal-close;
+    display: block;
+    top: $b-half;
+    right: $b-half;
+    position: absolute;
+  }
+
+  .text-input {
+    background-position: right top;
+  }
+
+
+  h1, p {
+    text-align: center;
+  }
+
+  h1 {
+    @include font-size(28px);
+  }
+
+  p {
+    @include font-size(18px);
+    font-weight: bold;
+  }
+
+  .parsley-errors-list li {
+    color: #fff;
+    margin-bottom: $b / 4;
+  }
+
+}

@@ -310,7 +310,7 @@
 }
 
 
-
+.parsley-error,
 .icon__error {
   background-image: url('../../images/png/error.png');
   background-repeat: no-repeat;
@@ -482,8 +482,8 @@
 .icon__honeycomb--bottom-left {
   background-image: url('../../images/png/honeycomb--bottom-left.png');
   background-repeat: no-repeat;
-  width: 602px;
-  height: 319px;
+  width: 760px;
+  height: 297px;
   display: inline-block;
  *display: inline;
   zoom: 1;
@@ -494,8 +494,8 @@
 .icon__honeycomb--top-right {
   background-image: url('../../images/png/honeycomb--top-right.png');
   background-repeat: no-repeat;
-  width: 602px;
-  height: 319px;
+  width: 920px;
+  height: 477px;
   display: inline-block;
  *display: inline;
   zoom: 1;
@@ -670,7 +670,7 @@
 }
 
 
-
+.parsley-success,
 .icon__success {
   background-image: url('../../images/png/success.png');
   background-repeat: no-repeat;
