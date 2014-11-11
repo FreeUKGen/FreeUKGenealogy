@@ -28,7 +28,9 @@
     z-index: 3;
   }
   .icon__freeukgen {
-    @include sizeSvgIcon(485.837px, 87.106px);
+    @include vendor(background-size, floor(485.837px / 1.15), floor(87.106px / 1.15));
+    // we're keep the original height / width dimensions in here for when
+    // the browser doesn't support background-size
     width: 486px;
     height: 88px;
   }
