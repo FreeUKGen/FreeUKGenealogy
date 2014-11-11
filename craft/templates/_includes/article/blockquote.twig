@@ -1,13 +1,15 @@
 {#
  # Blockquote block type
  #}
-<blockquote class="article__blockquote  blockquote  grid__item  {{ block.width }}  palm-one-whole  text--{{ block.align }}  text--{{ block.colour }}">
-  {{ block.quote }}
-  {% if block.sourceHeading != '' and block.sourceUrl != '' %}
-    <footer class="source"><a href="{{ block.sourceUrl }}">{{ block.sourceHeading }}</a></footer>
-  {% elseif block.sourceHeading != '' %}
-    <footer class="source">{{ block.sourceHeading }}</footer>
-  {% elseif block.sourceUrl != '' %}
-    <footer class="source">{{ block.sourceUrl }}</footer>
-  {% endif %}
-</blockquote>
+<section class="article__blockquote  grid__item  {{ block.width }}  palm-one-whole">
+  <blockquote>
+    {{ block.quote }}
+    {% if block.sourceHeading != '' and block.sourceUrl != '' %}
+      <footer class="source"><a href="{{ block.sourceUrl }}">{{ block.sourceHeading }}</a></footer>
+    {% elseif block.sourceHeading != '' %}
+      <footer class="source">{{ block.sourceHeading }}</footer>
+    {% elseif block.sourceUrl != '' %}
+      <footer class="source">{{ block.sourceUrl }}</footer>
+    {% endif %}
+  </blockquote>
+</section>

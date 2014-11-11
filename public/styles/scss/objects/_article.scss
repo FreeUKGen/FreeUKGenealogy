@@ -145,24 +145,29 @@
   }
 
   // colours
-  .article__background--grey {
-    background-color: #e7e7e7;
-  }
+  .article__background--grey  { background-color: #e7e7e7; }
+  .article__background--white { background-color: #fff;    }
   .article__background--magenta {
     background-color: $magenta;
     &, * {
       color: #fff;
+      a {
+        color: #fff;
+        text-decoration: underline;
+        &:active,
+        &:hover { color: #fff; }
+      }
     }
   }
   .article__background--teal {
     background-color: $teal;
     &, * {
       color: #fff;
-    }
-  }
-  .article__background--white {
-    background-color: #fff;
-    &, * {
-      color: #fff;
+      a {
+        color: #fff;
+        text-decoration: underline;
+        &:active,
+        &:hover { color: #fff; }
+      }
     }
   }
