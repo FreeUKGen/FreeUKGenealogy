@@ -75,4 +75,39 @@
 
   });
 
+
+  /**
+   * Scroll stickyness for header - only for desktops
+   */
+  // make scroller and scene and add as default
+  var scroller    = new ScrollMagic(),
+      headerScene = new ScrollScene({ offset: 20 });
+
+  // make a media query
+  var scrollerMq = makeMq('lapAndUp');
+
+  // make a function to handle it
+  var handleScrollerMQ = function(mql) {
+
+    if (mql.matches)
+    {
+      headerScene.setPin(".site__header");
+      headerScene.setClassToggle("body", "sticky");
+      headerScene.addTo(scroller);
+    }
+    else
+    {
+      headerScene.remove();
+      headerScene.removePin();
+      headerScene.removeTween();
+    }
+
+  }
+
+  // add a listener to it
+  scrollerMq.addListener(handleScrollerMQ);
+
+  // send our mq to be handled
+  handleScrollerMQ(scrollerMq);
+
 })();

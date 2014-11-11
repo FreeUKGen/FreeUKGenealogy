@@ -81,7 +81,7 @@
   /**
    * Off canvas nav
    */
-  .site__header__nav {
+  .site__header__palm-nav {
     z-index: 1;
 
     ul {
@@ -103,6 +103,7 @@
     }
 
   }
+  .site__header__nav { display: none; }
 
 
 

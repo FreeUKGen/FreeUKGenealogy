@@ -56,30 +56,12 @@
 </head>
 <body ontouchstart class="offcanvas  offcanvas--rev">
 
-  <div class="site__header__nav  offcanvas__secondary">
-    <nav role="navigation">
-      <ul>
-        {% for item in header.menu %}
-        {% switch item.type %}
-          {% case 'internalLink' %}
-            {% set page = item.internalLink.first %}
-            {% if page | length %}
-            <li{% if page.url == craft.request.url %} class="active"{% endif %}>
-              <a href="{{ page.url }}">{{ page.title }}</a>
-            </li>
-            {% endif %}
-
-          {% case 'externalLink' %}
-            <li>
-              <a href="{{ item.linkUrl }}" target="_blank">{{ item.label }}</a>
-            </li>
-        {% endswitch %}
-        {% endfor %}
-
-        <li class="site__header__nav--palm-search"><a href="{{ url('search') }}">Search</a></li>
-      </ul>
-    </nav>
-  </div>
+  <nav class="site__header__palm-nav  offcanvas__secondary">
+    <ul>
+      {% include '_includes/navs/main' %}
+      <li><a href="{{ url('search') }}">Search</a></li>
+    </ul>
+  </nav>
 
   <div class="offcanvas__primary">
 
@@ -91,6 +73,12 @@
         </button>
 
         <a href="/" class="site__header__logo  icon__freeukgen"><h1 class="accessibility">FreeReg</h1></a>
+
+        <nav class="site__header__nav" role="navigation">
+          <ul>
+            {% include '_includes/navs/main' %}
+          </ul>
+        </nav>
       </div>
     </header>
 
