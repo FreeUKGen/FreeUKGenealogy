@@ -18,11 +18,7 @@ return array(
   '*' => array(
     'addTrailingSlashesToUrls' => true,
     'defaultImageQuality' => 100,
-    'omitScriptNameInUrls' => true,
-    'usePathInfo' => true,
     'pageTrigger' => 'page-',
-    'backupDbOnUpdate' => true,
-    'restoreDbOnUpdateFailure' => true
   ),
   '.net' => array( 'devMode' => true ),
   '.dev' => array(
