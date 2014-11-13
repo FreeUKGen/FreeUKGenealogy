@@ -26,5 +26,5 @@ return array(
     'requireMatchingUserAgentForSession' => false
   ),
   '.xip.io' => array( 'devMode' => false ),
-  '.org.uk' => array( 'devMode' => false )
+  '.org.uk' => array( 'devMode' => true )
 );
