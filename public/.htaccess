@@ -191,6 +191,10 @@ FileETag None
 # Start rewrite engine
 # ----------------------------------------------------------------------
 <IfModule mod_rewrite.c>
+	# Options +FollowSymlinks
+	RewriteEngine On
+	# RewriteBase /
+
 
 	# Force remove www's, respecting protocol
 	# RewriteCond %{HTTP_HOST} ^www\.
@@ -199,7 +203,7 @@ FileETag None
 	# RewriteRule ^ %1%3%{REQUEST_URI} [R=301,L]
 
 
-	# # Force trailing slashes
+	# Force trailing slashes
 	# RewriteCond %{REQUEST_METHOD} !=POST
 	# RewriteCond %{REQUEST_FILENAME} !-f
 	# RewriteCond %{REQUEST_FILENAME} !-d
