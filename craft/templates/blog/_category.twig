@@ -4,8 +4,6 @@
 
 {% set wrapWithCombs = true %}
 
-{% set category = craft.categories.group('blog').slug(category).first() %}
-
 {% if not category %}
   {% exit 404 %}
 {% endif %}
