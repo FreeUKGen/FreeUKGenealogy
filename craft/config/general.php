@@ -8,9 +8,9 @@
  */
 
 // set the url to be dynamic
-// $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://';
-// $base_url = $protocol . $_SERVER['HTTP_HOST'] . '/';
-// define('CRAFT_SITE_URL', $base_url);
+$protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://';
+$base_url = $protocol . $_SERVER['HTTP_HOST'] . '/';
+define('CRAFT_SITE_URL', $base_url);
 
 // set some defaults
 
