@@ -191,10 +191,6 @@ FileETag None
 # Start rewrite engine
 # ----------------------------------------------------------------------
 <IfModule mod_rewrite.c>
-	Options +FollowSymlinks
-	RewriteEngine On
-	RewriteBase /
-
 
 	# Force remove www's, respecting protocol
 	RewriteCond %{HTTP_HOST} ^www\.
