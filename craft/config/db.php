@@ -23,10 +23,10 @@ return array(
     'password' => 'QvM7c7TAOPx29fVrvc5w6JgG',
     'database' => 'freeukgenealogy'
   ),
-  '.co.uk' => array(
+  '.org.uk' => array(
     'server' => '127.0.0.1',
-    'user' => 'deploy',
-    'password' => 'QvM7c7TAOPx29fVrvc5w6JgG',
-    'database' => 'freeukgenealogy'
+    'user' => 'craft',
+    'password' => 'MNOvMej6Cno3t6tjifS+Uw',
+    'database' => 'craft'
   )
 );
