@@ -1,14 +1,14 @@
 #------------------- Start Password Protect Block -------------------
-SetEnvIfNoCase Host (.*\.)?supercooldesign.net dev_site
-# path to .htpasswd, must be readable by apache, check permissions on .htpasswd if it won't accept your password
-AuthUserFile /srv/auth/.htpasswd-sc
-AuthType Basic
-AuthName "This site is in development, please enter your password"
-Require valid-user
-Order Allow,Deny
-Allow from All
-Deny from env=dev_site
-Satisfy Any
+# SetEnvIfNoCase Host (.*\.)?supercooldesign.net dev_site
+# # path to .htpasswd, must be readable by apache, check permissions on .htpasswd if it won't accept your password
+# AuthUserFile /srv/auth/.htpasswd-sc
+# AuthType Basic
+# AuthName "This site is in development, please enter your password"
+# Require valid-user
+# Order Allow,Deny
+# Allow from All
+# Deny from env=dev_site
+# Satisfy Any
 #------------------- End Password Protect Block -------------------
 
 
