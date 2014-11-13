@@ -17,6 +17,8 @@ define('CRAFT_SITE_URL', $base_url);
 return array(
   '*' => array(
     'addTrailingSlashesToUrls' => true,
+    'omitScriptNameInUrls' => true,
+    'usePathInfo' => true,
     'defaultImageQuality' => 100,
     'pageTrigger' => 'page-',
   ),
