@@ -49,9 +49,13 @@
 {% if output is defined and entry.hideSubNav != '1' %}
   {% if wrap is defined and wrap == true %}
     <aside class="grid__item  one-third  palm-one-whole  float--right">
-      {{ output }}
+      <div class="islet  islet--bordered">
+        {{ output }}
+      </div>
     </aside>
   {% else %}
-    {{ output }}
+    <div class="islet  islet--bordered">
+      {{ output }}
+    </div>
   {% endif %}
 {% endif %}

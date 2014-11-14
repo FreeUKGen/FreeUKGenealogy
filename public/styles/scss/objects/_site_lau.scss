@@ -97,15 +97,15 @@
  * Site footer
  */
 .site__footer {
+
+  border-top: 0;
+
   .icon__honeycomb--bottom-left {
-    min-height: 300px;
+    min-height: 180px;
     background-position: left bottom;
-    padding-top: $b * 4;
   }
+
 }
-  .site__footer--has-honey {
-    border-top: 0;
-  }
 
   .site__footer__nav {
 

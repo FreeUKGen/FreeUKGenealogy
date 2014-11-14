@@ -2,8 +2,6 @@
 
 {% set titleBarEntry = craft.entries.section('blog').first() %}
 
-{% set wrapWithCombs = true %}
-
 {% set activeAuthor = craft.users.username(username).first() %}
 
 {% if not activeAuthor %}
