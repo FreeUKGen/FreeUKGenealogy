@@ -5,202 +5,361 @@ class SproutForms_EntriesController extends BaseController
 {
 	/**
 	 * Allow anonymous execution
-	 *
+	 * 
 	 * @var bool
 	 */
-	public $allowAnonymous = true;
+	protected $allowAnonymous = array('actionSaveEntry');
+	
+	public $form;
 
 	/**
 	 * Process form submission
-	 *
+	 * 
 	 * @return void
 	 */
 	public function actionSaveEntry()
-	{
-		// pre $_POST processing hook
-		craft()->plugins->call('sproutFormsPrePost');
-
-		// if no $_POST, throws 400
+	{	
 		$this->requirePostRequest();
 
-		// get form w/ fields
-		if ( ! $formRecord = SproutForms_FormRecord::model()
-		->with('field')
-		->find('t.handle=:handle', array(':handle' => craft()->request->getPost('handle'))))
+		$formHandle = craft()->request->getRequiredPost('handle');
+		$this->form = craft()->sproutForms_forms->getFormByHandle($formHandle);
+
+		if (!isset($this->form)) 
 		{
-			craft()->user->setFlash('error', Craft::t('Error retrieving form.'));
-			if (craft()->request->isAjaxRequest()) {
+			throw new Exception(Craft::t('No form exists with the handle “{handle}”', array('handle' => $formHandle)));
+		}
 
-				$redirectUrl = craft()->request->getPost('redirect');
+		$oldFieldContext = craft()->content->fieldContext;
+		$oldContentTable = craft()->content->contentTable;
 
-				if ($redirectUrl === null)
+		craft()->content->fieldContext = $this->form->getFieldContext();
+		craft()->content->contentTable = $this->form->getContentTable();
+
+		$entry = $this->_getEntryModel();
+
+		// Our SproutForms_EntryModel requires that we assign it a SproutForms_FormModel
+		$entry->formId = $this->form->id;
+
+		// Populate the entry with post data
+		// @TODO - This function doesn't update our $entry variable, why?
+		$this->_populateEntryModel($entry);
+
+		// Swap out any dynamic variables for our notifications
+		$this->form->notificationRecipients = craft()->templates->renderObjectTemplate($this->form->notificationRecipients, $entry);
+		$this->form->notificationSubject = craft()->templates->renderObjectTemplate($this->form->notificationSubject, $entry);
+		$this->form->notificationSenderName = craft()->templates->renderObjectTemplate($this->form->notificationSenderName, $entry);
+		$this->form->notificationSenderEmail = craft()->templates->renderObjectTemplate($this->form->notificationSenderEmail, $entry);
+		$this->form->notificationReplyToEmail = craft()->templates->renderObjectTemplate($this->form->notificationReplyToEmail, $entry);
+
+		if (craft()->sproutForms_entries->saveEntry($entry)) 
+		{	
+			if (craft()->request->isAjaxRequest())
+			{
+				$return['success'] = true;
+
+				$this->returnJson($return);
+			}
+			else
+			{
+				// Only send notification email for front-end submissions
+				if (!craft()->request->isCpRequest()) 
 				{
-					$redirectUrl = '/'.craft()->request->getPath();
+					$this->_notifyAdmin($this->form, $entry);
 				}
-
-				$this->returnJson(array(
-					'error'    => true,
-					'success'  => false,
-					'message'  => Craft::t('Error retrieving form.'),
-					'redirectUrl' => $redirectUrl
-				));
-
-			} else {
+				
+				craft()->userSession->setNotice(Craft::t('Entry saved.'));
+				
+				// Store our new entry so we can recreate the Entry object on our thank you page
+				$_SESSION['lastEntryId'] = $entry->id;
+				
 				$this->redirectToPostedUrl();
 			}
 		}
-
-		// Don't worry about these fields when we append our field namespaces
-		$adminFields = array('action', 'redirect', 'handle');
-
-		// These will be the fields we'll want to validate & save
-		$fieldsToSave = array();
-
-		foreach (craft()->request->getPost() as $key => $value)
-		{
-			if ( ! in_array($key, $adminFields) )
-			{
-				// append field namespace
-				if ( ! preg_match('/^formId\d+_/', $key) )
-				{
-					$fieldsToSave['formId' . $formRecord->id . '_' . $key] = $value;
-					$_POST['formId' . $formRecord->id . '_' . $key] = $value;
-				}
-			}
-		}
-
-		$contentRecord = new SproutForms_ContentRecord();
-
-		foreach ($contentRecord->attributes as $column => $value)
-		{
-			// process only the field was submitted
-			$field = isset($fieldsToSave[$column]) ? $fieldsToSave[$column] : null;
-			if ($field)
-			{
-				if (is_array($field))
-				{
-					$field = json_encode($field);
-				}
-				$contentRecord->$column = $field;
-			}
-		}
-
-		$contentRecord->formId = $formRecord->id;
-		$contentRecord->_setRules($fieldsToSave);
-
-		if ($contentRecord->save())
-		{
-			// Send an email with the form information
-			$this->_notifyAdmin($formRecord, craft()->sproutForms->getEntryById($contentRecord->id));
-
-	    	craft()->user->setFlash('notice', Craft::t('Form successfully submitted.'));
-		    if (craft()->request->isAjaxRequest()) {
-
-		    	$redirectUrl = craft()->request->getPost('redirect');
-
-					if ($redirectUrl === null)
-					{
-						$redirectUrl = '/'.craft()->request->getPath();
-					}
-
-					$this->returnJson(array(
-						'error'    => false,
-						'success'  => true,
-						'message'  => Craft::t('Form successfully submitted.'),
-						'redirectUrl' => $redirectUrl
-					));
-				} else {
-					$this->redirectToPostedUrl();
-				}
-		}
 		else
-		{
-			// @TODO - Since we are namespacing our fields, we can't easily
-			// edit the private Errors messages in our form model so we rebuild
-			// our error messages here and strip out the reference they have to
-			// their form IDs.  This limits how our errors can be accessed in
-			// our templates to the 'errors' object and doesn't allow a user
-			// to use the functions associated with the record/model but it
-			// gets us the right messages until we can find a better way to
-			// handle this
-			$errors = array();
-			$formIdNamespaceVariable = "formId" . $contentRecord->formId . "_";
-			$formIdNamespaceMessage = "Form Id" . $contentRecord->formId . " ";
-
-			foreach ($contentRecord->errors as $key => $errorArray) {
-
-				// $key = str_replace($formIdNamespaceVariable, "", $key);
-
-				foreach ($errorArray as $_key => $error) {
-					$error = str_replace($formIdNamespaceMessage, "", $error);
-					$errorArray[$_key] = $error;
-				}
-				$errors[$key] = $errorArray;
-
+		{	
+			if (craft()->request->isAjaxRequest())
+			{
+				$this->returnJson(array(
+					'errors' => $entry->getErrors(),
+				));
 			}
+			else
+			{
+				craft()->content->fieldContext = $oldFieldContext;
+				craft()->content->contentTable = $oldContentTable;
 
-			// make errors available to variable
-			craft()->user->setFlash('error', Craft::t('Error submitting form.'));
-			craft()->user->setFlash('errors', $errors);
+				if (craft()->request->isCpRequest()) 
+				{
+					// make errors available to variable
+					craft()->userSession->setError(Craft::t('Couldn’t save entry.'));
 
-			// make errors available to template
-			craft()->urlManager->setRouteVariables(array(
-				'error' => Craft::t('Error submitting form.'),
-				'errors' => $errors,
-				'entry' => craft()->request->getPost()
-			));
+					// Store this Entry Model in a variable in our Service layer
+					// so that we can access the error object from our actionEditEntryTemplate() method
+					craft()->sproutForms_forms->activeCpEntry = $entry;
+
+					// Return the form as an 'entry' variable if in the cp
+					craft()->urlManager->setRouteVariables(array(
+						'entry' => $entry
+					));
+				}
+				else
+				{
+					if (craft()->sproutForms_entries->fakeIt) 
+					{
+						$this->redirectToPostedUrl();
+					}
+					else
+					{
+						// Store this Entry Model in a variable in our Service layer
+						// so that we can access the error object from our displayForm() variable 
+						craft()->sproutForms_forms->activeEntries[$this->form->handle] = $entry;
+						
+						// Return the form using it's name as a variable on the front-end
+						craft()->urlManager->setRouteVariables(array(
+							$this->form->handle => $entry
+						));
+					}
+				}
+			}	
+			
 		}
 	}
 
 	/**
-	 * Notify admin
-	 *
-	 * @param object $formRecord
-	 * @param object $contentRecord
-	 * @return bool
+	 * Delete an entry.
+	 * 
+	 * @return void
 	 */
-	private function _notifyAdmin($formRecord = FALSE, $contentRecord = FALSE)
+	public function actionDeleteEntry()
+	{	
+		$this->requirePostRequest();
+		
+		// Get the Entry
+		$entryId = craft()->request->getRequiredPost('entryId');
+		$entry = craft()->sproutForms_entries->getEntryById($entryId);
+		
+		// @TODO - handle errors
+		$success = craft()->sproutForms_entries->deleteEntry($entry);
+
+		$this->redirectToPostedUrl($entry);
+	}
+
+	/**
+	 * Fetch or create a SproutForms_EntryModel
+	 *
+	 * @access private
+	 * @throws Exception
+	 * @return SproutForms_EntryModel
+	 */
+	private function _getEntryModel()
 	{
-		if ( ! $formRecord || ! $contentRecord)
+		$entryId = craft()->request->getPost('entryId');
+
+		if ($entryId)
 		{
-			return FALSE;
+			$entry = craft()->sproutForms_entries->getEntryById($entryId);
+
+			if (!$entry)
+			{
+				throw new Exception(Craft::t('No entry exists with the ID “{id}”', array('id' => $entryId)));
+			}
+		}
+		else
+		{
+			$entry = new SproutForms_EntryModel();
 		}
 
-		// notify if distribution list is set up
-		$distro_list = array_unique(array_filter(explode(',', $formRecord->email_distribution_list)));
-		if ( ! empty($distro_list))
-		{
-			// prep data for view
-			$data = array();
+		return $entry;
+	}
 
-			foreach ($contentRecord->form->field as $k=>$v)
+	/**
+	 * Populate a SproutForms_EntryModel with post data
+	 *
+	 * @access private
+	 * @param SproutForms_EntryModel $entry
+	 */
+	private function _populateEntryModel(SproutForms_EntryModel $entry)
+	{
+		$entry->formId = $this->form->id;
+		$entry->ipAddress = craft()->request->getUserHostAddress();
+		$entry->userAgent = craft()->request->getUserAgent();
+
+		// Set the entry attributes, defaulting to the existing values for whatever is missing from the post data
+		$fieldsLocation = craft()->request->getParam('fieldsLocation', 'fields');
+		$entry->setContentFromPost($fieldsLocation);
+		$entry->setContentPostLocation($fieldsLocation);
+	}
+	
+	/**
+	 * Notify admin
+	 * 
+	 * @param object $form
+	 * @param object $field
+	 * @return bool
+	 */
+	private function _notifyAdmin(SproutForms_FormModel $form, SproutForms_EntryModel $entry)
+	{	
+		// Get our recipients
+		$recipients = explode(',', $form->notificationRecipients);
+		$recipients = array_map('trim', $recipients);
+		$recipients = array_unique($recipients);
+		
+		if ($recipients) 
+		{
+			$email = new EmailModel();
+
+			// $entryCpUrl = craft()->config->get('cpTrigger') . "/sproutforms/entries/edit/" . $entry->id;
+
+			$fields = $entry->getFieldLayout()->getFields();
+
+			$settings = craft()->plugins->getPlugin('sproutforms')->getSettings();
+			$templateFolderOverride = $settings->templateFolderOverride;
+
+			$emailTemplate = craft()->path->getPluginsPath() . 'sproutforms/templates/_special/';
+
+			if ($templateFolderOverride) 
 			{
-				$data[$v->name] = nl2br($v->getContent()); // new lines to <br/>
+				$emailTemplateFile = craft()->path->getSiteTemplatesPath() . $templateFolderOverride . "/email";
+
+				foreach (craft()->config->get('defaultTemplateExtensions') as $extension) 
+				{
+					if (IOHelper::fileExists($emailTemplateFile . "." . $extension)) 
+					{
+						$emailTemplate = craft()->path->getSiteTemplatesPath() . $templateFolderOverride . "/";
+					}
+				}
 			}
 
-			$email = new EmailModel();
-      		$email->htmlBody = craft()->templates->render('sproutforms/emails/default', array(
-				'data' => $data,
-				'form' => $formRecord->name,
-				'viewFormEntryUrl' => craft()->config->get('cpTrigger') . "/sproutforms/edit/" . $formRecord->id . "#tab-entries"
+			// Set our Sprout Forms Email Template path
+			craft()->path->setTemplatesPath($emailTemplate);
+			
+			$email->htmlBody = craft()->templates->render('email', array(
+				'formName' => $form->name,
+				// 'entryCpUrl' => $entryCpUrl,
+				'fields' => $fields,
+				'element' => $entry
 			));
-			$email->subject = 'A form has been submitted on your website';
-			$email->htmlBody = html_entity_decode($email->htmlBody); // mainly for <br/>
 
-			$error = false;
-			foreach ($distro_list as $email_address)
+			craft()->path->setTemplatesPath(craft()->path->getCpTemplatesPath());
+
+			// @TODO - create fallback text email
+			// $email->body     = $form->body;
+
+			$post = (object) $_POST;
+
+			// Set the "from" information.
+			$email->fromEmail = $form->notificationSenderEmail;
+			$email->fromName  = $form->notificationSenderName;
+			$email->subject   = $form->notificationSubject;
+
+			// Has a custom subject been set for this form?
+			if ($form->notificationSubject) 
 			{
-				try
+				try {
+					$email->subject = craft()->templates->renderString($form->notificationSubject, array(
+						'entry' => $post
+					));
+				}
+				catch (\Exception $e) {
+					// do nothing;  retain default subj
+				}
+			}
+			
+			// custom replyTo has been set for this form
+			if ($form->notificationReplyToEmail) 
+			{
+				try {
+
+					$email->replyTo = craft()->templates->renderString($form->notificationReplyToEmail, array(
+						'entry' => $post
+					));
+					
+					// we must validate this before attempting to send; 
+					// invalid email will throw an error/fail to send silently
+					if ( ! $this->_validEmail($email->replyTo) ) 
+					{
+						$email->replyTo = null;
+					}
+				}
+				catch (\Exception $e) {
+					// do nothing;  replyTo will not be included
+				}
+			}
+			
+			$error = false;
+			foreach ($recipients as $emailAddress) 
+			{	
+				// Do we need to swap in any email addresses that 
+				// were submitted with the form?
+				$email->toEmail = craft()->templates->renderString($emailAddress, array(
+					'entry' => $post
+				));
+				
+				// we must validate this before attempting to send;
+				// invalid email will throw an error/fail to send silently
+				if ( ! $this->_validEmail($email->toEmail) ) 
 				{
-					$email->toEmail = trim($email_address);
+					continue;
+				}
+				
+				try {
 					$res = craft()->email->sendEmail($email);
 				}
-				catch(\Exception $e)
-				{
+				catch (\Exception $e) {
 					$error = true;
 				}
 			}
+
 			return $error;
 		}
+	}
+	
+	/**
+	 * Validate email address
+	 * 
+	 * @param  string $email recipient list email
+	 * @return bool          true/false
+	 */
+	private function _validEmail($email) 
+	{
+		return preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email);
+	}
+
+	/**
+	 * Route Controller for Edit Entry Template
+	 *
+	 * @param array $variables
+	 * @throws HttpException
+	 * @throws Exception
+	 */
+	public function actionEditEntryTemplate(array $variables = array())
+	{
+		$entryId = craft()->request->getSegment(4);
+
+		if (craft()->sproutForms_forms->activeCpEntry)
+		{
+			$entry = craft()->sproutForms_forms->activeCpEntry;
+		}
+		else
+		{
+			$entry = craft()->sproutForms_entries->getEntryById($entryId);
+		}
+		
+		$form = craft()->sproutForms_forms->getFormById($entry->formId);
+
+		// Set our Entry's Field Context and Content Table
+		craft()->content->fieldContext = $form->getFieldContext();
+		craft()->content->contentTable = $form->getContentTable();
+		
+		$variables['form']    = $form;
+		$variables['entryId'] = $entryId;
+
+		// This is our element, so we know where to get the field values
+		$variables['entry']   = $entry;
+
+		// Get the fields for this entry
+		$variables['tabs'] = $entry->getFieldLayout()->getTabs();
+
+		$this->renderTemplate('sproutforms/entries/_edit', $variables);
 	}
 }
