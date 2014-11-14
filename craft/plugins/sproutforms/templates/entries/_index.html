@@ -1,0 +1,64 @@
+{% set entries = craft.sproutforms.getAllEntries(formId) %}
+{% set fields = craft.sproutforms.getFields(formId) %}
+
+<div id="tab-entries">
+
+	{% if entries|length %}
+	
+	<div class="entries-container">
+
+		<table class="data" id="entries">
+			<thead>				
+				<th class="date">Date</th>				
+				{% for field in fields %}
+				<th>{{ field.name }}</th>
+				{% endfor %}				
+				<td class="thin"></td>
+			</thead>		
+			<tbody>				
+				{% for entry in entries %}
+				<tr data-id="{{ entry.id }}" data-name="entry from {{ entry.dateCreated|date('F d, Y h:m A')|t }}" >
+					<td>
+						<a href="{{ url('sproutforms/entries/view/') }}/{{ entry.id }}">
+						<strong>{{ entry.dateCreated|date('F d, Y g:i A') }}</strong>
+						</a> <span style="text-transform:uppercase;font-size:10px;">{{ entry.form.name }}</span>
+					</td>					
+					{% for field in fields %}
+					<td class="field">
+						{{ craft.sproutforms.getFieldEntry(formId,field,entry) | raw }}
+					</td>
+					{% endfor %}					
+					<td class="thin"><a class="delete icon" title="{{ 'Delete'|t }}"></a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	{% else %}
+
+	<div style="width:40%;">
+
+	 	<h2>Publish your form and begin sharing!</h2>
+
+	 	<p>Looks like you have a form, but need to get the word out. To publish your form on your website, refer to the quick code snippets on the Publish tab, or to the docs for a more comprehensive overview of how to customize your forms.</p>
+
+	 	<div class="buttons"> 
+			<a class="btn submit icon" href="#" onclick="jQuery('#tab-formPublish').click();return false;" >Publish Your Form &raquo;</a>
+		</div>
+
+	</div>
+
+	{% endif %}
+
+</div>
+
+
+{% set js %}
+	new Craft.AdminTable({
+		tableSelector: '#entries',
+		noObjectsSelector: '#noentries',
+		deleteAction: 'sproutForms/content/deleteContent'
+	});
+{% endset %}
+{% includeJs js %}

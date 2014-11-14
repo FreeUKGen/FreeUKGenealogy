@@ -5,103 +5,376 @@ class SproutFormsVariable
 {
 	/**
 	 * Errors for public side validation
-	 * 
+	 *
 	 * @var array
 	 */
 	public static $errors;
 
-	public $settings;
-	public $fields;
-	public $templates;
-	public $namespace;
-	public $isNakedField;
-	
 	/**
 	 * Plugin Name
-	 * Make your plugin name available as a variable 
+	 * Make your plugin name available as a variable
 	 * in your templates as {{ craft.YourPlugin.name }}
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getName()
 	{
 		$plugin = craft()->plugins->getPlugin('sproutforms');
-		return $plugin->getName();
+	    return $plugin->getName();
 	}
-	
+
 	/**
 	 * Get plugin version
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getVersion()
 	{
 		$plugin = craft()->plugins->getPlugin('sproutforms');
-		return $plugin->getVersion();
+	    return $plugin->getVersion();
 	}
-	
+
+	/**
+     * Get a specific form. If no form is found, returns null
+     *
+     * @param  int   $id
+     * @return mixed
+     */
+    public function getFormById($formId)
+    {
+    	return craft()->sproutForms->getFormById($formId);
+    }
+
+	/**
+	 * Get a form field given field id
+	 *
+	 * @param int $fieldId
+	 * @return obj
+	 */
+	public function getFieldById($fieldId)
+	{
+		$fieldModel = craft()->sproutForms_field->getFieldById($fieldId);
+
+		// Remove our namespace so the user can use their chosen handle
+		$handle = craft()->sproutForms->adjustFieldName($fieldModel, 'human');
+
+		if (isset($handle))
+		{
+			$fieldModel->handle = $handle;
+		}
+
+		$available_validations = craft()->sproutForms_field->getValidationOptions();
+		$field_validations = explode(',', $fieldModel->validation);
+		$fieldModel->validation = $field_validations;
+
+		// if all available validations are in current validation, we'll set 'all' selected
+		if(array_intersect($available_validations, $field_validations) == $available_validations)
+		{
+			$fieldModel->validation = array();
+		}
+
+		return $fieldModel;
+	}
+
+	/**
+	 * Get a form given associated field id
+	 *
+	 * @param int $fieldId
+	 * @return obj
+	 */
+	public function getFormByFieldId($params)
+	{
+		if( ! isset($params['fieldId']))
+		{
+			return null;
+		}
+
+		$form = craft()->sproutForms->getFormByFieldId($params['fieldId']);
+
+		if(isset($params['idOnly']) && $params['idOnly'] == true)
+		{
+			return $form->id;
+		}
+
+		return $form;
+	}
+
+	/**
+	 * Get form fields for specified form
+	 *
+	 * @param int $formId
+	 * @return array
+	 */
+	public function getFields($formId)
+	{
+		$fields = craft()->sproutForms->getFields($formId);
+
+		foreach ($fields as $key => $value) {
+
+			if ($handle = craft()->sproutForms->adjustFieldName($value, 'human'))
+			{
+				$fields[$key]['handle'] = $handle;
+			}
+
+		}
+
+		return $fields;
+	}
+
+	/**
+	 * Return field entry for display in entries table
+	 *
+	 * @param int $formId
+	 * @param int $field
+	 * @param obj $entry SproutForms_ContentEntry
+	 */
+	public function getFieldEntry($formId, $field, $entry)
+	{
+		$field_name = "formId{$formId}_{$field->handle}";
+		$res = $entry->$field_name ? $entry->$field_name : '';
+		$json = json_decode($res);
+		if($json && ! is_int($json) && is_array($json))
+		{
+			$options_data = array();
+			foreach($json as $option_label => $option_value)
+			{
+			    // display label instead of value for readability
+    			if(isset($field->settings['options']) && is_array($field->settings['options']))
+    			{
+    			    foreach($field->settings['options'] as $option)
+    			    {
+    			        if(isset($option['value']) && in_array($option['value'], $json))
+    			        {
+    			            $json[array_search($option['value'], $json)] = $option['value'];
+    			            // $json[array_search($option['value'], $json)] = $option['label']; // uncomment if you'd rather display the label
+    			        }
+    			    }
+    			}
+			}
+			return implode(',', $json);
+		}
+
+		// display label instead of value for readability
+		if(isset($field->settings['options']) && is_array($field->settings['options']))
+		{
+		    foreach($field->settings['options'] as $option)
+		    {
+		        if(isset($option['value']) && $option['value'] == $res)
+		        {
+		            $res = $option['value'];
+		            // $res = $option['label']; // uncomment if you'd rather display the label
+		        }
+		    }
+		}
+		return str_replace(' ', '&nbsp;', $res);
+	}
+
+	/**
+	 * Return fields for display
+	 *
+	 * @param string $form_handle
+	 * @return array
+	 */
+	public function getFormFields($form_handle)
+	{
+		craft()->path->setTemplatesPath(craft()->path->getCpTemplatesPath());
+
+		$fields = array();
+
+		if( ! isset(self::$errors))
+		{
+			self::$errors = craft()->user->getFlash('errors');
+		}
+
+		if($formFields = craft()->sproutForms->getFieldsByFormHandle($form_handle))
+		{
+
+			foreach($formFields as $key => $fieldInfo)
+			{
+				// Remove our namespace so the user can use their chosen handle
+				$handle = craft()->sproutForms->adjustFieldName($fieldInfo, 'human');
+
+				$fields[$handle] = $this->_getFieldOutput($fieldInfo);
+			}
+		}
+
+
+
+		$fields['errors'] = $this->_getErrors($formFields);
+
+		craft()->path->setTemplatesPath(craft()->path->getSiteTemplatesPath());
+		return $fields;
+	}
+
+	/**
+	 * Return individual field output
+	 *
+	 * @param SproutForms_FieldRecord $fieldInfo
+	 * @return array
+	 */
+	private function _getFieldOutput($fieldInfo)
+	{
+	     // Remove our namespace so the user can use their chosen handle
+	    $handle = craft()->sproutForms->adjustFieldName($fieldInfo, 'human');
+
+	    // get the field type instance
+	    $fieldType = craft()->fields->getFieldType($fieldInfo->type);
+	    $fieldType->setSettings($fieldInfo->settings);
+
+	    // set output data
+	    $field['handle'] = $handle;
+	    $field['type'] = strtolower($fieldInfo->type);
+	    $field['input'] = $fieldType->getInputHtml($handle, craft()->request->getPost($fieldInfo->handle));
+	    $field['settings'] = $fieldInfo->settings;
+	    $field['validation'] = explode(',', $fieldInfo->validation);
+	    $field['required'] = in_array('required', $field['validation']) ? true : false;
+	    $field['instructions'] = $fieldInfo->instructions;
+	    $field['hint'] = isset($fieldInfo->settings['hint']) ? $fieldInfo->settings['hint'] : '';
+	    $field['label'] = $fieldInfo->name;
+	    $field['error'] = isset(self::$errors[$fieldInfo->handle]) && self::$errors[$fieldInfo->handle] ? '<div class="field-error">' . implode('<br/>', self::$errors[$fieldInfo->handle]) . '</div>' : '';
+
+	    // distinguish between input type="text" and textarea
+	    if($field['type'] == 'plaintext')
+	    {
+	         if($fieldType->getSettings()->multiline) // textfield
+	         {
+	             $field['type'] = 'textarea';
+	         }
+	    }
+
+	    return $field;
+	}
+
+	/**
+	 * Return array of errors
+	 *
+	 * @param arrahy $formFields
+	 * @return array
+	 */
+	private function _getErrors($formFields)
+	{
+	    $fieldErrors = array('all' => array());
+	    foreach($formFields as $field)
+	    {
+	        if(isset(self::$errors[$field->handle]) && self::$errors[$field->handle])
+	        {
+	           $fieldErrors[craft()->sproutForms->adjustFieldName($field, 'human')] = self::$errors[$field->handle];
+	        }
+	        else
+	       {
+	            $fieldErrors[craft()->sproutForms->adjustFieldName($field, 'human')] = '';
+	        }
+	    }
+
+	    if( ! empty($fieldErrors))
+	    {
+	        foreach($fieldErrors as $field => $errors)
+	        {
+	            if($errors)
+	            {
+	                foreach($errors as $error)
+	                {
+	                    $fieldErrors['all'][] = $error;
+	                }
+	            }
+	        }
+	    }
+
+	    return $fieldErrors;
+	}
+
+	public function getValidationOptions()
+	{
+		return craft()->sproutForms_field->getValidationOptions();
+	}
+
+	/**
+	 * Get all forms
+	 *
+	 * @return array
+	 */
+	public function getAllForms()
+	{
+		return craft()->sproutForms->getAllForms();
+	}
+
+	/**
+	 * Returns all entries for all forms
+	 *
+	 * @param int form id
+	 * @return array
+	 */
+	public function getAllEntries($formId)
+	{
+		return craft()->sproutForms->getEntries($formId);
+	}
+
+	/**
+	 * Get entry
+	 *
+	 * @param int $id
+	 */
+	public function getEntryById($id)
+	{
+		return craft()->sproutForms->getEntryById($id);
+	}
+
+	/**
+	 * Returns all installed fieldtypes.
+	 *
+	 * @return array
+	 */
+	public function getAllFieldTypes()
+	{
+		$include = array('Checkboxes', 'Dropdown', 'MultiSelect', 'PlainText', 'RadioButtons');
+		$fieldTypes = craft()->fields->getAllFieldTypes();
+		foreach($fieldTypes as $k=>$v)
+		{
+			if( ! in_array($k, $include))
+			{
+				unset($fieldTypes[$k]);
+			}
+		}
+		return FieldTypeVariable::populateVariables($fieldTypes);
+	}
+
 	/**
 	 * Returns a complete form for display in template
-	 * 
+	 *
 	 * @param string $form_handle
 	 * @return string
 	 */
-	public function displayForm($formHandle, $customSettings = null)
-	{	
-		$form = craft()->sproutForms_forms->getFormByHandle($formHandle);
-		$entry = craft()->sproutForms_entries->getEntryModel($form);
+	public function displayForm($form_handle, $customSettings = null)
+	{
+		if ( ! $formFields = $this->getFormFields($form_handle))
+		{
+			return '';
+		}
 
-		// Backup our field context and content table
-		$oldFieldContext = craft()->content->fieldContext;
-		$oldContentTable = craft()->content->contentTable;
+		craft()->path->setTemplatesPath(craft()->path->getPluginsPath() . 'sproutforms/templates/');
 
-		// Set our field content and content table to work with our form output
-		craft()->content->fieldContext = $form->getFieldContext();
-		craft()->content->contentTable = $form->getContentTable();
+		$fields = array();
+		foreach ($formFields as $key => $field)
+		{
+		    if($key == 'errors') continue;
+			$fields[] =  craft()->templates->render('_templates/field', array(
+					'field' => $field
+			));
+		}
 
-		$this->settings = craft()->plugins->getPlugin('sproutforms')->getSettings();
-		
-		// Set our Sprout Forms Front-end Form Template path
-		craft()->path->setTemplatesPath(craft()->path->getPluginsPath() . 'sproutforms/templates/_special/templates/');	
+		$actualForm = craft()->sproutForms->getFormByHandle($form_handle);
 
-		// Set our Sprout Forms support field classes folder
-		$fieldtypesFolder = craft()->path->getPluginsPath() . 'sproutforms/fields/';
-
-		// Create a list of the name, class, and file of fields we support 
-		$this->fields = craft()->sproutForms_fields->getSproutFormsFields($fieldtypesFolder);
-		
-		// Determine where our form and field template should come from
-		$this->templates = craft()->sproutForms_fields->getSproutFormsTemplates();
-		
-		// Set Tab template path
-		craft()->path->setTemplatesPath($this->templates['tab']);
-
-		// Build the HTML for our form tabs and fields
-		$bodyHtml = craft()->templates->render('tab', array(
-			'tabs'            => $form->getFieldLayout()->getTabs(),
-			'entry'           => $entry,
-			'supportedFields' => $this->fields,
-			'displaySectionTitles' => $form->displaySectionTitles,
-			'thirdPartySubmission' => ($form->submitAction) ? true : false
-		));
-
-		// Check if we need to update our Front-end Form Template Path
-		craft()->path->setTemplatesPath($this->templates['form']);
-
-		// Build our complete form
-		$formHtml = craft()->templates->render('form', array(
-			'form'   => $form,
-			'body'   => $bodyHtml,
-			'errors' => $entry->getErrors()
+		$form = craft()->templates->render('_templates/form', array(
+			'formHandle' => $actualForm->handle,
+			'formRedirectUri' => $actualForm->redirectUri,
+			'fields' => implode($fields),
+			'customSettings' => $customSettings,
+			'errors' => $formFields['errors']
 		));
 
 		craft()->path->setTemplatesPath(craft()->path->getSiteTemplatesPath());
 
-		// Reset our field context and content table to what they were previously
-		craft()->content->fieldContext = $oldFieldContext;
-		craft()->content->contentTable = $oldContentTable;
-		
-		return new \Twig_Markup($formHtml, craft()->templates->getTwig()->getCharset());
+		echo $form;
 	}
 
 	/**
@@ -110,205 +383,50 @@ class SproutFormsVariable
 	 * @param string $form_handle
 	 * @return string
 	 */
-	public function displayField($formFieldHandle)
+	public function displayField($form_field_handle)
 	{
-		list($formHandle, $fieldHandle) = explode('.', $formFieldHandle);
-		if (!$formHandle || !$fieldHandle) return '';
+	    craft()->path->setTemplatesPath(craft()->path->getCpTemplatesPath());
 
-		$form = craft()->sproutForms_forms->getFormByHandle($formHandle);
-		$entry = craft()->sproutForms_entries->getEntryModel($form);
+	    if( ! isset(self::$errors))
+	    {
+	        self::$errors = craft()->user->getFlash('errors');
+	    }
 
-		// Backup our field context and content table
-		$oldFieldContext = craft()->content->fieldContext;
-		$oldContentTable = craft()->content->contentTable;
+	    list($form_handle, $field_handle) = explode('.', $form_field_handle);
 
-		// Set our field content and content table to work with our form output
-		craft()->content->fieldContext = $form->getFieldContext();
-		craft()->content->contentTable = $form->getContentTable();
+	    if( ! $form_handle || ! $field_handle) return '';
+	    if( ! $field = craft()->sproutForms_field->getFieldByFormFieldHandle($form_handle, $field_handle)) return '';
 
-		// Determine where our form and field template should come from
-		$this->templates = craft()->sproutForms_fields->getSproutFormsTemplates();
-		craft()->path->setTemplatesPath($this->templates['field']);
+	    $field = $this->_getFieldOutput($field);
+	    craft()->path->setTemplatesPath(craft()->path->getPluginsPath() . 'sproutforms/templates/');
+	    $fieldOutput =  craft()->templates->render('_templates/field', array('field' => $field));
 
-		$fieldHtml = "";
+	    craft()->path->setTemplatesPath(craft()->path->getSiteTemplatesPath());
 
-		// @TODO - there's got to be a better way to do this
-		foreach ($form->getFieldLayout()->getFields() as $field) 
-		{	
-			if ($field->getField()->handle == $fieldHandle) 
-			{
-				// Build the HTML for our form field
-				$fieldHtml = craft()->templates->render('field', array(
-					'field'            => $field->getField(),
-					'required'         => $field->required,
-					'element'          => $entry,
-					'thirdPartySubmission' => ($form->submitAction) ? true : false
-				));
-				break;
-			}
-		}
-
-		craft()->path->setTemplatesPath(craft()->path->getSiteTemplatesPath());
-		
-		// Reset our field context and content table to what they were previously
-		craft()->content->fieldContext = $oldFieldContext;
-		craft()->content->contentTable = $oldContentTable;
-
-		return new \Twig_Markup($fieldHtml, craft()->templates->getTwig()->getCharset());
-	}
-
-	public function getFieldInfo(FieldModel $field, SproutForms_EntryModel $element)
-	{
-		// Set our Sprout Forms support field classes folder
-		$fieldtypesFolder = craft()->path->getPluginsPath() . 'sproutforms/fields/';
-
-		// Create a list of the name, class, and file of fields we support 
-		$this->fields = craft()->sproutForms_fields->getSproutFormsFields($fieldtypesFolder);
-
-		$fieldtype = craft()->fields->populateFieldType($field, $element);
-
-		// If we support our current fieldtype, render it
-		if (isset($this->fields[$field->type])) 
-		{
-			// Instantiate it
-			$class = __NAMESPACE__.'\\'.$this->fields[$field->type]['class'];
-			
-			// Make sure the our front-end Field Type class exists
-			if (!class_exists($class))
-			{	
-				require $this->fields[$field->type]['file'];
-			}
-
-			// Create a new instance of our Field Type
-			$frontEndField = new $class;
-
-			$fieldModel = $fieldtype->model;
-			$settings = $fieldtype->getSettings();
-
-			$postFields = craft()->request->getPost('fields');
-			$value = (isset($postFields[$field->handle]) ? $postFields[$field->handle] : "");
-			
-			// Determine where our form and field template should come from
-			$this->templates = craft()->sproutForms_fields->getSproutFormsTemplates();
-
-			// Set template path
-			craft()->path->setTemplatesPath($this->fields[$field->type]['templateFolder']);
-			
-			// Create the HTML for the input field
-			$input = $frontEndField->getInputHtml($fieldModel, $value, $settings);
-			
-			$this->namespace = $frontEndField->getNamespace();
-			$this->isNakedField = $frontEndField->isNakedField;
-
-			// Set template path back to default
-			craft()->path->setTemplatesPath(craft()->path->getPluginsPath() . 'sproutforms/templates/_special/templates/');	
-		}
-		else
-		{	
-			// Field Type is not supported
-			// @TODO - provide better error here pointing to docs on how to solve this.
-			$input = '<p class="error">' . Craft::t("The “".$field->type."” field is not supported by default to be output in front-end templates.") . '</p>';
-		}
-
-		// Identify PlainText and Textarea fields distinctly
-		if ($field->type == 'PlainText' && $field->settings['multiline'] == 1) 
-		{
-			$field->type = 'textarea';
-		}
-
-		// @TODO - improve naming and handling of this
-		$fieldInfo['namespace'] = $this->namespace;
-		$fieldInfo['isNakedField'] = $this->isNakedField;
-		$fieldInfo['type'] = $field->type;
-		$fieldInfo['input'] = new \Twig_Markup($input, craft()->templates->getTwig()->getCharset());
-
-		return $fieldInfo;
+	    echo $fieldOutput;
 	}
 
 	/**
-	 * Gets a specific form. If no form is found, returns null
+	 * Display message to user
 	 *
-	 * @param  int   $id
-	 * @return mixed
+	 * @return void
 	 */
-	public function getFormById($formId)
+	public function msg()
 	{
-		return craft()->sproutForms_forms->getFormById($formId);
+		$notice = craft()->user->getFlash('notice');
+		$error = craft()->user->getFlash('error');
+		echo $notice ? '<div class="notice">' . $notice . '</div>' : '';
+		echo $error ? '<div class="error">' . $error . '</div>' : '';
 	}
 
 	/**
-	 * Get all forms
-	 * 
-	 * @return array
+	 * Helper function for debugging inside twig templates
+	 *
+	 * @param mixed $msg
+	 * @return void
 	 */
-	public function getAllForms()
+	public function dump($msg)
 	{
-		return craft()->sproutForms_forms->getAllForms();
-	}
-
-	/**
-	 * Gets entry by ID
-	 * 
-	 * @param int $id
-	 * @return  SproutForms_EntryModel
-	 */
-	public function getEntryById($id)
-	{
-		return craft()->sproutForms_entries->getEntryById($id);
-	}
-
-	/**
-	 * Gets last entry submitted
-	 * 
-	 * @param  string $formHandle Form handle
-	 * @return SproutForms_EntryModel
-	 */
-	public function getLastEntry()
-	{
-		if (craft()->httpSession->get('lastEntryId')) 
-		{
-			$entryId = craft()->httpSession->get('lastEntryId');
-			$entry = craft()->sproutForms_entries->getEntryById($entryId);
-			
-			craft()->httpSession->destroy('lastEntryId');
-		}
-		
-		return (isset($entry)) ? $entry : null;
-	}
-
-	/**
-	 * Gets Form Groups
-	 * 
-	 * @param  int $id Group ID (optional)
-	 * @return array
-	 */
-	public function getAllFormGroups($id = null)
-	{
-		return craft()->sproutForms_groups->getAllFormGroups($id);
-	}
-
-	/**
-	 * Gets all forms in a specific group by ID
-	 * 
-	 * @param  int $id         Group ID
-	 * @return SproutForms_FormModel
-	 */
-	public function getFormsByGroupId($groupId)
-	{
-		return craft()->sproutForms_groups->getFormsByGroupId($groupId);
-	}
-
-	/**
-	 * Builds FieldType dropdown by grouping fields into to basic and advanced
-	 * 
-	 * 1) Basic fields we can output by default
-	 * 2) Advanced fields that need some love before outputting
-	 * 
-	 * @param  array $fieldTypes
-	 * @return array
-	 */
-	public function prepareFieldTypesDropdown($fieldTypes)
-	{
-		return craft()->sproutForms_fields->prepareFieldTypesDropdown($fieldTypes);
+		Craft::dump($msg);die();
 	}
 }
