@@ -203,3 +203,16 @@
     @include sizeSvgIcon( floor(274.181px / 1.5), floor(86.794px / 1.5) );
   }
 }
+
+
+
+
+/**
+ * Message pages
+ */
+.message-page {
+
+  max-width: 720px;
+  margin-top: $b * 3;
+  margin-bottom: $b * 3;
+}

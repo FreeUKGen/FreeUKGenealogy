@@ -3,15 +3,18 @@
 {% set title = 'Server Error' %}
 
 {% block main %}
-  <article class="grid">
-    <header class="page-header  grid__item  one-whole">
+  <article class="message-page">
+
+    <header>
       <h1 class="title">Server Error</h1>
     </header>
 
-    <section class="grid__item  seven-twelfths  palm-one-whole  body">
-      <p class="lede">Sorry the server didn't understand that request. Please try again.</p>
-      <p>{{ message }}</p>
+    <section>
+      <p class="lede  flush--bottom">Sorry the server didn't understand that request.</p>
+      <p>Please try again.</p>
+      {% if message is defined %}<p>{{ message }}</p>{% endif %}
     </section>
+
   </article>
 {% endblock %}
 
