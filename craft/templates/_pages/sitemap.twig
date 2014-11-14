@@ -6,21 +6,26 @@
 
   <article class="grid">
     <section class="grid__item  one-half  palm-one-whole">
-      <ul class="sitemap-nav">
-        <li><a href="{{ url('/', null, 'http') }}">Home</a></li>
-        {% set pages = craft.entries.section('pages').limit(null).find() %}
+      <nav class="islet  islet--bordered">
 
-        {% nav page in pages %}
-          <li>
-            <a href="{{ page.url }}">{{ page.title }}</a>
-            {% ifchildren %}
-              <ul>
-                {% children %}
-              </ul>
-            {% endifchildren %}
-          </li>
-        {% endnav %}
-      </ul>
+        <h2 class="title-block"><a href="{{ url('/', null, 'http') }}">Home</a></h2>
+
+        <ul class="sub-nav  sub-nav--open">
+          {% set pages = craft.entries.section('pages').limit(null).find() %}
+
+          {% nav page in pages %}
+            <li>
+              <a href="{{ page.url }}">{{ page.title }}</a>
+              {% ifchildren %}
+                <ul>
+                  {% children %}
+                </ul>
+              {% endifchildren %}
+            </li>
+          {% endnav %}
+        </ul>
+
+      </nav>
     </section>
   </article>
 
