@@ -4,7 +4,8 @@
 .title-bar {
 
   display: block;
-  background: $light;
+  background: #fff;
+  border: 1px solid $lesslight;
   margin-bottom: $b;
   height: 46px;
   overflow: hidden;

@@ -482,8 +482,8 @@
 .icon__honeycomb--bottom-left {
   background-image: url('../../images/png/honeycomb--bottom-left.png');
   background-repeat: no-repeat;
-  width: 760px;
-  height: 297px;
+  width: 455px;
+  height: 178px;
   display: inline-block;
  *display: inline;
   zoom: 1;
@@ -494,8 +494,32 @@
 .icon__honeycomb--top-right {
   background-image: url('../../images/png/honeycomb--top-right.png');
   background-repeat: no-repeat;
-  width: 920px;
-  height: 477px;
+  width: 551px;
+  height: 286px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__honeycomb-bg--bottom-left {
+  background-image: url('../../images/png/honeycomb-bg--bottom-left.png');
+  background-repeat: no-repeat;
+  width: 455px;
+  height: 178px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__honeycomb-bg--top-right {
+  background-image: url('../../images/png/honeycomb-bg--top-right.png');
+  background-repeat: no-repeat;
+  width: 551px;
+  height: 286px;
   display: inline-block;
  *display: inline;
   zoom: 1;

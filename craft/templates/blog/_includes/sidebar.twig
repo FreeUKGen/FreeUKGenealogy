@@ -12,19 +12,17 @@
 
 {% set sidebarEntry = sidebarWidget.sidebarEntry.first %}
 
-<aside>
+<aside class="islet  islet--bordered">
 
   {% if sidebarEntry %}<h2 class="title-block"><a href="{{ sidebarEntry.url }}">{{ sidebarEntry.title }}</a></h2>{% endif %}
 
-  <div class="islet  islet--light">
-    <p>{{ sidebarWidget.sidebarText }}</p>
-  </div>
+  <p>{{ sidebarWidget.sidebarText }}</p>
 
 </aside>
 
 
 {% if blogCats | length %}
-<aside>
+<aside class="islet  islet--bordered">
 
   <h2 class="title-block">Categories</h2>
 
@@ -39,7 +37,7 @@
 
 
 {% if allBlogEntries | length %}
-<aside>
+<aside class="islet  islet--bordered">
 
   <h2 class="title-block">Archive</h2>
 
