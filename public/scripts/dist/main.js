@@ -966,7 +966,10 @@ function Titlebar()
     e.preventDefault();
 
     $(this).toggleClass('show-sub-nav--active');
+    $(this).parents('.title-block').toggleClass('title-block--collapse-on-palm');
     $(this).parents('.title-block').next('.sub-nav').toggleClass('sub-nav--active');
+
+
 
   });
 

@@ -1,0 +1,10 @@
+/*------------------------------------*\
+    $HEADINGS
+\*------------------------------------*/
+@include media-query(palm) {
+  .title-block--collapse-on-palm {
+    border-bottom: 0;
+    margin-bottom: 0 !important;
+    padding-bottom: 0;
+  }
+}

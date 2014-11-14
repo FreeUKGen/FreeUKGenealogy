@@ -58,7 +58,10 @@
 
   }
 
+}
 
+.sub-nav--open ul {
+  display: block;
 }
 
 // show sub nav on active
@@ -70,6 +73,7 @@
 
   float: right;
   padding-top: 2px;
+  height: 22px;
 
   .icon__cancel {
     display: none;

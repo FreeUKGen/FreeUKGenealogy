@@ -19,7 +19,7 @@
 
   {% set output %}
 
-    <h1 class="title-block"><a href="{{ subnavParent.url }}">{{ subnavParent.title }}</a><a class="show-sub-nav"><i class="icon__burger" aria-hidden="true"></i><i class="icon__cancel" aria-hidden="true"></i></a></h1>
+    <h1 class="title-block  title-block--collapse-on-palm"><a href="{{ subnavParent.url }}">{{ subnavParent.title }}</a><a class="show-sub-nav"><i class="icon__burger" aria-hidden="true"></i><i class="icon__cancel" aria-hidden="true"></i></a></h1>
 
     <ul class="sub-nav">
     {% nav page in subnavChildren %}
