@@ -6,6 +6,39 @@
 
 
   /**
+   * Forms
+   */
+  .article__form {
+
+    @extend %island;
+    background-color: $light;
+    color: #666;
+
+    input.text,
+    textarea.text {
+      @extend %text-input;
+    }
+
+    label.required {
+      &:after {
+        content: "*";
+      }
+    }
+
+    .submit input {
+      @extend %btn;
+      float: right;
+    }
+
+    .tab > h3 {
+      @include font-size($h2-size);
+      color: $magenta;
+    }
+
+  }
+
+
+  /**
    * Modules
    */
   .show-mailchimp-form {
