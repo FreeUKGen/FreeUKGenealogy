@@ -216,7 +216,8 @@ module.exports = function(grunt) {
             "cancel-grey" : [".icon__cancel-white:hover",".icon__cancel-white:active"],
             "burger--brighter" : [".icon__burger:hover",".icon__burger:active"],
             "error" : [".parsley-error"],
-            "success" : [".parsley-success"]
+            "success" : [".parsley-success"],
+            "select" : [".select select"]
           },
           cssprefix: '.icon__',
           template: 'bower_components/FreeUKGenealogy-Core-Frontend/grunticon.hbs'

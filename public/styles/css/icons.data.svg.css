@@ -658,7 +658,7 @@
 }
 
 
-
+.select select,
 .icon__select {
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2254%22%20height%3D%2254%22%20viewBox%3D%220%200%2054%2054%22%3E%3Cpath%20fill%3D%22none%22%20d%3D%22M0%200h54v54H0z%22%2F%3E%3Cpath%20fill%3D%22%239B9B9B%22%20d%3D%22M29.402%2034.718l8.858-11.84c1.48-1.98.068-4.798-2.402-4.798H18.142c-2.47%200-3.882%202.82-2.402%204.797l8.858%2011.84c1.2%201.605%203.604%201.605%204.804%200z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;

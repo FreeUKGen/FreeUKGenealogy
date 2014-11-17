@@ -658,7 +658,7 @@
 }
 
 
-
+.select select,
 .icon__select {
   background-image: url('../../images/png/select.png');
   background-repeat: no-repeat;
