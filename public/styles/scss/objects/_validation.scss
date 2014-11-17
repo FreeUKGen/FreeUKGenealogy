@@ -5,6 +5,10 @@
   @extend .validation-list;
   margin-bottom: 0;
 
+  &.filled {
+    margin-bottom: $b;
+  }
+
   li {
     @extend .validation-list__error;
   }

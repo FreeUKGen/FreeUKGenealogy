@@ -27,8 +27,6 @@
     $(this).parents('.title-block').toggleClass('title-block--collapse-on-palm');
     $(this).parents('.title-block').next('.sub-nav').toggleClass('sub-nav--active');
 
-
-
   });
 
 
@@ -112,5 +110,31 @@
 
   // send our mq to be handled
   handleScrollerMQ(scrollerMq);
+
+
+  /**
+   * Article form validaton
+   */
+  $('.article__form form label.required').each(function(){
+    var $field = $(this).parents('.heading').parents('.field'),
+        id = $field.attr('id');
+
+    $(this).parents('.heading').next('.input').find('input, select, textarea').prop('required', true);
+
+    if ( $field.hasClass('checkboxes') || $field.hasClass('radiobuttons') )
+    {
+      $field.find('.input').append('<div id="errors-'+id+'"/>');
+      $field.find('input').attr('data-parsley-errors-container', '#errors-'+id);
+
+      if ( $field.find('input').length > 1 )
+      {
+        $field.find('input').attr('data-parsley-required-message', 'Please select at least one option.');
+      }
+    }
+
+  }).promise().done(function(){
+    $('.article__form form').parsley();
+  });
+
 
 })();

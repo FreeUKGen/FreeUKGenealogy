@@ -21,6 +21,7 @@
     input.text,
     textarea.text {
       @extend %text-input;
+      background-position: right top;
     }
 
     label.required {
@@ -31,11 +32,14 @@
 
     .multiselect select {
       @extend %text-input;
+      background-position: right top;
+      height: auto;
+      overflow: auto;
     }
 
     .checkboxes,
     .radiobuttons {
-      label {
+      .input label {
         font-weight: normal;
       }
 
@@ -84,9 +88,9 @@
           display: none;
         }
 
-        background-position: top right;
+        // for icon
+        background-position: right top;
       }
-
 
     }
 

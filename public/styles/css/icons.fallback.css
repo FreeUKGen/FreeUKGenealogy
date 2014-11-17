@@ -310,7 +310,7 @@
 }
 
 
-.parsley-error,
+input.parsley-error,textarea.parsley-error,.multiselect select.parsley-error,
 .icon__error {
   background-image: url('../../images/png/error.png');
   background-repeat: no-repeat;
@@ -634,7 +634,7 @@
 }
 
 
-
+.select select.parsley-error,
 .icon__select-error {
   background-image: url('../../images/png/select-error.png');
   background-repeat: no-repeat;
@@ -646,7 +646,7 @@
 }
 
 
-
+.select select.parsley-success,
 .icon__select-success {
   background-image: url('../../images/png/select-success.png');
   background-repeat: no-repeat;
@@ -694,7 +694,7 @@
 }
 
 
-.parsley-success,
+input.parsley-success,textarea.parsley-success,.multiselect select.parsley-success,
 .icon__success {
   background-image: url('../../images/png/success.png');
   background-repeat: no-repeat;

@@ -310,7 +310,7 @@
 }
 
 
-.parsley-error,
+input.parsley-error,textarea.parsley-error,.multiselect select.parsley-error,
 .icon__error {
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2254%22%20height%3D%2254%22%20viewBox%3D%220%200%2054%2054%22%3E%3Cpath%20fill%3D%22%23FF1D1D%22%20d%3D%22M0%200h54v54H0z%22%2F%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M27.023%2042.125c-2.285%200-4.168-1.882-4.168-4.168%200-2.286%201.883-4.123%204.168-4.123%202.286%200%204.123%201.837%204.123%204.123%200%202.286-1.837%204.168-4.123%204.168zM29.98%2030.04h-5.87l-1.076-18.165h8.022L29.98%2030.04z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;
@@ -634,7 +634,7 @@
 }
 
 
-
+.select select.parsley-error,
 .icon__select-error {
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2254%22%20height%3D%2254%22%20viewBox%3D%220%200%2054%2054%22%3E%3Cpath%20fill%3D%22%23FF1D1D%22%20d%3D%22M0%200h54v54H0z%22%2F%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M29.402%2034.718l8.858-11.84c1.48-1.98.068-4.798-2.402-4.798H18.142c-2.47%200-3.882%202.82-2.402%204.797l8.858%2011.84c1.2%201.605%203.604%201.605%204.804%200z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;
@@ -646,7 +646,7 @@
 }
 
 
-
+.select select.parsley-success,
 .icon__select-success {
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2254%22%20height%3D%2254%22%20viewBox%3D%220%200%2054%2054%22%3E%3Cpath%20fill%3D%22%2310C8A5%22%20d%3D%22M0%200h54v54H0z%22%2F%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M29.402%2034.718l8.858-11.84c1.48-1.98.068-4.798-2.402-4.798H18.142c-2.47%200-3.882%202.82-2.402%204.797l8.858%2011.84c1.2%201.605%203.604%201.605%204.804%200z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;
@@ -694,7 +694,7 @@
 }
 
 
-.parsley-success,
+input.parsley-success,textarea.parsley-success,.multiselect select.parsley-success,
 .icon__success {
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2254%22%20height%3D%2254%22%20viewBox%3D%220%200%2054%2054%22%3E%3Cpath%20fill%3D%22%2310C8A5%22%20d%3D%22M0%200h54v54H0z%22%2F%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M34.878%2015.674l-9.972%2012.568-6.945-5.51-4.46%205.622%2012.568%209.972%204.46-5.623L40.5%2020.135z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;

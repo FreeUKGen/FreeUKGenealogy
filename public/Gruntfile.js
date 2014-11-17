@@ -215,9 +215,11 @@ module.exports = function(grunt) {
             "chevron-alt-right--dark" : [".icon__chevron-alt-right:hover",".icon__chevron-alt-right:active"],
             "cancel-grey" : [".icon__cancel-white:hover",".icon__cancel-white:active"],
             "burger--brighter" : [".icon__burger:hover",".icon__burger:active"],
-            "error" : [".parsley-error"],
-            "success" : [".parsley-success"],
-            "select" : [".select select"]
+            "error" : ["input.parsley-error","textarea.parsley-error",".multiselect select.parsley-error"],
+            "success" : ["input.parsley-success","textarea.parsley-success",".multiselect select.parsley-success"],
+            "select" : [".select select"],
+            "select-error" : [".select select.parsley-error"],
+            "select-success" : [".select select.parsley-success"]
           },
           cssprefix: '.icon__',
           template: 'bower_components/FreeUKGenealogy-Core-Frontend/grunticon.hbs'
