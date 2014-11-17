@@ -1,6 +1,9 @@
 {#
  # Form block type
  #}
+{% set form = block.form.first() %}
+{% if form.handle is not empty %}
 <section class="article__form  grid__item  {{ block.width }}  palm-one-whole">
-  {{ craft.sproutForms.displayForm(block.form.first().handle) }}
+  {{ craft.sproutForms.displayForm(form.handle) }}
 </section>
+{% endif %}
