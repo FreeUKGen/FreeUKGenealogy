@@ -10,7 +10,7 @@
   overflow: hidden;
   position: relative;
   z-index: 2;
-  @include vendor(box-shadow, 0 5px 14px #cccccc);
+  @include vendor(box-shadow, 0 -5px 14px 10px rgba(0, 0, 0, 0.17));
 }
 
   /**
