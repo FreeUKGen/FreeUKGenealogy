@@ -395,6 +395,18 @@ input.parsley-error,textarea.parsley-error,.multiselect select.parsley-error,
 
 
 
+.icon__freeukgen-strap {
+  background-image: url('../../images/png/freeukgen-strap.png');
+  background-repeat: no-repeat;
+  width: 486px;
+  height: 98px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
 .icon__freeukgen {
   background-image: url('../../images/png/freeukgen.png');
   background-repeat: no-repeat;
