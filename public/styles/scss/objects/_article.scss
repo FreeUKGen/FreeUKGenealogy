@@ -10,9 +10,11 @@
    */
   .article__form {
 
-    @extend %island;
-    background-color: $light;
-    color: #666;
+    form {
+      @extend %island;
+      background-color: $light;
+      color: #666;
+    }
 
 
     /**
