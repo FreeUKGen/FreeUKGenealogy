@@ -33,6 +33,15 @@ module.exports = function(grunt) {
       owlJsProd: {
         src: 'bower_components/owl-carousel2/dist/owl.carousel.min.js',
         dest: 'scripts/dist/owl.min.js'
+      },
+
+      fonts: {
+        expand: true,
+        cwd: 'bower_components/FreeUKGenealogy-Core-Frontend/fonts/',
+        src: '**',
+        dest: 'fonts/',
+        flatten: true,
+        filter: 'isFile',
       }
 
     },
