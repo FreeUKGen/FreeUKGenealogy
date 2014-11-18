@@ -27,20 +27,25 @@
     display: none;
   }
 
-  .site__header__logo {
+  .site__header__logo,
+  .site__header__logo-small {
     float: left;
     margin: 0;
     position: relative;
     z-index: 3;
+    display: block;
   }
-  .icon__freeukgen {
-    @include vendor(background-size, floor(485.837px / 1.15), floor(87.106px / 1.15));
-    // we're keeping the original height / width dimensions in here
-    // for when the browser doesn't support background-size
-    width: 486px;
-    height: 88px;
+  .site__header__logo-small {
+    display: none;
   }
+
   .sticky {
+    .site__header__logo {
+      display: none;
+    }
+    .site__header__logo-small {
+      display: block;
+    }
     .icon__freeukgen {
       @include sizeSvgIcon(floor(485.837px / 1.5), floor(87.106px / 1.5));
     }
@@ -55,7 +60,7 @@
     display: block;
     position: absolute;
     right: 0;
-    bottom: $b * 0.75;
+    bottom: 31px;
 
     @include media-query('portable') {
       right: $b-half;
@@ -68,12 +73,12 @@
     }
 
     li {
-      margin-left: $base-spacing-unit * 1.5;
+      margin-left: $b * 1.5;
       float: left;
     }
 
     a {
-      padding: $half-spacing-unit 0;
+      padding: $b-half 0;
       text-transform: uppercase;
       color: $magenta;
       font-weight: bold;

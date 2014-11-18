@@ -69,10 +69,12 @@
 
 
   .site__header__logo {
-    margin: ($base-spacing-unit * 2) auto $base-spacing-unit auto;
-    display: block !important;
+    display: none;
   }
-
+  .site__header__logo-small {
+    margin: ($base-spacing-unit * 2) auto $base-spacing-unit auto;
+    display: block;
+  }
   .icon__freeukgen {
     @include sizeSvgIcon(243px, 44px);
   }
