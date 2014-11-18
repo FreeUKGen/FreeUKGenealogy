@@ -14,12 +14,20 @@
     padding-bottom: $b * 1.25;
     position: relative;
     overflow: hidden;
+
+    @include media-query(portable) {
+      padding-bottom: $b * 3;
+    }
   }
 
 }
 
 .sticky .site__header > .container {
   padding-bottom: $b;
+
+  @include manual-media-query(800px) {
+    padding-bottom: $b * 3;
+  }
 }
 
 
