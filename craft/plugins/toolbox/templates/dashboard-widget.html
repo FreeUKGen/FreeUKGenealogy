@@ -15,32 +15,12 @@
   {
     'title' : 'Blog',
     'path'  : 'entries/blog',
-    'icon'  : 'enabled'
+    'icon'  : 'section'
   },
   {
-    'title' : 'Blog',
-    'path'  : 'entries/blog',
-    'icon'  : 'enabled'
-  },
-  {
-    'title' : 'Blog',
-    'path'  : 'entries/blog',
-    'icon'  : 'enabled'
-  },
-  {
-    'title' : 'Blog',
-    'path'  : 'entries/blog',
-    'icon'  : 'enabled'
-  },
-  {
-    'title' : 'Blog',
-    'path'  : 'entries/blog',
-    'icon'  : 'enabled'
-  },
-  {
-    'title' : 'Blog',
-    'path'  : 'entries/blog',
-    'icon'  : 'enabled'
+    'title' : 'Pages',
+    'path'  : 'entries/pages',
+    'icon'  : 'layout'
   }
 ] %}
 
@@ -48,27 +28,11 @@
 {% set secondarySections = [
   {
     'title' : 'Homepage',
-    'path'  : 'entries/blog'
-  },
-  {
-    'title' : 'Something',
-    'path'  : 'entries/blog'
-  },
-  {
-    'title' : 'Else',
-    'path'  : 'entries/blog'
+    'path'  : 'entries/home/105-home'
   },
   {
     'title' : 'Blog',
-    'path'  : 'entries/blog'
-  },
-  {
-    'title' : 'Flute one two',
-    'path'  : 'entries/blog'
-  },
-  {
-    'title' : 'Tooting',
-    'path'  : 'entries/blog'
+    'path'  : 'entries/blog/5-blog'
   }
 ] %}
 
@@ -195,9 +159,6 @@
       <li class="toolbox-grid__item  one-half"><a href="{{ helpUrl }}" class="toolbox__btn"><i data-icon="info"></i>Help docs</a></li>
     {% endif %}
 
-    {% if freshDesk is defined %}
-      <li class="toolbox-grid__item  one-half"><a class="toolbox__btn  toolbox-freshdesk-trigger"><i data-icon="help"></i>Tech Support</a></li>
-    {% endif %}
     </ul>
     <div class="clear"></div>
 
