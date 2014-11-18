@@ -130,3 +130,36 @@
   }
 
 }
+
+
+
+/**
+ * A simple list of blog posts
+ */
+.latest-posts {
+  @extend %nav;
+  @extend %nav--stacked;
+
+  h3 {
+    @include font-size(18px);
+    margin: 0;
+    font-weight: lighter;
+  }
+
+  time {
+    @include font-size(14px);
+    color: #999999;
+    display: block;
+  }
+
+  li {
+    border-bottom: 1px solid $lesslight;
+    margin-bottom: $b-half;
+    padding-bottom: $b-half;
+    &:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+}
