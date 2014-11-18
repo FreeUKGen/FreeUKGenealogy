@@ -83,7 +83,8 @@
     </header>
 
 
-    <main role="main" class="site__content  icon__honeycomb--top-right{% if containsArticle is defined %}  site__content--has-article{% endif %}">
+
+    <main role="main" class="site__content  icon__honeycomb--top-right{% if containsArticle is defined %}  site__content--has-article{% endif %}{% if (entry.hideTitleBar is defined and entry.hideTitleBar == '1') and (entry.hideTitle is defined and entry.hideTitle == '1') and (entry.article is defined and entry.article.first().type != 'background') %}  site__content--no-furniture{% endif %}">
 
       <div class="container">
 

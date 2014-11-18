@@ -134,6 +134,11 @@
       margin-top: $b-double;
     }
   }
+  // this is to cope when title and title bar are hidden and no new background is added
+  .site__content--no-furniture {
+    padding-top: $b-quad;
+    padding-bottom: $b-quad;
+  }
 
 
 /**
