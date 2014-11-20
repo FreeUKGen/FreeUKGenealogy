@@ -21,6 +21,7 @@ return array(
     'usePathInfo' => true,
     'defaultImageQuality' => 100,
     'pageTrigger' => 'page-',
+    'overridePhpSessionLocation' => false
   ),
   '.net' => array( 'devMode' => true ),
   '.dev' => array(
