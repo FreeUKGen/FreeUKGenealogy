@@ -31,11 +31,6 @@
 }
 
 /* force the content to be fluid */
-.fetch-preview > img {
-  display: block;
-  width: 100% !important;
-  height: auto !important;
-}
 .fetch-preview .fetch > * {
   display: block;
   width: 100% !important;
