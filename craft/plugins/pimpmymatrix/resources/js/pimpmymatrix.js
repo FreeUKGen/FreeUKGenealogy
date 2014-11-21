@@ -13,13 +13,12 @@ Craft.PimpMyMatrix = Garnish.Base.extend(
 {
 
   buttonConfig: null,
-  reconstructSettingsTimeout: null,
 
   $matrixContainer: null,
 
   init: function(buttonConfig)
   {
-    this.$matrixContainer = $('.matrix');
+    this.$matrixContainer = $('#entry-form .matrix');
 
     this.buttonConfig = buttonConfig;
 
@@ -143,14 +142,15 @@ Craft.PimpMyMatrix = Garnish.Base.extend(
         var $origButtons = $matrixField.find('> .buttons').first();
 
         // from there, check if we've already pimped those buttons
-        if ( $origButtons.next('.buttons.pimped').length < 1 )
+        if ( $origButtons.next('.buttons-pimped').length < 1 )
         {
 
           // if we haven't already pimped them, hide the original ones and start the button pimping process
           $origButtons.hide();
 
-          // make our own container
-          var $ourButtons = $('<div class="buttons pimped" />').insertAfter($origButtons),
+          // make our own container, not using .buttons as it gets event binds
+          // from MatrixInput.js that we really don't want
+          var $ourButtons = $('<div class="buttons-pimped" />').insertAfter($origButtons),
               $ourButtonsInner = $('<div class="btngroup" />').appendTo($ourButtons);
 
           // loop each blockType / group pairing
@@ -175,15 +175,17 @@ Craft.PimpMyMatrix = Garnish.Base.extend(
           // make triggers MenuBtns
           $ourButtonsInner.find('.menubtn').each(function()
           {
+
             new Garnish.MenuBtn($(this),
             {
               onOptionSelect: function(option)
               {
                 // find our type and click the correct original btn!
                 var type = $(option).data('type');
-                $origButtons.find('[data-type="'+type+'"]').click();
+                $origButtons.find('[data-type="'+type+'"]').trigger('click');
               }
             });
+
           });
 
         }
@@ -192,10 +194,54 @@ Craft.PimpMyMatrix = Garnish.Base.extend(
 
   },
 
-  buttonConfigurator: function()
+  /**
+   * This simply returns a fieldHandle if it can get one or false if not
+   */
+  _getMatrixFieldName: function($matrixField)
   {
+    var matrixFieldName = $matrixField.siblings('input[type="hidden"][name*="fields"]').prop('name'),
+        regExp  = /fields\[([^\]]+)\]/,
+        matches = regExp.exec(matrixFieldName),
+        matrixFieldHandle = matches[1];
 
+    if ( matrixFieldHandle != '' )
+    {
+      return matrixFieldHandle;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+});
+
+
+
+
+/**
+ * Settings Class
+ */
+Craft.PimpMyMatrixSettings = Garnish.Base.extend(
+{
+
+  buttonConfig: null,
+  reconstructSettingsTimeout: null,
+  onSettingsPage: null,
+
+  init: function(buttonConfig)
+  {
+    // alias this
     var that = this;
+
+    // get config
+    this.buttonConfig = buttonConfig;
+
+    // for safety presume not on settings page
+    this.onSettingsPage = false;
+
+    // bind settings page form submit event
+    this.addListener($('#content form'), 'submit', 'onButtonConfiguratorSubmit');
 
     // loop the fields we have on the page
     $('.pimpmymatrix-settings__list').each(function(){
@@ -273,9 +319,6 @@ Craft.PimpMyMatrix = Garnish.Base.extend(
           }
 
         }
-
-        // watch select changes
-        that.addListener($(this), 'change', 'reconstructSettings');
 
       });
 
@@ -395,26 +438,33 @@ Craft.PimpMyMatrix = Garnish.Base.extend(
 
   },
 
-  /**
-   * This simply returns a fieldHandle if it can get one or false if not
-   */
-  _getMatrixFieldName: function($matrixField)
-  {
-    var matrixFieldName = $matrixField.siblings('input[type="hidden"][name*="fields"]').prop('name'),
-        regExp  = /fields\[([^\]]+)\]/,
-        matches = regExp.exec(matrixFieldName),
-        matrixFieldHandle = matches[1];
 
-    if ( matrixFieldHandle != '' )
+  /**
+   * This hi-jacks the submit for the settings page form
+   * so we can run the reconstructSettings() function first
+   */
+  onButtonConfiguratorSubmit: function(ev)
+  {
+
+    if ( this.onSettingsPage )
     {
-      return matrixFieldHandle;
+
+      ev.preventDefault();
+
+      this.reconstructSettings();
+
+      var that = this,
+          submittimer = setTimeout(function()
+      {
+        that.removeListener($('#content form'), 'submit');
+        $('#content form').trigger('submit');
+      },400);
+
     }
-    else
-    {
-      return false;
-    }
+
   }
 
 });
+
 
 })(jQuery);
