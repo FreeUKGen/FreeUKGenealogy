@@ -224,7 +224,7 @@ class WebApp extends \CWebApplication
 				$url = "http://download.buildwithcraft.com/craft/{$version}/{$version}.{$build}/Craft-{$version}.{$build}.zip";
 
 				throw new HttpException(200, Craft::t('Craft does not support backtracking to this version. Please upload Craft {url} or later.', array(
-					'url' => '<a href="'.$url.'">build '.$build.'</a>',
+					'url' => '['.$build.']('.$url.')',
 				)));
 			}
 			else
@@ -303,6 +303,12 @@ class WebApp extends \CWebApplication
 	{
 		if (!isset($this->_language))
 		{
+			// This method shouldn't be the one to initialize HttpRequestService.
+			if (!$this->getComponent('request', false))
+			{
+				return $this->sourceLanguage;
+			}
+
 			// Defend against an infinite getLanguage() loop
 			if (!$this->_gettingLanguage)
 			{
