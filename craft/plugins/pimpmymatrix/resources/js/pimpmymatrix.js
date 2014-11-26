@@ -47,7 +47,7 @@ Craft.PimpMyMatrix = Garnish.Base.extend(
   getFieldBlockTypes: function($matrixField)
   {
     // get matrix field handle out of DOM
-    var matrixFieldHandle = this._getMatrixFieldName($matrixField);
+    var matrixFieldHandle = this._getMatrixFieldName($matrixField, true);
 
     var that = this;
 
@@ -65,8 +65,8 @@ Craft.PimpMyMatrix = Garnish.Base.extend(
           // bind resize now on the matrix field
           that.addListener($matrixField, 'resize', 'addBlockHeadings');
 
-          // ping addBlockHeadings anyway
-          that.addBlockHeadings();
+          // ping initBlockHeadings
+          that.initBlockHeadings();
 
         }
       }
@@ -85,38 +85,113 @@ Craft.PimpMyMatrix = Garnish.Base.extend(
       var $matrixField = $(this),
           blockTypes = $matrixField.data('blockTypes');
 
-      // loop blocks if we have blockTypes
-      if (typeof blockTypes !== "undefined") {
-        $matrixField.find('.matrixblock').each($.proxy(function()
+      // loop blocks
+      $matrixField.find('.matrixblock').each($.proxy(function()
+      {
+
+        // cache block
+        var $block = $(this);
+
+        // final check that we haven't already added one in case something has gone mental
+        if ( ! $block.hasClass('pimped') )
         {
 
-          // cache block
-          var $block = $(this);
+          // get the block type handle from DOM
+          var blockTypeHandle = $block.find('input[type="hidden"][name*="[type]"]').val();
 
-          // final check that we haven't already added one in case something has gone mental
-          if ( ! $block.hasClass('pimped') )
+          // using the blockTypes, match the handle to the blockType object
+          var result = $.grep(blockTypes, function(e){ return e.handle === blockTypeHandle; });
+
+          if (result.length > 0)
           {
 
-            // get the block type handle
-            var blockTypeHandle = $block.find('input[type="hidden"][name*="[type]"]').val();
-
-            // using the blockTypes, match the handle to the blockType object
-            var result = $.grep(blockTypes, function(e){ return e.handle === blockTypeHandle; });
-
-            // check we have something
-            if (result.length > 0)
-            {
-
-              // get the name and add it!
-              var blockName = result[0].name;
-              $block.addClass('pimped');
-              $block.prepend('<div class="pimpmymatrix-heading">'+blockName+'</div>')
-
-            }
+            // add the block name
+            $block.addClass('pimped');
+            $block.prepend('<div class="pimpmymatrix-heading">'+result[0].name+'</div>')
 
           }
 
+        }
+
+      }), this);
+
+
+    }), this);
+
+  },
+
+  initBlockHeadings: function()
+  {
+
+    // loop available matrix fields
+    this.$matrixContainer.each($.proxy(function()
+    {
+
+      // get field and blockTypes
+      var $matrixField = $(this),
+          blockTypes = $matrixField.data('blockTypes');
+
+      // if we have blockTypes
+      if (typeof blockTypes !== "undefined") {
+
+        // get elementIds of the blocks and return array of blockElementIds paired with blockTypeIds
+        var elementIds = $matrixField.find('.matrixblock').map(function() {
+          return $(this).data('id');
+        }).get();
+
+        Craft.postActionRequest('pimpMyMatrix/getBlocks', { elementIds : elementIds }, $.proxy(function(response, textStatus)
+        {
+          if (textStatus === 'success')
+          {
+            if (response.success)
+            {
+
+              // now we have an array of block models, store them
+              $matrixField.data('blocks', response.blocks);
+
+              // loop blocks
+              $matrixField.find('.matrixblock').each($.proxy(function()
+              {
+
+                // cache block
+                var $block = $(this);
+
+                // final check that we haven't already added one in case something has gone mental
+                if ( ! $block.hasClass('pimped') )
+                {
+
+                  // get the block element id
+                  var blockElementId = $block.data('id');
+
+                  // using the elementId, match up the block model
+                  var block = $.grep($matrixField.data('blocks'), function(e){ return e.id == blockElementId; });
+
+                  if (block.length > 0)
+                  {
+
+                    block = block[0];
+
+                    var blockType = $.grep(blockTypes, function(e){ return e.id == block.typeId; });
+
+                    if (blockType.length > 0)
+                    {
+
+                      // add the block name
+                      $block.addClass('pimped');
+                      $block.prepend('<div class="pimpmymatrix-heading">'+blockType[0].name+'</div>')
+
+                    }
+
+                  }
+
+                }
+
+              }), this);
+
+            }
+          }
         }), this);
+
       }
 
     }), this);
@@ -127,15 +202,15 @@ Craft.PimpMyMatrix = Garnish.Base.extend(
   {
 
     // get matrix field handle out of DOM
-    var matrixFieldHandle = this._getMatrixFieldName($matrixField);
+    var matrixFieldHandle = this._getMatrixFieldName($matrixField, true);
 
     // look for an object that matches this field in the config array
-    if ( this.buttonConfig !== undefined )
+    if ( typeof this.buttonConfig !== "undefined" )
     {
       var buttonConfig = $.grep(this.buttonConfig, function(e){ return e.fieldHandle === matrixFieldHandle; });
 
       // if we found one (and it has at least one group)
-      if ( buttonConfig[0] !== undefined )
+      if ( typeof buttonConfig[0] !== "undefined" )
       {
 
         // find the original buttons
@@ -197,12 +272,21 @@ Craft.PimpMyMatrix = Garnish.Base.extend(
   /**
    * This simply returns a fieldHandle if it can get one or false if not
    */
-  _getMatrixFieldName: function($matrixField)
+  _getMatrixFieldName: function($matrixField, fromId)
   {
-    var matrixFieldName = $matrixField.siblings('input[type="hidden"][name*="fields"]').prop('name'),
-        regExp  = /fields\[([^\]]+)\]/,
-        matches = regExp.exec(matrixFieldName),
-        matrixFieldHandle = matches[1];
+    if ( fromId )
+    {
+      var matrixFieldId = $matrixField.parents('.field').prop('id'),
+          parts = matrixFieldId.split("-"),
+          matrixFieldHandle = parts[1];
+    }
+    else
+    {
+      var matrixFieldName = $matrixField.siblings('input[type="hidden"][name*="fields"]').prop('name'),
+          regExp  = /fields\[([^\]]+)\]/,
+          matches = regExp.exec(matrixFieldName),
+          matrixFieldHandle = matches[1];
+    }
 
     if ( matrixFieldHandle != '' )
     {
