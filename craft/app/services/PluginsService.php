@@ -130,7 +130,7 @@ class PluginsService extends BaseApplicationComponent
 				}
 
 				// Sort plugins by name
-				array_multisort($names, $this->_enabledPlugins);
+				$this->_sortPlugins($names, $this->_enabledPlugins);
 
 				// Now that all of the components have been imported, initialize all the plugins
 				foreach ($this->_enabledPlugins as $plugin)
@@ -258,7 +258,7 @@ class PluginsService extends BaseApplicationComponent
 					if (!empty($names))
 					{
 						// Sort plugins by name
-						array_multisort($names, $this->_allPlugins);
+						$this->_sortPlugins($names, $this->_allPlugins);
 					}
 				}
 			}
@@ -528,32 +528,71 @@ class PluginsService extends BaseApplicationComponent
 	}
 
 	/**
-	 * Calls a method on all plugins that have the method.
+	 * Calls a method on all plugins that have it, and returns an array of the results, indexed by plugin handles.
 	 *
-	 * @param string $method The name of the method.
-	 * @param array  $args   Any arguments that should be passed when calling the method on the plugins.
+	 * @param string $method     The name of the method.
+	 * @param array  $args       Any arguments that should be passed when calling the method on the plugins.
+	 * @param bool   $ignoreNull Whether plugins that have the method but return a null response should be ignored. Defaults to false.
 	 *
 	 * @return array An array of the plugins’ responses.
 	 */
-	public function call($method, $args = array())
+	public function call($method, $args = array(), $ignoreNull = false)
 	{
-		$result = array();
+		$allResults = array();
 		$altMethod = 'hook'.ucfirst($method);
 
 		foreach ($this->getPlugins() as $plugin)
 		{
 			if (method_exists($plugin, $method))
 			{
-				$result[$plugin->getClassHandle()] = call_user_func_array(array($plugin, $method), $args);
+				$result = call_user_func_array(array($plugin, $method), $args);
 			}
 			else if (method_exists($plugin, $altMethod))
 			{
 				craft()->deprecator->log('PluginsService::method_hook_prefix', 'The “hook” prefix on the '.get_class($plugin).'::'.$altMethod.'() method name has been deprecated. It should be renamed to '.$method.'().');
-				$result[$plugin->getClassHandle()] = call_user_func_array(array($plugin, $altMethod), $args);
+				$result = call_user_func_array(array($plugin, $altMethod), $args);
+			}
+
+			if (isset($result) && (!$ignoreNull || $result !== null))
+			{
+				$allResults[$plugin->getClassHandle()] = $result;
+				unset($result);
 			}
 		}
 
-		return $result;
+		return $allResults;
+	}
+
+	/**
+	 * Calls a method on the first plugin that has it, and returns the result.
+	 *
+	 * @param string $method     The name of the method.
+	 * @param array  $args       Any arguments that should be passed when calling the method on the plugins.
+	 * @param bool   $ignoreNull Whether plugins that have the method but return a null response should be ignored. Defaults to false.
+	 *
+	 * @return mixed The plugin’s response, or null.
+	 */
+	public function callFirst($method, $args = array(), $ignoreNull = false)
+	{
+		$altMethod = 'hook'.ucfirst($method);
+
+		foreach ($this->getPlugins() as $plugin)
+		{
+			if (method_exists($plugin, $method))
+			{
+				$result = call_user_func_array(array($plugin, $method), $args);
+			}
+			else if (method_exists($plugin, $altMethod))
+			{
+				craft()->deprecator->log('PluginsService::method_hook_prefix', 'The “hook” prefix on the '.get_class($plugin).'::'.$altMethod.'() method name has been deprecated. It should be renamed to '.$method.'().');
+				$result = call_user_func_array(array($plugin, $altMethod), $args);
+			}
+
+			if (isset($result) && (!$ignoreNull || $result !== null))
+			{
+				return $result;
+			}
+		}
 	}
 
 	/**
@@ -629,9 +668,17 @@ class PluginsService extends BaseApplicationComponent
 
 		if (IOHelper::folderExists($classSubfolderPath))
 		{
-			// See if it has any files in ClassName*Suffix.php format.
-			$filter = $pluginHandle.'(_.+)?'.$classSuffix.'\.php$';
-			$files = IOHelper::getFolderContents($classSubfolderPath, false, $filter);
+			// Enums don't have an "Enum" suffix.
+			if ($classSubfolder === 'enums')
+			{
+				$files = IOHelper::getFolderContents($classSubfolderPath, false);
+			}
+			else
+			{
+				// See if it has any files in ClassName*Suffix.php format.
+				$filter = $pluginHandle.'(_.+)?'.$classSuffix.'\.php$';
+				$files = IOHelper::getFolderContents($classSubfolderPath, false, $filter);
+			}
 
 			if ($files)
 			{
@@ -898,5 +945,26 @@ class PluginsService extends BaseApplicationComponent
 		}
 
 		return $return;
+	}
+
+	/**
+	 * @param $names
+	 * @param $secondaryArray
+	 *
+	 * @return null
+	 */
+	private function _sortPlugins(&$names, &$secondaryArray)
+	{
+		// TODO: Remove this check for Craft 3.
+		if (PHP_VERSION_ID < 50400)
+		{
+			// Sort plugins by name
+			array_multisort($names, $secondaryArray);
+		}
+		else
+		{
+			// Sort plugins by name
+			array_multisort($names, SORT_NATURAL | SORT_FLAG_CASE, $secondaryArray);
+		}
 	}
 }

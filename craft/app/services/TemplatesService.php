@@ -738,7 +738,15 @@ class TemplatesService extends BaseApplicationComponent
 	 */
 	public function doesTemplateExist($name)
 	{
-		return (bool) $this->findTemplate($name);
+		try
+		{
+			return (bool) $this->findTemplate($name);
+		}
+		catch (\Twig_Error_Loader $e)
+		{
+			// _validateTemplateName() han an issue with it
+			return false;
+		}
 	}
 
 	/**
@@ -973,7 +981,7 @@ class TemplatesService extends BaseApplicationComponent
 			if ($otherAttributes)
 			{
 				$idNamespace = $this->formatInputId($namespace);
-				$html = preg_replace('/(?<![\w\-])((id|for|list|data\-target|data\-reverse\-target|data\-target\-prefix)=(\'|")#?)([^\.][^\'"]*)\3/i', '$1'.$idNamespace.'-$4$3', $html);
+				$html = preg_replace('/(?<![\w\-])((id|for|list|data\-target|data\-reverse\-target|data\-target\-prefix)=(\'|")#?)([^\.\'"][^\'"]*)\3/i', '$1'.$idNamespace.'-$4$3', $html);
 			}
 
 			// Bring back the textarea content
@@ -1381,11 +1389,6 @@ class TemplatesService extends BaseApplicationComponent
 			$html .= ' removable';
 		}
 
-		if ($context['context'] != 'index')
-		{
-			$html .= ' unselectable';
-		}
-
 		if ($thumbUrl)
 		{
 			$html .= ' hasthumb';
@@ -1398,6 +1401,11 @@ class TemplatesService extends BaseApplicationComponent
 		$label = HtmlHelper::encode($context['element']);
 
 		$html .= '" data-id="'.$context['element']->id.'" data-locale="'.$context['element']->locale.'" data-status="'.$context['element']->getStatus().'" data-label="'.$label.'" data-url="'.$context['element']->getUrl().'"';
+
+		if ($context['element']->level)
+		{
+			$html .= ' data-level="'.$context['element']->level.'"';
+		}
 
 		$isEditable = ElementHelper::isElementEditable($context['element']);
 
