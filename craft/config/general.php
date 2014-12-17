@@ -22,7 +22,7 @@ return array(
     'defaultImageQuality' => 100,
     'pageTrigger' => 'page-',
     'overridePhpSessionLocation' => false,
-    'cacheDuration' => 'P1H'
+    'cacheDuration' => 'PT1H'
   ),
   '.net' => array( 'devMode' => true ),
   '.dev' => array(
