@@ -6,8 +6,10 @@
         limit   : null,
         order   : 'uri'
     }) %}
+    {% if entry.url %}
     <url>
         <loc>{{ entry.url }}</loc>
     </url>
+    {% endif %}
     {% endfor %}
 </urlset>
