@@ -69,6 +69,7 @@ module.exports = function(grunt) {
           'bower_components/jquery-form/jquery.form.js',
           'bower_components/parsleyjs/dist/parsley.js',
           'bower_components/ScrollMagic/js/jquery.scrollmagic.min.js',
+          'bower_components/js-cookie/js.cookie.js',
           'bower_components/riotjs/riot.js',
           'bower_components/riotjs/lib/observable.js',
           'bower_components/owl-carousel2/dist/owl.carousel.js'

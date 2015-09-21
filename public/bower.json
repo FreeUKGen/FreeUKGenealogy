@@ -24,8 +24,9 @@
     "imagesloaded": "~3.1.4",
     "parsleyjs": "~2.0.0-rc4",
     "inuit.css": "~5.0.1",
-    "owl-carousel2": "*",
+    "owl-carousel2": "2.0.0-beta.2.4",
     "imgLiquid": "~0.9.944",
-    "ScrollMagic": "~1.2.3"
+    "ScrollMagic": "~1.2.3",
+    "js-cookie": "~2.0.3"
   }
 }
