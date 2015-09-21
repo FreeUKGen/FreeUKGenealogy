@@ -58,6 +58,7 @@ module.exports = function(grunt) {
         src: [
           'bower_components/jquery/dist/jquery.js',
           'scripts/lib/ios-orientationchange-fix.js',
+          'bower_components/js-cookie/src/js.cookie.js',
           'bower_components/respond/dest/respond.matchmedia.addListener.src.js',
           'bower_components/respond/dest/respond.src.js',
           'scripts/lib/jquery-ui-1.10.3.custom.js',
@@ -69,7 +70,6 @@ module.exports = function(grunt) {
           'bower_components/jquery-form/jquery.form.js',
           'bower_components/parsleyjs/dist/parsley.js',
           'bower_components/ScrollMagic/js/jquery.scrollmagic.min.js',
-          'bower_components/js-cookie/js.cookie.js',
           'bower_components/riotjs/riot.js',
           'bower_components/riotjs/lib/observable.js',
           'bower_components/owl-carousel2/dist/owl.carousel.js'
