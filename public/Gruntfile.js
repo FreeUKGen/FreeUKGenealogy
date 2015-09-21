@@ -58,6 +58,7 @@ module.exports = function(grunt) {
         src: [
           'bower_components/jquery/dist/jquery.js',
           'scripts/lib/ios-orientationchange-fix.js',
+          'bower_components/js-cookie/src/js.cookie.js',
           'bower_components/respond/dest/respond.matchmedia.addListener.src.js',
           'bower_components/respond/dest/respond.src.js',
           'scripts/lib/jquery-ui-1.10.3.custom.js',

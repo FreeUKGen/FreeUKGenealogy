@@ -17,6 +17,22 @@
 
 
   /**
+   * Cookie notice
+   */
+  if ( ! Cookies.get('acceptCookies') )
+  {
+    $('.cookie-notice').show();
+  }
+
+  $('.cookie-notice .btn').on('click', function(e)
+  {
+    e.preventDefault();
+    Cookies.set('acceptCookies', true, { expires: 365 });
+    $('.cookie-notice').fadeOut();
+  });
+
+
+  /**
    * Sub nav hide / show
    */
   $('.show-sub-nav').on('click', function(e){
