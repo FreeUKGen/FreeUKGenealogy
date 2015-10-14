@@ -187,4 +187,4 @@ FileETag None
 </IfModule>
 
 
-redirect 301 /about/cookie-policy /about/constitution-and-policies/cookie-policy
+# redirect 301 /about/cookie-policy /about/constitution-and-policies/cookie-policy
