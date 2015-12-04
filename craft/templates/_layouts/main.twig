@@ -53,6 +53,10 @@
   <link rel="alternate" type="application/rss+xml" title="Free UK Genealogy Feed" href="{{ url('blog/rss') }}">
 
   {% block head %}{% endblock %}
+
+  {% if entry is defined and entry.headContent is not empty %}
+    {{ entry.headContent | raw }}
+  {% endif %}
 </head>
 <body ontouchstart class="offcanvas  offcanvas--rev">
 
