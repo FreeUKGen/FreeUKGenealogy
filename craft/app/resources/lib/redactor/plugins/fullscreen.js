@@ -1,118 +1,159 @@
-if (!RedactorPlugins) var RedactorPlugins = {};
-
-RedactorPlugins.fullscreen = function()
+(function($)
 {
-	return {
-		init: function()
-		{
-			this.fullscreen.isOpen = false;
-
-			var button = this.button.add('fullscreen', 'Fullscreen');
-			this.button.addCallback(button, this.fullscreen.toggle);
-
-			if (this.opts.fullscreen) this.fullscreen.toggle();
-		},
-		enable: function()
-		{
-			this.button.changeIcon('fullscreen', 'normalscreen');
-			this.button.setActive('fullscreen');
-			this.fullscreen.isOpen = true;
-
-			if (this.opts.toolbarExternal)
+	$.Redactor.prototype.fullscreen = function()
+	{
+		return {
+			langs: {
+				en: {
+					"fullscreen": "Fullscreen"
+				}
+			},
+			init: function()
 			{
-				this.fullscreen.toolcss = {};
-				this.fullscreen.boxcss = {};
-				this.fullscreen.toolcss.width = this.$toolbar.css('width');
-				this.fullscreen.toolcss.top = this.$toolbar.css('top');
-				this.fullscreen.toolcss.position = this.$toolbar.css('position');
-				this.fullscreen.boxcss.top = this.$box.css('top');
-			}
+				this.fullscreen.isOpen = false;
 
-			this.fullscreen.height = this.$editor.height();
+				var button = this.button.add('fullscreen', this.lang.get('fullscreen'));
+				this.button.addCallback(button, this.fullscreen.toggle);
 
-			if (this.opts.maxHeight) this.$editor.css('max-height', '');
-			if (this.opts.minHeight) this.$editor.css('min-height', '');
+				if (this.opts.fullscreen)
+				{
+					this.fullscreen.toggle();
+				}
 
-			if (!this.$fullscreenPlaceholder) this.$fullscreenPlaceholder = $('<div/>');
-			this.$fullscreenPlaceholder.insertAfter(this.$box);
-
-			this.$box.appendTo(document.body);
-
-			this.$box.addClass('redactor-box-fullscreen');
-			$('body, html').css('overflow', 'hidden');
-
-			this.fullscreen.resize();
-			$(window).on('resize.redactor.fullscreen', $.proxy(this.fullscreen.resize, this));
-			$(document).scrollTop(0, 0);
-
-			this.$editor.focus();
-			this.observe.load();
-		},
-		disable: function()
-		{
-			this.button.removeIcon('fullscreen', 'normalscreen');
-			this.button.setInactive('fullscreen');
-			this.fullscreen.isOpen = false;
-
-			$(window).off('resize.redactor.fullscreen');
-			$('body, html').css('overflow', '');
-
-			this.$box.insertBefore(this.$fullscreenPlaceholder);
-			this.$fullscreenPlaceholder.remove();
-
-			this.$box.removeClass('redactor-box-fullscreen').css({ width: 'auto', height: 'auto' });
-
-			this.code.sync();
-
-			if (this.opts.toolbarExternal)
+			},
+			enable: function()
 			{
-				this.$box.css('top', this.fullscreen.boxcss.top);
-				this.$toolbar.css({
-					'width': this.fullscreen.toolcss.width,
-					'top': this.fullscreen.toolcss.top,
-					'position': this.fullscreen.toolcss.position
-				});
-			}
+				this.fullscreen.isOpened = false;
+				this.button.setActive('fullscreen');
+				this.fullscreen.isOpen = true;
 
-			if (this.opts.minHeight) this.$editor.css('minHeight', this.opts.minHeight);
-			if (this.opts.maxHeight) this.$editor.css('maxHeight', this.opts.maxHeight);
+				if (!this.opts.fullscreen)
+				{
+					this.selection.save();
+				}
 
-			this.$editor.css('height', 'auto');
-			this.$editor.focus();
-			this.observe.load();
-		},
-		toggle: function()
-		{
-			if (this.fullscreen.isOpen)
+				if (this.opts.toolbarExternal)
+				{
+					this.fullscreen.toolcss = {};
+					this.fullscreen.boxcss = {};
+					this.fullscreen.toolcss.width = this.$toolbar.css('width');
+					this.fullscreen.toolcss.top = this.$toolbar.css('top');
+					this.fullscreen.toolcss.position = this.$toolbar.css('position');
+					this.fullscreen.boxcss.top = this.$box.css('top');
+				}
+
+				this.fullscreen.height = this.core.editor().height();
+
+				if (this.opts.maxHeight)
+				{
+					this.core.editor().css('max-height', '');
+				}
+
+				if (this.opts.minHeight)
+				{
+					this.core.editor().css('min-height', '');
+				}
+
+				if (!this.$fullscreenPlaceholder)
+				{
+					this.$fullscreenPlaceholder = $('<div/>');
+				}
+
+				this.$fullscreenPlaceholder.insertAfter(this.$box);
+
+				this.core.box().appendTo(document.body);
+				this.core.box().addClass('redactor-box-fullscreen');
+
+				$('body').addClass('redactor-body-fullscreen');
+				$('body, html').css('overflow', 'hidden');
+
+				this.fullscreen.resize();
+
+				if (!this.opts.fullscreen)
+				{
+					this.selection.restore();
+				}
+
+				this.toolbar.observeScrollDisable();
+				$(window).on('resize.redactor-plugin-fullscreen', $.proxy(this.fullscreen.resize, this));
+				$(document).scrollTop(0, 0);
+
+				var self = this;
+				setTimeout(function()
+				{
+					self.fullscreen.isOpened = true;
+				}, 10);
+
+			},
+			disable: function()
 			{
-				this.fullscreen.disable();
-			}
-			else
+				this.button.setInactive('fullscreen');
+				this.fullscreen.isOpened = undefined;
+				this.fullscreen.isOpen = false;
+				this.selection.save();
+
+				$(window).off('resize.redactor-plugin-fullscreen');
+				$('body, html').css('overflow', '');
+
+				this.core.box().insertBefore(this.$fullscreenPlaceholder);
+				this.$fullscreenPlaceholder.remove();
+
+				this.core.box().removeClass('redactor-box-fullscreen').css({ width: 'auto', height: 'auto' });
+				this.core.box().removeClass('redactor-box-fullscreen');
+
+				if (this.opts.toolbarExternal)
+				{
+					this.core.box().css('top', this.fullscreen.boxcss.top);
+					this.core.toolbar().css({
+						'width': this.fullscreen.toolcss.width,
+						'top': this.fullscreen.toolcss.top,
+						'position': this.fullscreen.toolcss.position
+					});
+				}
+
+				if (this.opts.minHeight)
+				{
+					this.core.editor().css('minHeight', this.opts.minHeight);
+				}
+
+				if (this.opts.maxHeight)
+				{
+					this.core.editor().css('maxHeight', this.opts.maxHeight);
+				}
+
+				this.core.editor().css('height', 'auto');
+				this.selection.restore();
+			},
+			toggle: function()
 			{
-				this.fullscreen.enable();
-			}
-		},
-		resize: function()
-		{
-			if (!this.fullscreen.isOpen) return;
-
-			var toolbarHeight = this.$toolbar.height();
-
-			var height = $(window).height() - toolbarHeight;
-			this.$box.width($(window).width() - 2).height(height + toolbarHeight);
-
-			if (this.opts.toolbarExternal)
+				return (this.fullscreen.isOpen) ? this.fullscreen.disable() : this.fullscreen.enable();
+			},
+			resize: function()
 			{
-				this.$toolbar.css({
-					'top': '0px',
-					'position': 'absolute',
-					'width': '100%'
-				});
+				if (!this.fullscreen.isOpen)
+				{
+					return;
+				}
 
-				this.$box.css('top', toolbarHeight + 'px');
+				var toolbarHeight = this.button.toolbar().height();
+				var padding = parseInt(this.core.editor().css('padding-top')) + parseInt(this.core.editor().css('padding-bottom'));
+				var height = $(window).height() - toolbarHeight - padding;
+
+				this.core.box().width($(window).width()).height(height);
+
+				if (this.opts.toolbarExternal)
+				{
+					this.core.toolbar().css({
+						'top': '0px',
+						'position': 'absolute',
+						'width': '100%'
+					});
+
+					this.core.box().css('top', toolbarHeight + 'px');
+				}
+
+				this.core.editor().height(height);
 			}
-
-			this.$editor.height(height - 14);
-		}
+		};
 	};
-};
+})(jQuery);

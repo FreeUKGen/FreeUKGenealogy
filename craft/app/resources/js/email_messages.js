@@ -1,8 +1,8 @@
 /**
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.resources
  */
 
@@ -102,6 +102,13 @@ var MessageSettingsModal = Garnish.Modal.extend(
 			key:    this.message.key,
 			locale: locale
 		};
+
+		// If CSRF protection isn't enabled, these won't be defined.
+		if (typeof Craft.csrfTokenName !== 'undefined' && typeof Craft.csrfTokenValue !== 'undefined')
+		{
+			// Add the CSRF token
+			data[Craft.csrfTokenName] = Craft.csrfTokenValue;
+		}
 
 		$.post(Craft.getUrl('settings/email/_message_modal'), data, $.proxy(function(response, textStatus, jqXHR)
 		{

@@ -6,8 +6,8 @@ namespace Craft;
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.tools
  * @since     1.0
  */
@@ -61,7 +61,7 @@ class DbBackupTool extends BaseTool
 	{
 		// In addition to the default tables we want to ignore data in, we also don't care about data in the session
 		// table in this tools' case.
-		$file = craft()->db->backup(array('sessions'));
+		$file = craft()->db->backup();
 
 		if (IOHelper::fileExists($file) && isset($params['downloadBackup']) && (bool)$params['downloadBackup'])
 		{

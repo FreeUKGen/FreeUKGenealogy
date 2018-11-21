@@ -1,0 +1,12 @@
+<div class="post__quote  grid__item  one-whole">
+  <blockquote class="blockquote">
+    {{ block.quote }}
+    {% if block.sourceHeading != '' and block.sourceUrl != '' %}
+      <footer class="source"><a href="{{ block.sourceUrl }}">{{ block.sourceHeading }}</a></footer>
+    {% elseif block.sourceHeading != '' %}
+      <footer class="source">{{ block.sourceHeading }}</footer>
+    {% elseif block.sourceUrl != '' %}
+      <footer class="source">{{ block.sourceUrl }}</footer>
+    {% endif %}
+  </blockquote>
+</div>

@@ -1,8 +1,6 @@
 <?php
 namespace Craft;
 
-craft()->requireEdition(Craft::Client);
-
 /**
  * The EntryRevisionsController class is a controller that handles various entry version and draft related tasks such as
  * retrieving, saving, deleting, publishing and reverting entry drafts and versions.
@@ -11,8 +9,8 @@ craft()->requireEdition(Craft::Client);
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.controllers
  * @since     1.0
  */
@@ -39,7 +37,7 @@ class EntryRevisionsController extends BaseEntriesController
 
 			if (!$draft)
 			{
-				throw new Exception(Craft::t('No draft exists with the ID “{id}”', array('id' => $draftId)));
+				throw new Exception(Craft::t('No draft exists with the ID “{id}”.', array('id' => $draftId)));
 			}
 		}
 		else
@@ -55,6 +53,16 @@ class EntryRevisionsController extends BaseEntriesController
 		$this->enforceEditEntryPermissions($draft);
 
 		$this->_setDraftAttributesFromPost($draft);
+
+		$fieldsLocation = craft()->request->getParam('fieldsLocation', 'fields');
+		$draft->setContentFromPost($fieldsLocation);
+
+		$entryType = $draft->getType();
+
+		if (!$entryType->hasTitleField)
+		{
+			$draft->getContent()->title = craft()->templates->renderObjectTemplate($entryType->titleFormat, $draft);
+		}
 
 		if (!$draft->id)
 		{
@@ -79,9 +87,6 @@ class EntryRevisionsController extends BaseEntriesController
 				$draft->addErrors($content->getErrors());
 			}
 		}
-
-		$fieldsLocation = craft()->request->getParam('fieldsLocation', 'fields');
-		$draft->setContentFromPost($fieldsLocation);
 
 		if ($draft->id && craft()->entryRevisions->saveDraft($draft))
 		{
@@ -124,7 +129,7 @@ class EntryRevisionsController extends BaseEntriesController
 
 		if (!$draft)
 		{
-			throw new Exception(Craft::t('No draft exists with the ID “{id}”', array('id' => $draftId)));
+			throw new Exception(Craft::t('No draft exists with the ID “{id}”.', array('id' => $draftId)));
 		}
 
 		if ($draft->creatorId != craft()->userSession->getUser()->id)
@@ -161,7 +166,7 @@ class EntryRevisionsController extends BaseEntriesController
 
 		if (!$draft)
 		{
-			throw new Exception(Craft::t('No draft exists with the ID “{id}”', array('id' => $draftId)));
+			throw new Exception(Craft::t('No draft exists with the ID “{id}”.', array('id' => $draftId)));
 		}
 
 		if ($draft->creatorId != craft()->userSession->getUser()->id)
@@ -190,7 +195,7 @@ class EntryRevisionsController extends BaseEntriesController
 
 		if (!$draft)
 		{
-			throw new Exception(Craft::t('No draft exists with the ID “{id}”', array('id' => $draftId)));
+			throw new Exception(Craft::t('No draft exists with the ID “{id}”.', array('id' => $draftId)));
 		}
 
 		// Permission enforcement
@@ -198,7 +203,7 @@ class EntryRevisionsController extends BaseEntriesController
 
 		if (!$entry)
 		{
-			throw new Exception(Craft::t('No entry exists with the ID “{id}”', array('id' => $draft->id)));
+			throw new Exception(Craft::t('No entry exists with the ID “{id}”.', array('id' => $draft->id)));
 		}
 
 		$this->enforceEditEntryPermissions($entry);
@@ -275,7 +280,7 @@ class EntryRevisionsController extends BaseEntriesController
 
 		if (!$version)
 		{
-			throw new Exception(Craft::t('No version exists with the ID “{id}”', array('id' => $versionId)));
+			throw new Exception(Craft::t('No version exists with the ID “{id}”.', array('id' => $versionId)));
 		}
 
 		// Permission enforcement
@@ -283,7 +288,7 @@ class EntryRevisionsController extends BaseEntriesController
 
 		if (!$entry)
 		{
-			throw new Exception(Craft::t('No entry exists with the ID “{id}”', array('id' => $version->id)));
+			throw new Exception(Craft::t('No entry exists with the ID “{id}”.', array('id' => $version->id)));
 		}
 
 		$this->enforceEditEntryPermissions($entry);
@@ -338,8 +343,8 @@ class EntryRevisionsController extends BaseEntriesController
 	{
 		$draft->typeId     = craft()->request->getPost('typeId');
 		$draft->slug       = craft()->request->getPost('slug');
-		$draft->postDate   = craft()->request->getPost('postDate');
-		$draft->expiryDate = craft()->request->getPost('expiryDate');
+		$draft->postDate   = (($postDate   = craft()->request->getPost('postDate'))   ? DateTime::createFromString($postDate,   craft()->timezone) : $draft->postDate);
+		$draft->expiryDate = (($expiryDate = craft()->request->getPost('expiryDate')) ? DateTime::createFromString($expiryDate, craft()->timezone) : null);
 		$draft->enabled    = (bool) craft()->request->getPost('enabled');
 		$draft->getContent()->title = craft()->request->getPost('title');
 

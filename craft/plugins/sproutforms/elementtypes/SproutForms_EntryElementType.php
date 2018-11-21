@@ -49,6 +49,21 @@ class SproutForms_EntryElementType extends BaseElementType
 	 * @param string|null $context
 	 * @return array|false
 	 */
+
+	public function getAvailableActions($source = null)
+	{
+		$actions = array();
+
+		// Delete
+		$deleteAction = craft()->elements->getAction('SproutForms_BulkDelete');
+		$deleteAction->setParams(array(
+			'label' => Craft::t('Delete'), 
+		));
+		$actions[] = $deleteAction;
+		
+		return $actions;
+	}
+
 	public function getSources($context = null)
 	{
 		// Start with an option for everything

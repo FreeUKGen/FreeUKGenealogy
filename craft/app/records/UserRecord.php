@@ -6,8 +6,8 @@ namespace Craft;
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.records
  * @since     1.0
  */
@@ -88,8 +88,6 @@ class UserRecord extends BaseRecord
 	public function setActive()
 	{
 		$this->pending = false;
-		$this->locked = false;
-		$this->suspended = false;
 		$this->archived = false;
 	}
 
@@ -105,7 +103,7 @@ class UserRecord extends BaseRecord
 	{
 		return array(
 			'username'                   => array(AttributeType::String, 'maxLength' => 100, 'required' => true),
-			'photo'                      => array(AttributeType::String, 'maxLength' => 50),
+			'photo'                      => array(AttributeType::String, 'maxLength' => 100),
 			'firstName'                  => array(AttributeType::String, 'maxLength' => 100),
 			'lastName'                   => array(AttributeType::String, 'maxLength' => 100),
 			'email'                      => array(AttributeType::Email, 'required' => true),

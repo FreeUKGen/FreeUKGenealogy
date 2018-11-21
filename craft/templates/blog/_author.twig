@@ -10,7 +10,7 @@
 
 {% set breadcrumb = [
   {
-    'url'   : url('blog/author' ~ activeAuthor.username ),
+    'url'   : url('news/author/' ~ activeAuthor.username ),
     'title' : activeAuthor.fullName
   }
 ] %}

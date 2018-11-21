@@ -9,8 +9,8 @@ namespace Craft;
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.controllers
  * @since     2.0
  */
@@ -59,14 +59,14 @@ class StructuresController extends BaseController
 
 		if (!$this->_structure)
 		{
-			throw new Exception(Craft::t('No structure exists with the ID “{id}”', array('id' => $structureId)));
+			throw new Exception(Craft::t('No structure exists with the ID “{id}”.', array('id' => $structureId)));
 		}
 
 		$this->_element = craft()->elements->getElementById($elementId, null, $localeId);
 
 		if (!$this->_element)
 		{
-			throw new Exception(Craft::t('No element exists with the ID “{id}”', array('id' => $elementId)));
+			throw new Exception(Craft::t('No element exists with the ID “{id}.”', array('id' => $elementId)));
 		}
 	}
 

@@ -753,4 +753,25 @@ input.parsley-success,textarea.parsley-success,.multiselect select.parsley-succe
   zoom: 1;
 }
 
+.icon__search-btn:hover,.icon__search-btn:active,
+.icon__search-btn--dark {
+  background-image: url('../../images/png/search-ic-dark.png.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+.icon__search-btn{
+  background-image: url('../../images/png/search-ic.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
 

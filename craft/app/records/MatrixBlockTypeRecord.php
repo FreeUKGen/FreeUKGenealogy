@@ -6,8 +6,8 @@ namespace Craft;
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.records
  * @since     1.3
  */
@@ -21,7 +21,7 @@ class MatrixBlockTypeRecord extends BaseRecord
 	 *
 	 * @var bool
 	 */
-	protected $validateUniques = true;
+	public $validateUniques = true;
 
 	// Public Methods
 	// =========================================================================

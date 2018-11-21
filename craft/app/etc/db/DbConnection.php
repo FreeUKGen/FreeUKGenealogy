@@ -6,8 +6,8 @@ namespace Craft;
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.etc.db
  * @since     1.0
  */
@@ -48,6 +48,11 @@ class DbConnection extends \CDbConnection
 
 		if (($backupFile = $backup->run()) !== false)
 		{
+			// Fire an 'onBackup' event
+			$this->onBackup(new Event($this, array(
+				'filePath' => $backupFile,
+			)));
+
 			return $backupFile;
 		}
 
@@ -261,5 +266,20 @@ class DbConnection extends \CDbConnection
 		}
 
 		return $name;
+	}
+
+	// Events
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Fires an 'onBackup' event.
+	 *
+	 * @param Event $event
+	 *
+	 * @return null
+	 */
+	public function onBackup(Event $event)
+	{
+		$this->raiseEvent('onBackup', $event);
 	}
 }

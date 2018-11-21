@@ -43,7 +43,7 @@
 
   <ul class="boxed-nav">
   {% for yearMonth, entries in allBlogEntries | group("postDate|date('Y-m')") %}
-    <li><a href="{{ url('blog/' ~ yearMonth | date('Y/m') ) }}">{{ yearMonth | date('F Y') }}</a></li>
+    <li><a href="{{ url('news/' ~ yearMonth | date('Y/m') ) }}">{{ yearMonth | date('F Y') }}</a></li>
   {% endfor %}
   </ul>
 
@@ -52,3 +52,14 @@
 
 
 {% include '_includes/twitter' %}
+
+<center>
+  <div id="center">
+    <a href="/help-us-keep-history-free" class="freeGen" id="donate">
+      <span class="btn-donate" id="donateOverlay">{% include '/images/svg/donateOverlay.svg' %}</span>
+      <span class="btn-donate", id="donateCoin">{% include '/images/svg/donateCoin.svg' %}</span>
+      <span class="btn-donate" id="donateBox">{% include '/images/svg/donateBox.svg' %}</span>
+      <span class="btn-donate" id="donateBtn">{% include '/images/svg/donateBtn.svg' %}Donate</span>
+    </a>
+  </div>
+</center>

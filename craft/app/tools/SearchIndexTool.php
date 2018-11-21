@@ -6,8 +6,8 @@ namespace Craft;
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.tools
  * @since     1.0
  */
@@ -47,6 +47,9 @@ class SearchIndexTool extends BaseTool
 	{
 		if (!empty($params['start']))
 		{
+			// Truncate the searchindex table
+			craft()->db->createCommand()->truncateTable('searchindex');
+
 			// Get all the element IDs ever
 			$elements = craft()->db->createCommand()
 				->select('id, type')

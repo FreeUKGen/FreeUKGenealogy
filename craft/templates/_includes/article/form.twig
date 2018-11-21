@@ -3,7 +3,7 @@
  #}
 {% set form = block.form.first() %}
 {% if form.handle is not empty %}
-<section class="article__form  grid__item  {{ block.width }}  palm-one-whole">
+<section class="article__form  grid__item  {{ block.width }}  palm-one-whole  text--{{ block.align }}">
   {{ craft.sproutForms.displayForm(form.handle) }}
 </section>
 {% endif %}

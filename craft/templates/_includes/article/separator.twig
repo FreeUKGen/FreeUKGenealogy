@@ -5,7 +5,7 @@
 {% if block.colour == 'invisible' %}
 <div class="cf"></div>
 {% else %}
-<section class="article__separator  article__separator--{{ block.colour }}  grid__item  one-whole">
+<section class="article__separator--{{ block.weight }} article__separator--{{ block.colour }}  {{ block.width }}  grid__item">
   <hr>
 </section>
 {% endif %}

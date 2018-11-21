@@ -6,8 +6,8 @@ namespace Craft;
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @link      http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @link      http://craftcms.com
  * @package   craft.app.elementactions
  * @since     2.3
  */
@@ -68,7 +68,7 @@ class SetStatusElementAction extends BaseElementAction
 		}
 
 		// Clear their template caches
-		craft()->templateCache->deleteCacheById($elementIds);
+		craft()->templateCache->deleteCachesByElementId($elementIds);
 
 		// Fire an 'onSetStatus' event
 		$this->onSetStatus(new Event($this, array(

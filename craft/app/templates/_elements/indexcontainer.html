@@ -25,7 +25,7 @@
 							<ul class="padded">
 								<li><a data-status="" class="sel"><span class="status"></span>{{ "All"|t }}</a></li>
 								{% for status, label in elementType.getStatuses() %}
-									<li><a data-status="{{ status }}"><span class="status {{ status }}"></span> {{ label }}</a></li>
+									<li><a data-status="{{ status }}"><span class="status {{ status }}"></span>{{ label }}</a></li>
 								{% endfor %}
 							</ul>
 						</div>
@@ -52,7 +52,7 @@
 					{% endif %}
 				{% endif %}
 				<td>
-					<div class="texticon search icon">
+					<div class="texticon search icon clearable">
 						{{ text({
 							placeholder: "Search"|t
 						}) }}
@@ -81,8 +81,4 @@
 	</div>
 
 	<div class="elements"></div>
-
-	<div class="centeralign">
-		<div class="spinner loadingmore hidden"></div>
-	</div>
 </div>

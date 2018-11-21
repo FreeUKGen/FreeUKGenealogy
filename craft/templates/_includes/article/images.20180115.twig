@@ -1,0 +1,152 @@
+{#
+ # Image block type
+ #}
+{% if block.images | length %}
+
+
+  {% switch block.width %}
+
+    {% case 'two-thirds' %}
+      {% set articleImageTransform = {
+        mode : 'crop',
+        width : '632',
+        position : 'center-center'
+      } %}
+
+      {% set slideshowTransform = {
+        mode : 'crop',
+        width : '632',
+        height : '276',
+        position : 'center-center'
+      } %}
+
+      {% set galleryThumb = {
+        mode : 'crop',
+        width : '209',
+        height : '209',
+        position : 'center-center'
+      } %}
+
+
+
+    {% case 'one-third' %}
+      {% set articleImageTransform = {
+        mode : 'crop',
+        width : '304',
+        position : 'center-center'
+      } %}
+
+      {% set slideshowTransform = {
+        mode : 'crop',
+        width : '304',
+        height : '133',
+        position : 'center-center'
+      } %}
+
+      {% set galleryThumb = {
+        mode : 'crop',
+        width : '99',
+        height : '99',
+        position : 'center-center'
+      } %}
+
+
+    {% default %}
+      {% set articleImageTransform = {
+        mode : 'crop',
+        width : '960',
+        position : 'center-center'
+      } %}
+
+      {% set slideshowTransform = {
+        mode : 'crop',
+        width : '960',
+        height : '420',
+        position : 'center-center'
+      } %}
+
+      {% set galleryThumb = {
+        mode : 'crop',
+        width : '319',
+        height : '319',
+        position : 'center-center'
+      } %}
+
+  {% endswitch %}
+
+
+
+  {% if block.images | length == 1 %}
+
+    {% set image = block.images.first %}
+    <figure class="article__image  grid__item  {{ block.width }}  palm-one-whole  img--{{ block.align }}">
+      {% if block.images.first.width > articleImageTransform.width %}
+        <center><img src="{{ image.getUrl(articleImageTransform) }}" alt="{{ block.images.first.altText }}" title="{{ block.images.first.caption }}" itemprop="photo"></center>
+
+      {% else %}
+        <center><img src="{{ image.getUrl(articleImageTransform) }}" alt="{{ block.images.first.altText }}" width="{{ block.images.first.width }}" height="{{ block.images.first.height }}" title="{{ block.images.first.caption }}" itemprop="photo"></center>
+      {% endif %}
+    </figure>
+
+  {% elseif block.galleryType == 'slideshow' %}
+
+    <div class="article__image  grid__item  {{ block.width }}  palm-one-whole  push--bottom  img--{{ block.align }}">
+
+      {% if block.width == 'one-third' %}
+        <div data-sc-gallery="fade">
+        {% for image in block.images %}
+          {% if image.width > slideshowTransform.width %}
+            <center><img src="{{ image.getUrl(slideshowTransform) }}"  alt="hello2" title="hello2" itemprop="photo"></center>
+
+          {% else %}
+            <center><img src="{{ image.getUrl() }}"  alt="hello" width="{{ block.images.first.width }}" height="{{ block.images.first.height }}" title="hello" itemprop="photo"></center>
+          {% endif %}
+        {% endfor %}
+        </div>
+
+      {% else %}
+        <div data-sc-gallery="fade">
+        {% for image in block.images %}
+          <figure>
+            {% if image.width > slideshowTransform.width %}
+              <center><img src="{{ image.getUrl(slideshowTransform) }}"  alt="{{ image.altText }}" title="{{ image.caption }}" itemprop="photo"></center>
+
+            {% else %}
+              <center><img src="{{ image.getUrl(slideshowTransform) }}"  alt="{{ image.altText }}" width="{{ image.width }}" height="{{ image.height }}" title="{{ image.caption }}" itemprop="photo"></center>
+            {% endif %}
+          
+            {% if image.caption %}
+              <figcaption>
+
+              {% if image.filename != (image.title ~ '.' ~ image.extension) %}
+                <b>{{ image.title }}:</b> 
+              {% endif %}
+
+              {{ image.caption }}
+              </figcaption>
+            {% endif %}
+
+          </figure>
+        {% endfor %}
+        </div>
+      {% endif %}
+
+    </div>
+
+  {% elseif block.galleryType == 'lightbox' %}
+
+    <aside class="article__image  grid__item  {{ block.width }}  palm-one-whole  text--{{ block.align }}">
+
+      <ul class="gallery-thumbs" data-sc-gallery="lightbox" data-sc-gallery-fitImages="true">
+      {% for image in block.images %}
+        <li>
+          <a href="{{ image.getUrl() }}" data-sc-caption="{{ image.caption }}"><img src="{{ image.getUrl(galleryThumb) }}" itemprop="photo"></a>
+        </li>
+      {% endfor %}
+      </ul>
+
+    </aside>
+
+  {% endif %}
+
+{% endif %}

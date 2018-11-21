@@ -22,13 +22,31 @@ return array(
     'defaultImageQuality' => 100,
     'pageTrigger' => 'page-',
     'overridePhpSessionLocation' => false,
-    'cacheDuration' => 'PT1H'
+    'cacheDuration' => 'PT1H',
+    'omitScriptNameInUrls' => true,
   ),
-  '.net' => array( 'devMode' => true ),
+  '.net' => array( 
+    'devMode' => true,
+  ),
   '.dev' => array(
     'devMode' => true,
-    'requireMatchingUserAgentForSession' => false
+    'requireMatchingUserAgentForSession' => false,
   ),
-  '.xip.io' => array( 'devMode' => false ),
-  '.org.uk' => array( 'devMode' => false )
+  '.xip.io' => array( 
+    'devMode' => false,
+  ),
+  '.org.uk' => array(
+    'devMode' => false,
+    'defaultCookieDomain' => '.freeukgenealogy.org.uk',
+	  'siteUrl' => 'https://www.freeukgenealogy.org.uk',
+    'baseCpUrl' => 'https://www.freeukgenealogy.org.uk',
+    'environmentVariables' => array(
+      'assetsBasePath' => './assets', 
+      'assetsBaseUrl' => '.assets', 
+      'craftBasePath' => '../craft/', 
+      'craftBaseUrl' => '../craft/', 
+      'basePath' => '../public', 
+      'baseUrl' => '../public'
+    )
+  )
 );

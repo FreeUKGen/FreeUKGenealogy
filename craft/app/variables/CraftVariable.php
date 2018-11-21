@@ -6,8 +6,8 @@ namespace Craft;
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.variables
  * @since     1.0
  */
@@ -20,6 +20,11 @@ class CraftVariable
 	 * @var
 	 */
 	private $_rebrandVariable;
+
+	/**
+	 * @var array
+	 */
+	private $_pluginVariableInstances;
 
 	// Public Methods
 	// =========================================================================
@@ -44,7 +49,13 @@ class CraftVariable
 				Craft::import('plugins.'.StringHelper::toLowerCase($pluginName).'.variables.'.$pluginName.'Variable');
 			}
 
-			return new $className;
+			// If we haven't done this one yet, create it and save it for later.
+			if (!isset($this->_pluginVariableInstances[$className]))
+			{
+				$this->_pluginVariableInstances[$className] = new $className;
+			}
+
+			return $this->_pluginVariableInstances[$className];
 		}
 	}
 
@@ -133,11 +144,27 @@ class CraftVariable
 	}
 
 	/**
+	 * @return CategoryGroupsVariable
+	 */
+	public function categoryGroups()
+	{
+		return new CategoryGroupsVariable();
+	}
+
+	/**
 	 * @return ConfigVariable
 	 */
 	public function config()
 	{
 		return new ConfigVariable();
+	}
+
+	/**
+	 * @return ElementIndexesVariable
+	 */
+	public function elementIndexes()
+	{
+		return new ElementIndexesVariable();
 	}
 
 	/**
@@ -149,27 +176,11 @@ class CraftVariable
 	}
 
 	/**
-	 * @return FieldTypesVariable
-	 */
-	public function fieldTypes()
-	{
-		return new FieldTypesVariable();
-	}
-
-	/**
 	 * @return CpVariable
 	 */
 	public function cp()
 	{
 		return new CpVariable();
-	}
-
-	/**
-	 * @return DashboardVariable
-	 */
-	public function dashboard()
-	{
-		return new DashboardVariable();
 	}
 
 	/**
@@ -214,10 +225,7 @@ class CraftVariable
 	 */
 	public function entryRevisions()
 	{
-		if (craft()->getEdition() >= Craft::Client)
-		{
-			return new EntryRevisionsVariable();
-		}
+		return new EntryRevisionsVariable();
 	}
 
 	/**
@@ -226,14 +234,6 @@ class CraftVariable
 	public function feeds()
 	{
 		return new FeedsVariable();
-	}
-
-	/**
-	 * @return LinksVariable
-	 */
-	public function links()
-	{
-		return new LinksVariable();
 	}
 
 	/**
@@ -355,7 +355,7 @@ class CraftVariable
 	 */
 	public function userPermissions()
 	{
-		if (craft()->getEdition() == Craft::Pro)
+		if (craft()->getEdition() >= Craft::Client)
 		{
 			return new UserPermissionsVariable();
 		}

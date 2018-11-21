@@ -15,7 +15,12 @@
 
           {% nav page in pages %}
             <li>
-              <a href="{{ page.url }}">{{ page.title }}</a>
+              {# a temporary solution to hide page 'About FreeUKGen' from sitemap but #}
+              {# keep it in side bar (which means can not use Disable) #}
+              {% if page.parent.title != 'Donate' or page.title != 'About FreeUKGEN' %}
+                <a href="{{ page.url }}">{{ page.title }}</a>
+              {% endif %}
+
               {% ifchildren %}
                 <ul>
                   {% children %}

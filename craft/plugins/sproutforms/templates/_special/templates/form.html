@@ -4,14 +4,15 @@
 {% if form.submitAction %}
 
 {# Submit form to third party #}
-<form method="post" accept-charset="utf-8" enctype="multipart/form-data">
+<form method="post" accept-charset="utf-8" enctype="multipart/form-data" onSubmit="return check();">
 	<input type="hidden" name="action" value="{{ submitAction }}">
 
 {% else %}
 
 {# Submit form to Sprout Forms #}
-<form method="post" accept-charset="UTF-8">
+<form method="post" accept-charset="UTF-8" onSubmit="return check();">
 	{{ getCsrfInput() }}
+	{{ craft.sproutInvisibleCaptcha.protect() }}
 	<input type="hidden" name="action" value="{{ submitAction }}">
 	<input type="hidden" name="handle" value="{{ form.handle }}">
 
@@ -26,7 +27,15 @@
 	</div>
 
 	{% hook 'sproutForms.modifyForm' %}
-	
+
+	<div id="sproutform-email-modal" class="modal-sproutform-email">
+		<div class="modal-email-content"><p>Please check your email</p></div>
+	</div>
+
+	<div id="sproutform-modal" class="modal-sproutform">
+		<div class="modal-sp-content"><p>Thank you - your message has been submitted and you should receive a response in 4-5 working days</p></div>
+	</div>
+
 	<div class="submit">
 		<input type="submit" value="{{ submitValue }}">
 	</div>

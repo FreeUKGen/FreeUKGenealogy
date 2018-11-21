@@ -8,8 +8,8 @@ craft()->requireEdition(Craft::Pro);
  *
  * @author     Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright  Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license    http://buildwithcraft.com/license Craft License Agreement
- * @see        http://buildwithcraft.com
+ * @license    http://craftcms.com/license Craft License Agreement
+ * @see        http://craftcms.com
  * @package    craft.app.assetsourcetypes
  * @since      1.0
  * @deprecated This class will be removed in Craft 3.0.
@@ -49,25 +49,36 @@ class S3AssetSourceType extends BaseAssetSourceType
 	public static function getBucketList($keyId, $secret)
 	{
 		$s3 = new \S3($keyId, $secret);
-		$buckets = @$s3->listBuckets();
+		$s3->setExceptions(true);
 
-		if (empty($buckets))
+		try
 		{
-			throw new Exception(Craft::t("Credentials rejected by target host."));
+			$buckets = $s3->listBuckets();
+		}
+		catch (\Exception $exception)
+		{
+			// Re-throw a proper Craft Exception
+			throw new Exception($exception->getMessage());
 		}
 
 		$bucketList = array();
 
 		foreach ($buckets as $bucket)
 		{
-			$location = $s3->getBucketLocation($bucket);
+			try
+			{
+				$location = $s3->getBucketLocation($bucket);
+				$bucketList[] = array(
+					'bucket' => $bucket,
+					'location' => $location,
+					'urlPrefix' => 'http://'.static::getEndpointByLocation($location).'/'.$bucket.'/'
+				);
 
-			$bucketList[] = array(
-				'bucket' => $bucket,
-				'location' => $location,
-				'url_prefix' => 'http://'.static::getEndpointByLocation($location).'/'.$bucket.'/'
-			);
-
+			}
+			catch (\Exception $exception)
+			{
+				continue;
+			}
 		}
 
 		return $bucketList;
@@ -258,7 +269,11 @@ class S3AssetSourceType extends BaseAssetSourceType
 			{
 				$this->_s3->getObject($settings->bucket, $this->_getPathPrefix().$indexEntryModel->uri, $targetPath);
 				clearstatcache();
-				list ($fileModel->width, $fileModel->height) = getimagesize($targetPath);
+
+				list ($width, $height) = ImageHelper::getImageSize($targetPath);
+
+				$fileModel->width = $width;
+				$fileModel->height = $height;
 
 				// Store the local source or delete - maxCacheCloudImageSize is king.
 				craft()->assetTransforms->storeLocalSource($targetPath, $targetPath);
@@ -299,9 +314,9 @@ class S3AssetSourceType extends BaseAssetSourceType
 	public function putImageTransform(AssetFileModel $file, AssetTransformIndexModel $index, $sourceImage)
 	{
 		$this->_prepareForRequests();
-		$targetFile = $this->_getPathPrefix().$file->getFolder()->path.craft()->assetTransforms->getTransformSubpath($file, $index);
+		$targetFile = $this->_getPathPrefix().$file->folderPath.craft()->assetTransforms->getTransformSubpath($file, $index);
 
-		return $this->putObject($sourceImage, $this->getSettings()->bucket, $targetFile, \S3::ACL_PUBLIC_READ);
+		return $this->putObject($sourceImage, $this->getSettings()->bucket, $targetFile, $this->_getACL());
 	}
 
 	/**
@@ -335,7 +350,7 @@ class S3AssetSourceType extends BaseAssetSourceType
 	public function transformExists(AssetFileModel $file, $location)
 	{
 		$this->_prepareForRequests();
-		return (bool) @$this->_s3->getObjectInfo($this->getSettings()->bucket, $this->_getPathPrefix().$file->getFolder()->path.$location.'/'.$file->filename);
+		return (bool) @$this->_s3->getObjectInfo($this->getSettings()->bucket, $this->_getPathPrefix().$file->folderPath.$location.'/'.$file->filename);
 	}
 
 	/**
@@ -357,10 +372,24 @@ class S3AssetSourceType extends BaseAssetSourceType
 	}
 
 	/**
+	 * @inheritDoc BaseAssetSourceType::fileExists()
+	 *
+	 * @param string $parentPath  Parent path
+	 * @param string $filename    The name of the file.
+	 *
+	 * @return boolean
+	 */
+	public function fileExists($parentPath, $fileName)
+	{
+		$this->_prepareForRequests();
+		return (bool) $this->_s3->getObjectInfo($this->getSettings()->bucket, rtrim($this->_getPathPrefix().$parentPath, '/').'/'.$fileName);
+	}
+
+	/**
 	 * @inheritDoc BaseAssetSourceType::folderExists()
 	 *
-	 * @param AssetFolderModel $parentPath
-	 * @param string           $folderName
+	 * @param string $parentPath  Parent path
+	 * @param string $folderName
 	 *
 	 * @return boolean
 	 */
@@ -385,45 +414,43 @@ class S3AssetSourceType extends BaseAssetSourceType
 			'secret'     => array(AttributeType::String, 'required' => true),
 			'bucket'     => array(AttributeType::String, 'required' => true),
 			'location'   => array(AttributeType::String, 'required' => true),
-			'urlPrefix'  => array(AttributeType::String, 'required' => true),
+			'publicURLs' => array(AttributeType::Bool,   'default' => true),
+			'urlPrefix'  => array(AttributeType::String),
 			'subfolder'  => array(AttributeType::String, 'default' => ''),
 			'expires'    => array(AttributeType::String, 'default' => ''),
 		);
 	}
 
 	/**
-	 * @inheritDoc BaseAssetSourceType::getNameReplacement()
+	 * @inheritDoc BaseAssetSourceType::getNameReplacementInFolder()
 	 *
 	 * @param AssetFolderModel $folder
 	 * @param string           $fileName
 	 *
 	 * @return mixed
 	 */
-	protected function getNameReplacement(AssetFolderModel $folder, $fileName)
+	protected function getNameReplacementInFolder(AssetFolderModel $folder, $fileName)
 	{
+		$baseFileName = IOHelper::getFileName($fileName, false);
+		$prefix = $this->_getPathPrefix().$folder->path;
+		
 		$this->_prepareForRequests();
-		$fileList = $this->_s3->getBucket($this->getSettings()->bucket, $this->_getPathPrefix().$folder->path);
+		$fileList = $this->_s3->getBucket($this->getSettings()->bucket, $prefix.$baseFileName);
 
-		$fileList = array_flip(array_map('mb_strtolower', array_keys($fileList)));
-
-		// Double-check
-		if (!isset($fileList[mb_strtolower($this->_getPathPrefix().$folder->path.$fileName)]))
+		foreach ($fileList as &$file)
 		{
-			return $fileName;
+			$file = preg_replace('/^'.preg_quote($prefix, '/').'/', '', $file['name']);
 		}
 
-		$fileNameParts = explode(".", $fileName);
-		$extension = array_pop($fileNameParts);
+		// Drop all the paths that have subfolders.
+		$fileList = array_filter($fileList,
+			function ($file)
+			{
+				return !(strpos($file, '/') !== false || empty($file));
+			}
+		);
 
-		$fileNameStart = join(".", $fileNameParts).'_';
-		$index = 1;
-
-		while (isset($fileList[mb_strtolower($this->_getPathPrefix().$folder->path.$fileNameStart.$index.'.'.$extension)]))
-		{
-			$index++;
-		}
-
-		return $fileNameStart.$index.'.'.$extension;
+		return AssetsHelper::getFilenameReplacement($fileList, $fileName);
 	}
 
 	/**
@@ -441,7 +468,7 @@ class S3AssetSourceType extends BaseAssetSourceType
 		$fileName = AssetsHelper::cleanAssetName($fileName);
 		$extension = IOHelper::getExtension($fileName);
 
-		if (! IOHelper::isExtensionAllowed($extension))
+		if (!IOHelper::isExtensionAllowed($extension))
 		{
 			throw new Exception(Craft::t('This file type is not allowed'));
 		}
@@ -461,7 +488,7 @@ class S3AssetSourceType extends BaseAssetSourceType
 		clearstatcache();
 		$this->_prepareForRequests();
 
-		if (!$this->putObject($filePath, $this->getSettings()->bucket, $uriPath, \S3::ACL_PUBLIC_READ))
+		if (!$this->putObject($filePath, $this->getSettings()->bucket, $uriPath, $this->_getACL()))
 		{
 			throw new Exception(Craft::t('Could not copy file to target destination'));
 		}
@@ -529,7 +556,7 @@ class S3AssetSourceType extends BaseAssetSourceType
 
 		$this->_prepareForRequests($originatingSettings);
 
-		if (!$this->_s3->copyObject($sourceBucket, $this->_getPathPrefix($originatingSettings).$file->getFolder()->path.$file->filename, $bucket, $newServerPath, \S3::ACL_PUBLIC_READ))
+		if (!$this->_s3->copyObject($sourceBucket, $this->_getPathPrefix($originatingSettings).$file->getPath(), $bucket, $newServerPath, $this->_getACL()))
 		{
 			$response = new AssetOperationResponseModel();
 			return $response->setError(Craft::t("Could not save the file"));
@@ -559,8 +586,8 @@ class S3AssetSourceType extends BaseAssetSourceType
 						craft()->assetTransforms->storeTransformIndexData($destinationIndex);
 					}
 
-					$from = $file->getFolder()->path.craft()->assetTransforms->getTransformSubpath($file, $index);
-					$to   = $targetFolder->path.craft()->assetTransforms->getTransformSubpath($destination, $destinationIndex);
+					$from = $this->_getPathPrefix($originatingSettings).$file->folderPath.craft()->assetTransforms->getTransformSubpath($file, $index);
+					$to   = $this->_getPathPrefix().$targetFolder->path.craft()->assetTransforms->getTransformSubpath($destination, $destinationIndex);
 
 					$this->copySourceFile($from, $to);
 					$this->deleteSourceFile($from);
@@ -590,7 +617,7 @@ class S3AssetSourceType extends BaseAssetSourceType
 	{
 		$this->_prepareForRequests();
 
-		return $this->putObject('', $this->getSettings()->bucket, $this->_getPathPrefix().rtrim($parentFolder->path.$folderName, '/').'/', \S3::ACL_PUBLIC_READ);
+		return $this->putObject('', $this->getSettings()->bucket, $this->_getPathPrefix().rtrim($parentFolder->path.$folderName, '/').'/', $this->_getACL());
 	}
 
 	/**
@@ -615,7 +642,7 @@ class S3AssetSourceType extends BaseAssetSourceType
 		{
 			$filePath = mb_substr($file['name'], mb_strlen($this->_getPathPrefix().$folder->path));
 
-			$this->_s3->copyObject($bucket, $file['name'], $bucket, $newFullPath.$filePath, \S3::ACL_PUBLIC_READ);
+			$this->_s3->copyObject($bucket, $file['name'], $bucket, $newFullPath.$filePath, $this->_getACL());
 			@$this->_s3->deleteObject($bucket, $file['name']);
 		}
 
@@ -704,9 +731,14 @@ class S3AssetSourceType extends BaseAssetSourceType
 	 */
 	protected function copySourceFile($sourceUri, $targetUri)
 	{
+		if ($sourceUri == $targetUri)
+		{
+			return true;
+		}
+
 		$bucket = $this->getSettings()->bucket;
 
-		return (bool) @$this->_s3->copyObject($bucket, $sourceUri, $bucket, $targetUri, \S3::ACL_PUBLIC_READ);
+		return (bool) @$this->_s3->copyObject($bucket, $sourceUri, $bucket, $targetUri, $this->_getACL());
 	}
 
 	// Private Methods
@@ -729,6 +761,7 @@ class S3AssetSourceType extends BaseAssetSourceType
 		if (is_null($this->_s3))
 		{
 			$this->_s3 = new \S3($settings->keyId, $settings->secret);
+			$this->_s3->setExceptions(true);
 		}
 
 		\S3::setAuth($settings->keyId, $settings->secret);
@@ -767,7 +800,16 @@ class S3AssetSourceType extends BaseAssetSourceType
 	 */
 	private function _getS3Path(AssetFileModel $file, $settings = null)
 	{
-		$folder = $file->getFolder();
-		return $this->_getPathPrefix($settings).$folder->path.$file->filename;
+		return $this->_getPathPrefix($settings).$file->getPath();
+	}
+
+	/**
+	 * Return the ACL for this source.
+	 *
+	 * @return string
+	 */
+	private function _getACL()
+	{
+		return $this->getHasUrls() ? \S3::ACL_PUBLIC_READ : \S3::ACL_PRIVATE;
 	}
 }

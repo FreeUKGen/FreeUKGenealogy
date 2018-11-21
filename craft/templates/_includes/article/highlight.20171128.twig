@@ -1,0 +1,12 @@
+{#
+ # Highlight block type
+ #}
+<section class="article__highlight  grid__item  {{ block.width }}  palm-one-whole  text--{{ block.align }}">
+
+  <div class="island  island--{{ block.colour }}">
+    {% if block.heading %}<h2>{{ block.heading }}</h2>{% endif %}
+
+    {% if block.text %}{{ block.text }}{% endif %}
+  </div>
+
+</section>

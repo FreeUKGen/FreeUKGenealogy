@@ -6,8 +6,8 @@ namespace Craft;
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.fieldtypes
  * @since     1.0
  */
@@ -54,7 +54,7 @@ class TableFieldType extends BaseFieldType
 			$this->getSettings()->columns = $columns;
 		}
 
-		if (!$defaults)
+		if ($defaults === null)
 		{
 			$defaults = array('row1' => array());
 		}
@@ -192,7 +192,7 @@ class TableFieldType extends BaseFieldType
 	}
 
 	/**
-	 * @inheritDoc BaseFieldType::getStaticHtml()
+	 * @inheritDoc IFieldType::getStaticHtml()
 	 *
 	 * @param mixed $value
 	 *
@@ -217,6 +217,23 @@ class TableFieldType extends BaseFieldType
 			'columns' => AttributeType::Mixed,
 			'defaults' => AttributeType::Mixed,
 		);
+	}
+
+	/**
+	 * @inheritDoc ISavableComponentType::prepSettings()
+	 *
+	 * @param array $settings
+	 *
+	 * @return array
+	 */
+	public function prepSettings($settings)
+	{
+		if (!isset($settings['defaults']))
+		{
+			$settings['defaults'] = array();
+		}
+
+		return $settings;
 	}
 
 	// Private Methods

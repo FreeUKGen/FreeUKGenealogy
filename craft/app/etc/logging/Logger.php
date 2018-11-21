@@ -6,8 +6,8 @@ namespace Craft;
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.etc.logging
  * @since     1.0
  */
@@ -25,6 +25,15 @@ class Logger extends \CLogger
 	 * @var boolean
 	 */
 	public $autoDump = true;
+
+	/**
+	 * How many messages should be logged before they are flushed to destinations. Defaults to 10,000, meaning for every
+	 * 10,000 messages, the {@link flush} method will be automatically invoked once. If this is 0, it means messages
+	 * will never be flushed automatically.
+	 *
+	 * @var integer
+	 */
+	public $autoFlush = 0;
 
 	// Public Methods
 	// =========================================================================

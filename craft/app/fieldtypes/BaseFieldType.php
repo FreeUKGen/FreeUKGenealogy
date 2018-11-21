@@ -6,8 +6,8 @@ namespace Craft;
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.fieldtypes
  * @since     1.0
  */
@@ -30,8 +30,27 @@ abstract class BaseFieldType extends BaseSavableComponentType implements IFieldT
 	 */
 	protected $componentType = 'FieldType';
 
+	/**
+	 * @var bool Whether the field is fresh.
+	 * @see isFresh()
+	 * @see setIsFresh()
+	 */
+	private $_isFresh;
+
 	// Public Methods
 	// =========================================================================
+
+	/**
+	 * @inheritDoc IFieldType::setElement()
+	 *
+	 * @param $element
+	 *
+	 * @return null
+	 */
+	public function setElement(BaseElementModel $element)
+	{
+		$this->element = $element;
+	}
 
 	/**
 	 * @inheritDoc IFieldType::defineContentAttribute()
@@ -89,11 +108,11 @@ abstract class BaseFieldType extends BaseSavableComponentType implements IFieldT
 	 */
 	public function getInputHtml($name, $value)
 	{
-		return '<textarea name="'.$name.'">'.$value.'</textarea>';
+		return HtmlHelper::encodeParams('<textarea name="{name}">{value}</textarea>', array('name' => $name, 'value' => $value));
 	}
 
 	/**
-	 * Returns static HTML for the field's value.
+	 * @inheritDoc IFieldType::getStaticHtml()
 	 *
 	 * @param mixed $value
 	 *
@@ -164,6 +183,20 @@ abstract class BaseFieldType extends BaseSavableComponentType implements IFieldT
 	}
 
 	/**
+	 * @inheritDoc IPreviewableFieldType::getTableAttributeHtml()
+	 *
+	 * @param mixed $value
+	 *
+	 * @return string
+	 */
+	public function getTableAttributeHtml($value)
+	{
+		$value = (string) $value;
+
+		return StringHelper::stripHtml($value);
+	}
+
+	/**
 	 * @inheritDoc IFieldType::prepValue()
 	 *
 	 * @param mixed $value
@@ -199,6 +232,18 @@ abstract class BaseFieldType extends BaseSavableComponentType implements IFieldT
 		}
 	}
 
+	/**
+	 * Sets whether the field is fresh.
+	 *
+	 * @param bool|null $isFresh
+	 *
+	 * @return null
+	 */
+	public function setIsFresh($isFresh)
+	{
+		$this->_isFresh = $isFresh;
+	}
+
 	// Protected Methods
 	// =========================================================================
 
@@ -227,16 +272,18 @@ abstract class BaseFieldType extends BaseSavableComponentType implements IFieldT
 	 */
 	protected function isFresh()
 	{
-		// If this is for a Matrix block, we're more interested in its owner
-		if (isset($this->element) && $this->element->getElementType() == ElementType::MatrixBlock)
+		if (!isset($this->_isFresh))
 		{
-			$element = $this->element->getOwner();
-		}
-		else
-		{
-			$element = $this->element;
+			if (isset($this->element))
+			{
+				$this->_isFresh = $this->element->getHasFreshContent();
+			}
+			else
+			{
+				$this->_isFresh = true;
+			}
 		}
 
-		return (!$element || (empty($element->getContent()->id) && !$element->hasErrors()));
+		return $this->_isFresh;
 	}
 }

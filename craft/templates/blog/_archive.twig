@@ -10,15 +10,15 @@
   {% set before = after | date_modify('+1 day') | date('Y-m-d') %}
   {% set breadcrumb = [
     {
-      'url'   : url('blog/' ~ year ),
+      'url'   : url('news/' ~ year ),
       'title' : year
     },
     {
-      'url'   : url('blog/' ~ year ~ '/' ~ month),
+      'url'   : url('news/' ~ year ~ '/' ~ month),
       'title' : month
     },
     {
-      'url'   : url('blog/' ~ year ~ '/' ~ month ~ '/' ~ day),
+      'url'   : url('news/' ~ year ~ '/' ~ month ~ '/' ~ day),
       'title' : day
     }
   ] %}
@@ -31,11 +31,11 @@
   {% set before = after | date_modify('+1 month') | date('Y-m') %}
   {% set breadcrumb = [
     {
-      'url'   : url('blog/' ~ year ),
+      'url'   : url('news/' ~ year ),
       'title' : year
     },
     {
-      'url'   : url('blog/' ~ year ~ '/' ~ month),
+      'url'   : url('news/' ~ year ~ '/' ~ month),
       'title' : month
     }
   ] %}
@@ -48,7 +48,7 @@
   {% set before = year + 1 %}
   {% set breadcrumb = [
     {
-      'url'   : url('blog/' ~ year ),
+      'url'   : url('news/' ~ year ),
       'title' : year
     }
   ] %}

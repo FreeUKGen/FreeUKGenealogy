@@ -8,13 +8,11 @@
 
   <div class="grid">
 
-    <div class="grid__item  two-thirds  palm-one-whole">
-      {% include 'blog/_includes/post' %}
-    </div>
-
-    <div class="grid__item  one-third  palm-one-whole">
+    <aside class="grid__item  one-third  palm-one-whole  float--right  palm-push--top">
         {% include 'blog/_includes/sidebar' %}
-    </div>
+    </aside>
+
+    {% include 'blog/_includes/post' %}
 
   </div>
 

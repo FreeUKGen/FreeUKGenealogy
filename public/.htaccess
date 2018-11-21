@@ -86,6 +86,7 @@ AddType application/x-shockwave-flash       swf
 																	image/svg+xml \
 																	image/x-icon \
 																	text/css \
+																	text/javascript \
 																	text/html \
 																	text/plain \
 																	text/x-component \
@@ -133,13 +134,13 @@ AddType application/x-shockwave-flash       swf
 	ExpiresByType image/x-icon                  "access plus 1 week"
 
 	# Media: images, video, audio
-	ExpiresByType image/gif                     "access plus 1 month"
-	ExpiresByType image/png                     "access plus 1 month"
-	ExpiresByType image/jpeg                    "access plus 1 month"
-	ExpiresByType video/ogg                     "access plus 1 month"
-	ExpiresByType audio/ogg                     "access plus 1 month"
-	ExpiresByType video/mp4                     "access plus 1 month"
-	ExpiresByType video/webm                    "access plus 1 month"
+	ExpiresByType image/gif                     "access plus 1 year"
+	ExpiresByType image/png                     "access plus 1 year"
+	ExpiresByType image/jpeg                    "access plus 1 year"
+	ExpiresByType video/ogg                     "access plus 1 year"
+	ExpiresByType audio/ogg                     "access plus 1 year"
+	ExpiresByType video/mp4                     "access plus 1 year"
+	ExpiresByType video/webm                    "access plus 1 year"
 
 	# HTC files	(css3pie)
 	ExpiresByType text/x-component              "access plus 1 month"
@@ -155,6 +156,8 @@ AddType application/x-shockwave-flash       swf
 	ExpiresByType text/css                      "access plus 1 year"
 	ExpiresByType application/javascript        "access plus 1 year"
 
+	ExpiresDefault "access 1 month"
+
 </IfModule>
 
 
@@ -165,6 +168,16 @@ AddType application/x-shockwave-flash       swf
 # FileETag None is not enough for every server.
 <IfModule mod_headers.c>
 	Header unset ETag
+	Header set Access-Control-Allow-Origin "https://www.freeukgenealogy.org.uk"
+	Header set Access-Control-Allow-Credentials true
+
+	<filesMatch ".(css|jpg|jpeg|png|PNG|gif|js|ico|woff2)$">
+		Header set Cache-Control "max-age=2592000, public"
+	</filesMatch>
+
+	<filesMatch ".(css|js|xml|gz)$">
+		Header append Vary: Accept-Encoding
+	</filesMatch>
 </IfModule>
 
 # Since we're sending far-future expires, we don't need ETags for
@@ -178,6 +191,11 @@ FileETag None
 # ----------------------------------------------------------------------
 <IfModule mod_rewrite.c>
 	RewriteEngine On
+
+	# Remove index.php
+	RewriteCond %{THE_REQUEST} ^GET.*index\.php [NC]
+	RewriteCond %{REQUEST_URI} !^/index\.php/admin\b [NC]
+	RewriteRule (.*?)index\.php/*(.*) /$1$2 [R=301,NE,L]
 
 	# Send would-be 404 requests to Craft
 	RewriteCond %{REQUEST_FILENAME} !-f

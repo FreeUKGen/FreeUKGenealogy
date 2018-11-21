@@ -1,0 +1,32 @@
+{% extends "_layouts/main" %}
+
+{% set title = 'Sitemap' %}
+
+{% block main %}
+
+  <article class="grid">
+    <section class="grid__item  one-half  palm-one-whole">
+      <nav class="islet  islet--bordered">
+
+        <h2 class="title-block"><a href="{{ url('/', null, 'http') }}">Home</a></h2>
+
+        <ul class="sub-nav  sub-nav--open">
+          {% set pages = craft.entries.section('pages').limit(null).find() %}
+
+          {% nav page in pages %}
+            <li>
+              <a href="{{ page.url }}">{{ page.title }}</a>
+              {% ifchildren %}
+                <ul>
+                  {% children %}
+                </ul>
+              {% endifchildren %}
+            </li>
+          {% endnav %}
+        </ul>
+
+      </nav>
+    </section>
+  </article>
+
+{% endblock %}

@@ -20,7 +20,7 @@
     <ul class="post-list">
     {% for entry in posts %}
       <li>
-        {% include 'blog/_includes/post' with { showSummary : true } %}
+        {% include 'blog/_includes/index_post' with { showSummary : true } %}
       </li>
     {% endfor %}
     </ul>
@@ -32,5 +32,3 @@
     {% exit 404 %}
 
   {% endif %}
-
-{% endpaginate %}

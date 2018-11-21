@@ -1,0 +1,51 @@
+/**
+  additional.css is either for to override css definition in lap_and_up.min.css or palm.min.css, or new css instead of modify lap_and_up.min.css or palm.min.css
+
+/**
+ * purpose: Sproutforms modal, to display "message submitted" in contact form
+
+   Date: 2016-12-08;
+   note: new css;
+ */
+.modal-sproutform {
+    display: none;
+    position: relative;
+    z-index: 1;
+}
+
+.modal-sproutform-email {
+    display: none;
+    position: relative;
+    z-index: 1;
+}
+
+.modal-sp-content {
+    background-color: $light;
+    margin: auto;
+    width: 100%;
+}
+
+.modal-sp-content p {
+  color: #009f98;         /* LightSeaGreen */
+  font-size: 1em;
+  font-weight: bold;
+  font-style: italic;
+} 
+
+.modal-email-content p {
+  color: #ff0000;         /* LightSeaGreen */
+  font-size: 1em;
+  font-weight: bold;
+  font-style: italic;
+} 
+
+
+/**
+ * purpose: to take out static header
+
+   Date: ;
+   note: originally defined in lap_and_up.min.css;
+ */
+.site__header{z-index: 0}
+
+.site__footer{border-top:0;position:relative}

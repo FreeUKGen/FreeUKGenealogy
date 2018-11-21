@@ -10,8 +10,8 @@ namespace Craft;
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.controllers
  * @since     1.0
  */
@@ -58,7 +58,7 @@ class EntriesController extends BaseEntriesController
 
 		$variables['permissionSuffix'] = ':'.$variables['entry']->sectionId;
 
-		if (craft()->getEdition() >= Craft::Client && $variables['section']->type != SectionType::Single)
+		if (craft()->getEdition() == Craft::Pro && $variables['section']->type != SectionType::Single)
 		{
 			// Author selector variables
 			// ---------------------------------------------------------------------
@@ -84,7 +84,6 @@ class EntriesController extends BaseEntriesController
 		// ---------------------------------------------------------------------
 
 		if (
-			craft()->getEdition() >= Craft::Client &&
 			$variables['section']->type == SectionType::Structure &&
 			$variables['section']->maxLevels != 1
 		)
@@ -127,11 +126,19 @@ class EntriesController extends BaseEntriesController
 
 			if ($parentId === null && $variables['entry']->id)
 			{
-				$parentIds = $variables['entry']->getAncestors(1)->status(null)->localeEnabled(null)->ids();
-
-				if ($parentIds)
+				// Is it already set on the model (e.g. if we're loading a draft)?
+				if ($variables['entry']->parentId)
 				{
-					$parentId = $parentIds[0];
+					$parentId = $variables['entry']->parentId;
+				}
+				else
+				{
+					$parentIds = $variables['entry']->getAncestors(1)->status(null)->localeEnabled(null)->ids();
+
+					if ($parentIds)
+					{
+						$parentId = $parentIds[0];
+					}
 				}
 			}
 
@@ -168,26 +175,23 @@ class EntriesController extends BaseEntriesController
 		// ---------------------------------------------------------------------
 
 		// Page title w/ revision label
-		if (craft()->getEdition() >= Craft::Client)
+		switch ($variables['entry']->getClassHandle())
 		{
-			switch ($variables['entry']->getClassHandle())
+			case 'EntryDraft':
 			{
-				case 'EntryDraft':
-				{
-					$variables['revisionLabel'] = $variables['entry']->name;
-					break;
-				}
+				$variables['revisionLabel'] = $variables['entry']->name;
+				break;
+			}
 
-				case 'EntryVersion':
-				{
-					$variables['revisionLabel'] = Craft::t('Version {num}', array('num' => $variables['entry']->num));
-					break;
-				}
+			case 'EntryVersion':
+			{
+				$variables['revisionLabel'] = Craft::t('Version {num}', array('num' => $variables['entry']->num));
+				break;
+			}
 
-				default:
-				{
-					$variables['revisionLabel'] = Craft::t('Current');
-				}
+			default:
+			{
+				$variables['revisionLabel'] = Craft::t('Current');
 			}
 		}
 
@@ -197,10 +201,9 @@ class EntriesController extends BaseEntriesController
 		}
 		else
 		{
-			$variables['docTitle'] = Craft::t($variables['entry']->title);
-			$variables['title'] = Craft::t($variables['entry']->title);
+			$variables['docTitle'] = $variables['title'] = $variables['entry']->title;
 
-			if (craft()->getEdition() >= Craft::Client && $variables['entry']->getClassHandle() != 'Entry')
+			if ($variables['entry']->getClassHandle() != 'Entry')
 			{
 				$variables['docTitle'] .= ' ('.$variables['revisionLabel'].')';
 			}
@@ -323,6 +326,10 @@ class EntriesController extends BaseEntriesController
 			($variables['entry']->authorId != $currentUser->id && $currentUser->can('deletePeerEntries'.$variables['permissionSuffix']))
 		);
 
+		// Full page form variables
+		$variables['fullPageForm'] = true;
+		$variables['saveShortcutRedirect'] = $variables['continueEditingUrl'];
+
 		// Include translations
 		craft()->templates->includeTranslations('Live Preview');
 
@@ -389,6 +396,10 @@ class EntriesController extends BaseEntriesController
 		{
 			$entry = $this->_getEntryModel();
 			$this->enforceEditEntryPermissions($entry);
+
+			// Set the language to the user's preferred locale so DateFormatter returns the right format
+			craft()->setLanguage(craft()->getTargetLanguage(true));
+
 			$this->_populateEntryModel($entry);
 		}
 
@@ -451,17 +462,16 @@ class EntriesController extends BaseEntriesController
 				$return['success']   = true;
 				$return['id']        = $entry->id;
 				$return['title']     = $entry->title;
-				$return['cpEditUrl'] = $entry->getCpEditUrl();
 
-				$author = $entry->getAuthor()->getAttributes();
-
-				if (isset($author['password']))
+				if (craft()->request->isCpRequest())
 				{
-					unset($author['password']);
+					$return['cpEditUrl'] = $entry->getCpEditUrl();
 				}
 
-				$return['author']    = $author;
-				$return['postDate']  = ($entry->postDate ? $entry->postDate->localeDate() : null);
+				$return['authorUsername']      = $entry->getAuthor()->username;
+				$return['dateCreated'] = DateTimeHelper::toIso8601($entry->dateCreated);
+				$return['dateUpdated'] = DateTimeHelper::toIso8601($entry->dateUpdated);
+				$return['postDate']    = ($entry->postDate ? DateTimeHelper::toIso8601($entry->postDate) : null);
 
 				$this->returnJson($return);
 			}
@@ -501,6 +511,9 @@ class EntriesController extends BaseEntriesController
 	/**
 	 * Deletes an entry.
 	 *
+	 * @throws Exception
+	 * @throws HttpException
+	 * @throws \Exception
 	 * @return null
 	 */
 	public function actionDeleteEntry()
@@ -510,6 +523,12 @@ class EntriesController extends BaseEntriesController
 		$entryId = craft()->request->getRequiredPost('entryId');
 		$localeId = craft()->request->getPost('locale');
 		$entry = craft()->entries->getEntryById($entryId, $localeId);
+
+		if (!$entry)
+		{
+			throw new Exception(Craft::t('No entry exists with the ID “{id}”.', array('id' => $entryId)));
+		}
+
 		$currentUser = craft()->userSession->getUser();
 
 		if ($entry->authorId == $currentUser->id)
@@ -739,6 +758,16 @@ class EntriesController extends BaseEntriesController
 				else
 				{
 					$variables['entry'] = craft()->entries->getEntryById($variables['entryId'], $variables['localeId']);
+
+					if ($variables['entry'])
+					{
+						$versions = craft()->entryRevisions->getVersionsByEntryId($variables['entryId'], $variables['localeId'], 1, true);
+
+						if (isset($versions[0]))
+						{
+							$variables['entry']->revisionNotes = $versions[0]->revisionNotes;
+						}
+					}
 				}
 
 				if (!$variables['entry'])
@@ -756,6 +785,31 @@ class EntriesController extends BaseEntriesController
 				if (!empty($variables['localeId']))
 				{
 					$variables['entry']->locale = $variables['localeId'];
+				}
+
+				if (craft()->isLocalized())
+				{
+					// Set the default locale status based on the section's settings
+					foreach ($variables['section']->getLocales() as $locale)
+					{
+						if ($locale->locale == $variables['entry']->locale)
+						{
+							$variables['entry']->localeEnabled = $locale->enabledByDefault;
+							break;
+						}
+					}
+				}
+				else
+				{
+					// Set the default entry status based on the section's settings
+					foreach ($variables['section']->getLocales() as $locale)
+					{
+						if (!$locale->enabledByDefault)
+						{
+							$variables['entry']->enabled = false;
+						}
+						break;
+					}
 				}
 			}
 		}
@@ -825,7 +879,7 @@ class EntriesController extends BaseEntriesController
 
 			if (!$entry)
 			{
-				throw new Exception(Craft::t('No entry exists with the ID “{id}”', array('id' => $entryId)));
+				throw new Exception(Craft::t('No entry exists with the ID “{id}”.', array('id' => $entryId)));
 			}
 		}
 		else

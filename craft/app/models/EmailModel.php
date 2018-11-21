@@ -33,8 +33,8 @@ namespace Craft;
  *
  * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
  * @package   craft.app.models
  * @since     1.0
  */
@@ -69,7 +69,6 @@ class EmailModel extends BaseModel
 	 * @param string $encoding File encoding (see $Encoding).
 	 * @param string $type     File extension (MIME) type.
 	 *
-	 * @throws phpmailerException
 	 * @return bool
 	 */
 	public function addAttachment($path, $name = '', $encoding = 'base64', $type = 'application/octet-stream')

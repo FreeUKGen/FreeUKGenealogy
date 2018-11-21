@@ -9,8 +9,8 @@ namespace Craft;
  *
  * @author     Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright  Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license    http://buildwithcraft.com/license Craft License Agreement
- * @see        http://buildwithcraft.com
+ * @license    http://craftcms.com/license Craft License Agreement
+ * @see        http://craftcms.com
  * @package    craft.app.controllers
  * @since      1.0
  * @deprecated This class will have several breaking changes in Craft 3.0.
@@ -96,7 +96,7 @@ class AssetSourcesController extends BaseController
 		$variables['crumbs'] = array(
 			array('label' => Craft::t('Settings'), 'url' => UrlHelper::getUrl('settings')),
 			array('label' => Craft::t('Assets'),   'url' => UrlHelper::getUrl('settings/assets')),
-			array('label' => Craft::t('Sources'),  'url' => UrlHelper::getUrl('settings/assets')),
+			array('label' => Craft::t('Asset Sources'),  'url' => UrlHelper::getUrl('settings/assets')),
 		);
 
 		$variables['tabs'] = array(
@@ -136,13 +136,10 @@ class AssetSourcesController extends BaseController
 		}
 
 		$typeSettings = craft()->request->getPost('types');
+
 		if (isset($typeSettings[$source->type]))
 		{
-			if (!$source->settings)
-			{
-				$source->settings = array();
-			}
-
+			$source->settings = array();
 			$source->settings = array_merge($source->settings, $typeSettings[$source->type]);
 		}
 
