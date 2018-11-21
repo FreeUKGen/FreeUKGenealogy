@@ -1,0 +1,71 @@
+{# get top parent using segment one and matching our current section #}
+
+{% if titleBarEntry is defined %}
+  {% set subnavParent = titleBarEntry %}
+{% else %}
+  {% set subnavParent = craft.entries.first({
+    section : entry.section.handle,
+    slug    : craft.request.getSegment(1)
+  }) %}
+{% endif %}
+
+{# get the children #}
+{% if subnavParent %}
+  {% set subnavChildren = subnavParent.getDescendants() %}
+{% endif %}
+
+{#  #}
+{% if subnavChildren is defined and subnavChildren | length %}
+
+  {% set output %}
+
+    <h1 class="title-block  title-block--collapse-on-palm"><a href="{{ subnavParent.url }}">{{ subnavParent.title }}</a><a class="show-sub-nav"><i class="icon__burger" aria-hidden="true"></i><i class="icon__cancel" aria-hidden="true"></i></a></h1>
+
+    <ul class="sub-nav">
+    {% nav page in subnavChildren %}
+
+      {% set class -%}
+        {%- if page.slug == craft.request.segment(page.level) -%}
+          {%- if page.id == entry.id %}active{% else %}open{% endif -%}
+        {%- endif -%}
+      {%- endset %}
+
+      <li{% if class is not empty %} class="{{ class }}"{% endif %}>
+        <a href="{{ page.url }}">{{ page.title }}</a>
+        {% ifchildren %}
+          <ul>
+            {% children %}
+          </ul>
+        {% endifchildren %}
+      </li>
+    {% endnav %}
+    </ul>
+
+  {% endset %}
+
+{% endif %}
+
+{# output #}
+{% if output is defined and entry.hideSubNav != '1' %}
+  {% if wrap is defined and wrap == true %}
+    <aside class="grid__item  one-third  palm-one-whole  float--right  palm-push--top">
+      <div class="islet  islet--bordered">
+        {{ output }}
+      </div>
+
+      <center><div id="center">
+      <a href="/about/help-us-keep-history-free" class="freeGen" id="donate">
+        <span class="btn-donate" id="donateOverlay">{% include '/images/svg/donateOverlay.svg' %}</span>
+        <span class="btn-donate", id="donateCoin">{% include '/images/svg/donateCoin.svg' %}</span>
+        <span class="btn-donate" id="donateBox">{% include '/images/svg/donateBox.svg' %}</span>
+        <span class="btn-donate" id="donateBtn">{% include '/images/svg/donateBtn.svg' %}Donate</span>
+      </a>
+      </div></center>
+      
+    </aside>
+  {% else %}
+    <div class="islet  islet--bordered">
+      {{ output }}
+    </div>
+  {% endif %}
+{% endif %}

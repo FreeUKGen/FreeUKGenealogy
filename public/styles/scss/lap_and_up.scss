@@ -1,0 +1,30 @@
+@charset "UTF-8";
+/*------------------------------------*\
+    LAP_AND_UP.CSS
+\*------------------------------------*/
+
+
+/**
+ * Vars and core
+ */
+@import "FreeUKGenealogy-Core-Frontend/styles/scss/vars";
+@import "vars";
+@import "FreeUKGenealogy-Core-Frontend/styles/scss/lap_and_up";
+
+
+/**
+ * Import all project specific stuff
+ */
+@import "objects/modal_lau";
+@import "objects/shade_lau";
+@import "objects/site_lau";
+@import "objects/title-bar_lau";
+
+
+// force show all sub navs on desk
+.sub-nav {
+  display: block;
+}
+.show-sub-nav {
+  display: none;
+}

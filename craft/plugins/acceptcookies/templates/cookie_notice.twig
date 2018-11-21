@@ -1,0 +1,361 @@
+<div id='js_cookieNotice' class='cookieNotice'>
+    <div class='cookieNotice__container'>
+        <p>
+            {{'We use cookies to ensure you get the best experience with our website. This includes carefully chosen third-party cookies for analysing traffic and advertising. Please select Accept if you consent and wish to continue using the site. You can learn more about cookies and choose to accept some, decline others, or change your settings at a later date by clicking the \'About Cookies\' button, or in the footer of the website at any time' | translate}}
+        </p><br>
+
+        <center>
+        <a id='js_cookieNotice_accept' href='#'>{{'Accept' | t}}</a>
+        {# if craft.acceptCookies.settings.policyUrl is not empty #}
+        <a href='{{craft.acceptCookies.settings.policyUrl}}'>{{'About Cookies' | t}}</a>
+        {# endif #}
+        </center>
+    </div>
+</div>
+
+<style type='text/css'>
+    .cookieNotice {
+        background: #009f98;        /* #bdbcbc; */
+        display: none;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.5;
+        left: 0;
+        padding: 12px 12px 12px 12px;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        border-bottom: 3px solid #999999;
+        color: #fff;
+        z-index: 100;
+    }
+
+    .cookieNotice__container {
+        margin: 0 auto;
+        max-width: 1140px;
+        width: 100%;
+    }
+
+    .cookieNotice__container * {
+        margin: 0 0.5em;
+    }
+
+    .cookieNotice__container a {
+        color: #bdbcbc;
+    }
+
+    #js_cookieNotice_accept,
+    .cookieNotice__container > a:last-child{
+        background: #009f98;        /* #bdbcbc; */
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        margin-top: 10px;
+        background-color: transparent;
+        border: 0;
+        display: inline-block;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+
+    #js_cookieNotice_refuse,
+    .cookieNotice__container > a:last-child{
+        background: #009f98;        /* #bdbcbc; */
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        margin-top: 10px;
+        background-color: transparent;
+        border: 0;
+        display: inline-block;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+</style>
+
+<script type='text/javascript'>
+    var elNotice = document.getElementById('js_cookieNotice')
+    var elAccept = document.getElementById('js_cookieNotice_accept')
+    var elRefuse = document.getElementById('js_cookieNotice_refuse')
+
+    {% if craft.acceptCookies.settings.googleAnalyticsTrackingId is not empty %}
+
+        // adding possibility to opt out only for analytics
+        var gaProperty = '{{craft.acceptCookies.settings.googleAnalyticsTrackingId}}';
+        var disableStr = 'ga-disable-' + gaProperty;
+
+        if (document.cookie.indexOf(disableStr + '=true') > -1) {
+            window[disableStr] = true;
+        }
+        
+        function gaOptout() {
+            document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+            window[disableStr] = true;
+        }
+        
+    {% endif %}
+
+    function setCookie(name, value, days) {
+        var expiry = new Date()
+        expiry.setTime(expiry.getTime() + (days * 24 * 60 * 60 * 1000))
+        var expires = 'expires=' + expiry.toUTCString()
+        document.cookie = name + '=' + value + ';' + expires + ';' + 'path=/'
+    }
+
+    function deleteCookie(name) {
+        if (getCookie(name)) setCookie(name, '', -1);
+    }
+
+    function getCookie(name) {
+        var name = name + '='
+        var decodedCookie = decodeURIComponent(document.cookie)
+        var ca = decodedCookie.split(';')
+
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i]
+
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1)
+            }
+
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length)
+        }
+
+        return false
+    }
+
+    function acceptAdsenseIsSet() {
+        return getCookie('acceptAdsense')
+    }
+
+    function acceptAnalyticIsSet() {
+        return getCookie('acceptAnalytic')
+    }
+
+    function refuseCookieIsSet() {
+        return getCookie('refuseCookies')
+    }
+
+    function setAcceptAdsense() {
+        setCookie('acceptAdsense', '1', 365)
+    }
+
+    function setAcceptAnalytic() {
+        setCookie('acceptAnalytic', '1', 365)
+    }
+
+    function setRefuseCookie() {
+        setCookie('refuseCookies', '1', 365)
+    }
+
+    function deleteAcceptAdsense() {
+        deleteCookie('acceptAdsense')
+    }
+
+    function deleteAcceptAnalytic() {
+        deleteCookie('acceptAnalytic')
+    }
+
+    function showNotice() {
+        elNotice.style.display = 'block'
+    }
+
+    function hideNotice() {
+        elNotice.style.display = 'none'
+    }
+
+    function loadAdsenseScripts() {
+        {% if craft.acceptCookies.settings.googleAnalyticsTrackingId is not empty %}
+            /**
+            * Google Code for FreeCen2 Search button Conversion Page
+            * In your html page, add the snippet and call
+            * goog_report_conversion when someone clicks on the
+            * chosen link or button. -->
+            */
+            goog_snippet_vars = function() {
+                var w = window;
+                w.google_conversion_id = 930845010;
+                w.google_conversion_label = "aLyCCMfMinMQ0qLuuwM";
+                w.google_remarketing_only = false;
+            }
+    
+            // DO NOT CHANGE THE CODE BELOW.
+            goog_report_conversion = function(url) {
+                goog_snippet_vars();
+                window.google_conversion_format = "3";
+                var opt = new Object();
+                opt.onload_callback = function() {
+                if (typeof(url) != 'undefined') {
+                    window.location = url;
+                }
+            }
+        
+            var conv_handler = window['google_trackConversion'];
+                if (typeof(conv_handler) == 'function') {
+                conv_handler(opt);
+                }
+            }
+
+
+            /** part of Google Code for FreeCen2 Search button Conversion Page */
+            var script = document.createElement('script');
+            script.src="//www.googleadservices.com/pagead/conversion_async.js"
+            document.body.appendChild(script);
+        {% endif %}
+
+        // convert data-src to src for iframes
+        var externalContents = document.querySelectorAll('[iframe-src]');
+        if(externalContents[0]){
+            for (var i = 0; i < externalContents.length; i++) {
+                var iframe  = document.createElement('iframe');
+                iframe.src = externalContents[i].getAttribute('iframe-src');
+                
+                iframe.frameborder = externalContents[i].getAttribute('frameborder');
+                iframe.allowfullscreen = externalContents[i].getAttribute('allowfullscreen');
+                // TODO convert more attribute or find better way to append all setted attributes and class to that element
+                externalContents[i].parentNode.replaceWith(iframe, externalContents[i]);
+            }
+        }
+
+        // Custom content
+        {% if craft.acceptCookies.settings.codeSnippets is not empty %}
+            {{ craft.acceptCookies.settings.codeSnippets|raw }}
+        {% endif %}
+
+    }
+
+    function loadGoogleScripts() {
+        {% if craft.acceptCookies.settings.googleAnalyticsTrackingId is not empty %}
+            /**
+            * Google Code for FreeCen2 Search button Conversion Page
+            * In your html page, add the snippet and call
+            * goog_report_conversion when someone clicks on the
+            * chosen link or button. -->
+            */
+            goog_snippet_vars = function() {
+                var w = window;
+                w.google_conversion_id = 930845010;
+                w.google_conversion_label = "aLyCCMfMinMQ0qLuuwM";
+                w.google_remarketing_only = false;
+            }
+    
+            // DO NOT CHANGE THE CODE BELOW.
+            goog_report_conversion = function(url) {
+                goog_snippet_vars();
+                window.google_conversion_format = "3";
+                var opt = new Object();
+                opt.onload_callback = function() {
+                if (typeof(url) != 'undefined') {
+                    window.location = url;
+                }
+            }
+        
+            var conv_handler = window['google_trackConversion'];
+                if (typeof(conv_handler) == 'function') {
+                conv_handler(opt);
+                }
+            }
+
+
+            /** part of Google Code for FreeCen2 Search button Conversion Page */
+            var script = document.createElement('script');
+            script.src="//www.googleadservices.com/pagead/conversion_async.js"
+            document.body.appendChild(script);
+        {% endif %}
+
+        // convert data-src to src for iframes
+        var externalContents = document.querySelectorAll('[iframe-src]');
+        if(externalContents[0]){
+            for (var i = 0; i < externalContents.length; i++) {
+                var iframe  = document.createElement('iframe');
+                iframe.src = externalContents[i].getAttribute('iframe-src');
+                
+                iframe.frameborder = externalContents[i].getAttribute('frameborder');
+                iframe.allowfullscreen = externalContents[i].getAttribute('allowfullscreen');
+                // TODO convert more attribute or find better way to append all setted attributes and class to that element
+                externalContents[i].parentNode.replaceWith(iframe, externalContents[i]);
+            }
+        }
+
+        // Custom content
+        {% if craft.acceptCookies.settings.codeSnippets is not empty %}
+            {{ craft.acceptCookies.settings.codeSnippets|raw }}
+        {% endif %}
+
+    }
+
+    window.onload = function() {
+        if ((!acceptAdsenseIsSet() && !acceptAnalyticIsSet()) && !refuseCookieIsSet()) setTimeout(function() { showNotice() }, 1000);
+
+        if (acceptAdsenseIsSet()) {
+            $('#acceptAdsense').prop('checked', true);
+        } else {
+            $('#acceptAdsense').prop('checked', false);
+        }
+
+        if (acceptAnalyticIsSet()) {
+            $('#acceptAnalytic').prop('checked', true);
+        } else {
+            $('#acceptAnalytic').prop('checked', false);
+        }
+
+        loadAnalyticScripts();
+        loadAdsenseScripts();
+
+        elAccept.onclick = elAccept.ontouch = function(e) {
+            e.preventDefault();
+            hideNotice();
+
+            setAcceptAdsense();
+            setAcceptAnalytic();
+
+            window.location.reload(false);
+        }
+
+        if (elRefuse) {
+            elRefuse.onclick = elRefuse.ontouch = function(e) {
+                e.preventDefault();
+                hideNotice();
+                setRefuseCookie();
+            }
+        }
+    }
+
+    document.getElementById("acceptAnalytic").onclick = function() {
+        if (this.checked) {
+            setAcceptAnalytic();
+            window.location.reload(false);
+            hideNotice();
+        }
+        else {
+            deleteAcceptAnalytic();
+            loadAnalyticScripts();
+            if (!acceptAnalyticIsSet() && !acceptAdsenseIsSet()) {
+                showNotice();
+            }
+        }
+    };
+
+    document.getElementById("acceptAdsense").onclick = function() {
+        if (this.checked) {
+            setAcceptAdsense();
+            loadAdsenseScripts()
+            hideNotice();
+        }
+        else {
+            deleteAcceptAdsense();
+            loadAdsenseScripts();
+            if (!acceptAnalyticIsSet() && !acceptAdsenseIsSet()) {
+                showNotice();
+            }
+        }
+    };
+</script>

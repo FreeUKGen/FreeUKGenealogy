@@ -1,0 +1,29 @@
+{#
+ # End the previous containers, start a new one with background image.
+ #}
+    </article>
+  </div>
+</main>
+
+{% set articleImageTransform = {
+  mode : 'crop',
+  width : '1200',
+  position : 'center-center'
+} %}
+
+{% if block.image | length == 1 %}
+  {% set image = block.image.first %}
+  <div class="article__background--white" style="position: relative; z-index: 1;">
+
+  {% if image.width > articleImageTransform.width %}
+		<main class="article__background  article__background--white container" style="background-image: url({{ image.url(articleImageTransform) }});   background-repeat: no-repeat;  background-size: contain;  background-position: center;  background-size: cover;">
+	{% else %}
+		<main class="article__background  article__background--white container" style="background-image: url({{ image.url() }});   background-repeat: no-repeat;  background-size: contain;  background-position: center;  background-size: cover;">
+	{% endif %}
+
+	<article class="article  grid">
+{% else %}
+	<main class="article__background  article__background--white">
+  <div class="container">
+   	<article class="article  grid">
+{% endif %}

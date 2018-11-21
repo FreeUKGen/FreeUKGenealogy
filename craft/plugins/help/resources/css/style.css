@@ -1,0 +1,96 @@
+.docs-sidebar {
+  width: 15%;
+  float: left;
+}
+
+.docs-content {
+  width: 80%;
+  float: right;
+}
+
+.docs-sidebar a,
+.docs-content a{
+  color: #0096ff;
+}
+
+.docs-content {
+  font-size: 15px;
+  color: rgb(41, 45, 51);
+}
+
+.docs-content h1 {
+  font-size 38px;
+  font-weight: normal;
+  color: rgb(41, 45, 51);
+}
+
+.docs-content h2 {
+  font-size: 23px;
+  font-weight: bold;
+  margin: 30px 0 0 0;
+  color: rgb(219, 91, 72);
+}
+
+.docs-content h3 {
+  font-size: 23px;
+  font-weight: normal;
+  margin: 22px 0 0 0;
+  color: rgb(41, 45, 51);
+}
+
+.docs-content p {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.docs-content header p {
+  color: rgb(142, 152, 164);
+  font-size: 19px;
+  line-height: 26px;
+}
+
+.docs-content ol,
+.docs-content ul {
+  margin: 15px 0;
+  padding: 0;
+}
+
+.docs-content ul { list-style: disc inside; }
+.docs-content li { margin-bottom: 7.5px; }
+.docs-content li ul {
+  list-style: circle inside;
+  margin-left: 15px;
+}
+
+.docs-content a.anchor {
+  color: rgb(222, 225, 227);
+  font-weight: normal;
+  font-style: italic;
+}
+
+.docs-content a.anchor:hover {
+  color: #0096ff;
+  text-decoration: none;
+}
+
+.docs-sidebar h5 {
+  font-size: 12px;
+  color: #a2adb9;
+  margin-bottom: 7.5px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.docs-sidebar .page-list li {
+  padding: 3px 0;
+  margin: 0;
+}
+
+.docs-sidebar .page-list li a.active {
+  color: #666;
+}
+
+
+.docs-sidebar .page-list li ul{
+  margin: 0 0 0 20px;
+}

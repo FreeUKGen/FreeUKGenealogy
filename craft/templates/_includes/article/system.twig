@@ -1,0 +1,5 @@
+{#
+ # Parses a twig template that matches the block.templateHandle value
+ # All twig templates live in _includes/article/system/templateHandle.html
+ #}
+{% include '_includes/article/system/'~block.templateHandle ignore missing %}

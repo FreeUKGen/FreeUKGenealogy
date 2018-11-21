@@ -1,0 +1,21 @@
+{#
+ # End the previous containers, start a new one and make it a colour.
+ #}
+
+    </article>
+
+  </div>
+
+</main>
+{% if block.colour == 'white' %}
+<main class="article__background  article__background--{{ block.colour }}">
+  <div class="container">
+
+    <article class="article  grid">
+{% else %}
+<main class="icon__honeycomb-bg--bottom-left  article__background  article__background--{{ block.colour }}">
+  <div class="icon__honeycomb-bg--top-right"></div>
+  <div class="container">
+
+    <article class="article  grid">
+{% endif %}

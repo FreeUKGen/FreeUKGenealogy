@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.google.com/schemas/sitemap/0.9">
+    {# most of the urls we have baby, let google work the rest out #}
+
+    {% for entry in craft.entries.find({
+        limit   : null,
+        order   : 'uri'
+    }) %}
+    {% if entry.url %}
+    <url>
+        <loc>{{ entry.url }}</loc>
+    </url>
+    {% endif %}
+    {% endfor %}
+</urlset>

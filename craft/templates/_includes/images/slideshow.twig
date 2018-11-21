@@ -1,0 +1,26 @@
+{% if slides|length %}
+{% if inArticle is defined %}<section class="grid__item  one-whole  push-half--top  push-half--bottom">{% endif %}
+<div class="cycle-slideshow"
+  data-cycle-timeout="10000"
+  data-cycle-speed="1000"
+  data-cycle-slides="> .cycle-slideshow__slide"
+  data-cycle-loader="wait"
+  data-cycle-auto-height="calc"
+  >
+  {% for s in slides %}
+  <div class="cycle-slideshow__slide{% if loop.first %}  cycle-slideshow__slide--first{% endif %}">
+    <img src="{{ s.getUrl(transform) }}" itemprop="photo">
+
+    {% if s.caption != '' or s.credit != '' or s.year %}
+    <div>
+      {% if s.caption != '' %}<h3>{{ s.caption }}</h3>{% endif %}
+      {% if s.credit != '' or s.year %}
+        <span class="credit">&copy; {% if s.year %}{{ s.year }}{% endif %} {{ s.credit }}</span>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% if inArticle is defined %}</section>{% endif %}
+{% endif %}

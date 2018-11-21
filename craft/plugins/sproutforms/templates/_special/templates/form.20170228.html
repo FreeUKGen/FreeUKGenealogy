@@ -1,0 +1,39 @@
+{%- set submitValue = (form.submitButtonText ? form.submitButtonText : "Submit") -%}
+{%- set submitAction = (form.submitAction ? form.submitAction : "sproutForms/entries/saveEntry") -%}
+
+{% if form.submitAction %}
+
+{# Submit form to third party #}
+<form method="post" accept-charset="utf-8" enctype="multipart/form-data" onSubmit="return check();">
+	<input type="hidden" name="action" value="{{ submitAction }}">
+
+{% else %}
+
+{# Submit form to Sprout Forms #}
+<form method="post" accept-charset="UTF-8" onSubmit="return check();">
+	{{ getCsrfInput() }}
+	{{ craft.sproutInvisibleCaptcha.protect() }}
+	<input type="hidden" name="action" value="{{ submitAction }}">
+	<input type="hidden" name="handle" value="{{ form.handle }}">
+
+{% endif %}
+	
+	{% if form.redirectUri %}
+	<input type="hidden" name="redirect" value="{{ form.redirectUri }}">
+	{% endif %}
+
+	<div class="fields">
+	{{ body | raw }}
+	</div>
+
+	{% hook 'sproutForms.modifyForm' %}
+
+	<div id="sproutform-modal" class="modal-sproutform">
+		<div class="modal-sp-content"><p>Thank you - your message has been submitted and you should receive a response in 4-5 working days</p></div>
+	</div>
+
+	<div class="submit">
+		<input type="submit" value="{{ submitValue }}">
+	</div>
+
+</form>

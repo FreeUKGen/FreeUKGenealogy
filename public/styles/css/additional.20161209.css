@@ -1,0 +1,24 @@
+/**
+ * Sproutforms modal
+ */
+.modal-sproutform {
+    display: none;
+    position: relative;
+    z-index: 1;
+}
+
+.modal-sp-content {
+    background-color: $light;
+    margin: auto;
+    width: 100%;
+}
+
+.modal-sp-content p {
+  color: #009f98;         /* LightSeaGreen */
+  font-size: 1em;
+  font-weight: bold;
+  font-style: italic;
+} 
+
+
+

@@ -1,0 +1,27 @@
+{% if paginate.totalPages > 1 %}
+<nav class="text--center">
+
+  <ul class="nav  pagination">
+
+    {% if paginate.prevUrl %}
+      <li class="pagination__prev"><a href="{{ paginate.prevUrl }}{{ q is defined ? '?q=' ~ q : '' }}"><i class="icon__chevron-left" aria-hidden="true"></i><span class="accessibility">Previous Page</span></a></li>
+    {% endif %}
+
+    {% for page, url in paginate.getPrevUrls(3) %}
+      <li class="pagination__link"><a href="{{ url }}{{ q is defined ? '?q=' ~ q : '' }}">{{ page }}</a></li>
+    {% endfor %}
+
+    <li class="pagination__link  pagination__link--current"><span>{{ paginate.currentPage }}</span></li>
+
+    {% for page, url in paginate.getNextUrls(3) %}
+      <li class="pagination__link"><a href="{{ url }}{{ q is defined ? '?q=' ~ q : '' }}">{{ page }}</a></li>
+    {% endfor %}
+
+    {% if paginate.nextUrl %}
+      <li class="pagination__next"><a href="{{ paginate.nextUrl }}{{ q is defined ? '?q=' ~ q : '' }}"><i class="icon__chevron-right" aria-hidden="true"></i><span class="accessibility">Next Page</span></a></li>
+    {% endif %}
+
+  </ul>
+
+</nav>
+{% endif %}

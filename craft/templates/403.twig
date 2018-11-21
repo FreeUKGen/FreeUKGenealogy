@@ -1,0 +1,23 @@
+{% extends "_layouts/main" %}
+
+{% set title = 'Unauthorized' %}
+
+{% block main %}
+  <article class="message-page">
+    <header>
+      <h1 class="title">Unauthorized</h1>
+    </header>
+
+    <section>
+      <p class="lede">You don’t have the proper credentials to access this page.</p>
+    </section>
+  </article>
+{% endblock %}
+
+{% block foot %}
+  <script type="text/javascript">
+    if ( typeof ga !== 'undefined' ) {
+      ga('send', 'event', 'Error Pages', '403', 'URL: '+ window.location.href );
+    }
+  </script>
+{% endblock %}

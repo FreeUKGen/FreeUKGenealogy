@@ -1,0 +1,14 @@
+<ul class="gallery-grid" data-sc-gallery>
+  {% for g in gallery %}
+  <li>
+    <a
+      href="{{ g.getUrl() }}"
+      data-sc-gallery-trigger="{{ loop.index0 }}"
+      data-sc-gallery-content="{{ g.getUrl }}"
+      data-sc-gallery-caption="{% if g.caption != '' or g.credit != '' or g.year %}<div class='gallery-caption-inner'>{% if g.caption != '' %}<h3>{{ g.caption }}</h3>{% endif %}{% if g.credit != '' or g.year %}<span class='credit'>&copy; {% if g.year %}{{ g.year }}{% endif %} {{ g.credit }}</span>{% endif %}</div>{% endif %}"
+    >
+      <img src="{{ g.getUrl('squareThumb') }}">
+    </a>
+  </li>
+  {% endfor %}
+</ul>

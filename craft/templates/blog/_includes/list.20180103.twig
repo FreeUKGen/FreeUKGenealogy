@@ -1,0 +1,35 @@
+{# need pagination #}
+
+{% if criteria is not defined %}
+  {% set criteria = {
+    section : 'blogPost',
+    limit   : 4
+  } %}
+{% else %}
+  {% set criteria = criteria | merge({
+    section : 'blogPost',
+    limit   : 4
+  }) %}
+{% endif %}
+
+
+{% paginate craft.entries(criteria) as posts %}
+
+  {% if posts | length %}
+
+    <ul class="post-list">
+    {% for entry in posts %}
+      <li>
+        {% include 'blog/_includes/post' with { showSummary : true } %}
+      </li>
+    {% endfor %}
+    </ul>
+
+    {% include "_includes/pagination" %}
+
+  {% else %}
+
+    {% exit 404 %}
+
+  {% endif %}
+

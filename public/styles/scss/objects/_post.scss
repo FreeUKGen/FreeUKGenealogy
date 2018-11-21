@@ -1,0 +1,169 @@
+/*------------------------------------*\
+    $POST
+\*------------------------------------*/
+.post {
+  margin-bottom: $b;
+}
+
+
+
+  /**
+   * Header
+   */
+  .post__header {
+
+    .title a {
+
+      color: #333;
+      display: block;
+
+      &:active,
+      &:hover {
+        color: $teal;
+      }
+
+    }
+
+  }
+
+
+
+  /**
+   * Quotes
+   */
+  .post__quote {
+
+    .blockquote {
+      @include font-size(22px);
+    }
+
+    .source {
+      @include font-size(16px);
+
+      color: #999999;
+
+      a {
+        color: #999999;
+
+        &:active,
+        &:hover {
+          color: $magenta-brighter;
+        }
+      }
+    }
+
+  }
+
+
+
+  /**
+   * Images
+   */
+  .post__image {
+    margin-bottom: $b-half;
+    > img {
+      width: 100%;
+    }
+  }
+
+
+
+  /**
+   * Third party content
+   */
+  .post__embed,
+  .post__html {
+    margin-bottom: $b;
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+
+    // force the content to be fluid
+    .fetch {
+      > * {
+        display: block;
+        width: 100% !important;
+      }
+    }
+
+    // tweets
+    .fetch--twitter {
+      > * {
+        margin-top: 0 !important;
+        min-width: 0 !important;
+      }
+    }
+
+    // videos, assume they are all 16:9
+    .fetch--youtube,
+    .fetch--vimeo {
+      position: relative;
+      padding-bottom: 56.25%; // 16:9
+      height: 0;
+      > * {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+
+
+  /**
+   * Footer
+   */
+  .post__footer {
+
+    @include font-size(16px);
+    color: #999999;
+
+    border-top: 1px solid #999;
+    margin-top: $b;
+    margin-bottom: $b;
+    padding-top: $b-quarter;
+    overflow: hidden;
+
+    p {
+      float: left;
+
+      a {
+        color: #999999;
+        &:active,
+        &:hover {
+          color: $magenta-brighter;
+        }
+      }
+    }
+
+    .icon__comment {
+      float: right;
+      width: auto;
+      height: auto;
+      padding-left: 22px;
+      background-position: 0 8px;
+
+      &:active,
+      &:hover {
+        color: $magenta-brighter;
+      }
+    }
+
+  }
+
+
+
+/**
+ * A list of the above `.post` objects
+ */
+.post-list {
+  @extend %nav;
+  @extend %nav--stacked;
+
+  > li {
+    margin-bottom: $b-quad;
+  }
+}
