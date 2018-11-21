@@ -1,1 +1,2 @@
 # FreeUKGenealogy
+Free UK Genealogy provides free, online access to family history records. We work with a team of dedicated volunteers to create high quality transcriptions of public records from governmental sources, parish churches, and other trusted institutions. We believe that Open Data and Open Source are key to making and keeping public records accessible to all.  We work with others with the same concerns.
