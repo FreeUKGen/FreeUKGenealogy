@@ -1,0 +1,98 @@
+{% extends "help/_layout" %}
+
+{% set content %}
+
+
+#Article Layout
+<header>
+  <p>The Article field is probably the most important and powerful field in the system.
+  It uses the blocks system allowing you to add different types of content to your page, and gives you some options for design and layout.
+</p>
+</header>
+
+To begin, click ‘Add a block’ to choose a content type. Each ‘block type’ has a small set of fields and options.
+
+
+##Block types
+
+###Heading
+Use for page headings and sub-titles. You have options to choose the size of the type and its alignment.
+
+###Text
+You can add a whole article here, or just a paragraph of text. The rich text editor allows you to format text, add lists and make links.
+
+###Quote
+Great for pull-out quotes! Here you get several fields including; adding the quote, a citation (i.e. who said it) and a link to the source (whether that’s an external website, or another page on your site).
+
+###Image
+Use this for adding a single image to the page. The image’s height will be determined by the width option that you select.
+
+###Gallery
+Gallery allows you to add multiple images in one go, and provides two options for display:
+
+* *Slider* is a fixed-size slideshow that fades between images.
+* *Grid* provides a set of thumbnails (small images) which, when clicked, reveal the full-size image and caption in a lightbox.
+
+###Embed
+Currently this block works with:
+
+- Vimeo
+- Twitter
+- YouTube
+- Flickr
+- Soundcloud
+- Instagram
+- Pinterest
+
+Simply paste the complete URL of a post from any of the services listed above, and the site will automatically embed that piece of content.
+For embedding content from other services and websites, use the ‘HMTL’ block.
+
+###HTML
+Paste the ‘embed’ code provided by a third party service into this block. For simpler embedding, take a look at the services lists within the ‘Embed’ block.
+
+###Download
+Add a single file, along with a label or title for that file (i.e. Annual Report ‘2014-15’ ). The block will automatically provide a button with showing the file size and file type.
+
+###Button
+Create a button or link on a page. This can link to another page on your site or an external website.
+Options within this block include the ability to choose a colour and size for your button.
+
+###Banner
+Pull-in a single banner from the Banner section.
+
+###Events
+Pull-in a related event/s to the page.
+
+###News
+Pull-in a related news item/s to the page.
+
+###Separator
+This can help give a bit of ‘breathing space’ to the page layout. Separators push all subsequent content onto a new line.
+You have the options to make the Separator visible by adding a thin keyline.
+
+###Highlight
+If you need to put text in a box, this is the block for you. You can choose colour and text alignment.
+
+###Form
+Once you’ve created a form within the form-builder, just paste its ‘Handle’ here.
+
+##Block controls
+
+###Drag blocks
+Once you’ve added multiple blocks, you can use the Drag symbol (the cross with arrows) to reorder them. This order provides the ‘true order’ of content on mobile devices (where all content is stacked), and provides a suggested layout for devices with larger screens.
+
+###Block options
+Use the cog symbol to reveal the block settings. This include the ability to collapse, disable, add other blocks above, and to delete the block.
+
+###Collapse the block
+This hides the block contents on the Control Panel; really useful if you’re working on a page with lots of blocks.
+
+###Disable
+Hides the block from the front-end of the site, which can be useful if you’re not quite finished on a piece of content and don’t want it to be ‘live’ yet.
+
+
+###Width
+This appears on most of the blocks. Width determines how much horizontal (landscape) space the block takes up on the page. By default, most blocks take up two-thirds of the page width. If you leave all blocks on the default width, the result is a fairly standard two-thirds content width page, with a blank (one-third width) sidebar.
+
+
+{% endset %}

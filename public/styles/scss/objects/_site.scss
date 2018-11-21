@@ -1,0 +1,225 @@
+/*------------------------------------*\
+    $SITE
+\*------------------------------------*/
+
+/**
+ * Site header
+ */
+.site__header {
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  @include vendor(box-shadow, 0 -5px 14px 10px rgba(0, 0, 0, 0.17));
+}
+
+  /**
+   * Trigger for off canvas menu
+   */
+  .site__header__menu-btn {
+
+    // btn reset
+    background: none;
+    border: 0;
+    padding: 0;
+
+    position: absolute;
+    top: $base-spacing-unit / 2;
+    right: $base-spacing-unit / 2;
+
+    span {
+      display: block;
+      @include font-size(16px, false);
+      text-transform: uppercase;
+      font-weight: bold;
+      color: $teal;
+      padding: ($base-spacing-unit / 6) ($base-spacing-unit / 3);
+      border: 2px solid $teal;
+      @include vendor(border-radius, 4px);
+    }
+
+    &:active span,
+    &:hover span {
+      color: $teal-brighter;
+      border-color: $teal-brighter;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+
+    // hide cancel initially
+    .icon__cancel {
+      display: none;
+    }
+
+  }
+
+    /**
+     * Active state
+     */
+    .offcanvas--active .site__header__menu-btn {
+      span {
+        display: none;
+      }
+      .icon__cancel {
+        display: block;
+      }
+    }
+
+
+  .site__header__logo {
+    display: none;
+  }
+  .site__header__logo-small {
+    margin: ($base-spacing-unit * 2) auto $base-spacing-unit auto;
+    display: block;
+  }
+  .icon__freeukgen {
+    @include sizeSvgIcon(243px, 44px);
+  }
+
+
+  /**
+   * Off canvas nav
+   */
+  .site__header__palm-nav {
+    z-index: 1;
+
+    ul {
+      @extend %nav;
+      @extend %nav--stacked;
+      margin-top: 0;
+    }
+
+    a {
+      background: $light;
+      text-transform: uppercase;
+      color: $magenta;
+      font-weight: bold;
+      padding: $base-spacing-unit / 2;
+      &:active,
+      &:hover {
+        background: #e2e2e2;
+      }
+    }
+
+  }
+  .site__header__nav { display: none; }
+
+
+
+/**
+ * Site content
+ */
+.site__content {
+  position: relative;
+  z-index: 1;
+  padding-top: $b-double;
+  background-color: #fff;
+  overflow-x: hidden; // clear the footer properly without hurting left/right overflows
+
+  // top honeycomb
+  width: 100%;
+  height: auto;
+  background-position: right top;
+  display: block;
+
+  @include media-query(palm) {
+    @include vendor(background-size, 90%);
+  }
+}
+  .site__content--has-article {
+    padding-top: 0;
+
+    .title-bar {
+      margin-top: $b-double;
+    }
+  }
+  // this is to cope when title and title bar are hidden and no new background is added
+  .site__content--no-furniture {
+    padding-top: $b;
+    padding-bottom: $b;
+  }
+
+
+/**
+ * Site footer
+ */
+.site__footer {
+  border-top: 1px solid #ddd;
+
+  .icon__honeycomb--bottom-left {
+
+    width: 100%;
+    height: auto;
+    display: block;
+
+    @include media-query(palm){
+      background-image: none;
+    }
+
+  }
+
+}
+
+  .site__footer__nav {
+
+    @extend %nav;
+    @extend %milli;
+    margin-top: -$b-half;
+
+    li {
+      float: left;
+      width: 50%;
+      margin-top: $b-half;
+    }
+
+    a {
+      color: #fff;
+      &:active,
+      &:hover {
+        color: #bcbcbc;
+      }
+    }
+
+  }
+
+
+/**
+ * Only used in footer - group of 3 logos
+ */
+.project-links {
+  @extend %nav;
+
+  li {
+    margin-top: $b;
+    display: block;
+  }
+
+  a {
+    display: block;
+  }
+  .icon__freebmd {
+    @include sizeSvgIcon( floor(287.144px / 1.5), floor(87.153px / 1.5) );
+  }
+  .icon__freereg {
+    @include sizeSvgIcon( floor(266.436px / 1.5), floor(86.9px / 1.5) );
+  }
+  .icon__freecen {
+    @include sizeSvgIcon( floor(274.181px / 1.5), floor(86.794px / 1.5) );
+  }
+}
+
+
+
+
+/**
+ * Message pages
+ */
+.message-page {
+
+  max-width: 720px;
+  margin-top: $b * 3;
+  margin-bottom: $b * 3;
+}

@@ -1,0 +1,24 @@
+/*------------------------------------*\
+    $PAGINATION
+\*------------------------------------*/
+.pagination {
+  > li {
+
+    margin: 0 ($b / 8);
+
+    > a {
+      color: #ccc;
+
+      &:active
+      &:hover {
+        color: #7c7c7c;
+      }
+    }
+
+    &.pagination__link--current {
+      color: $teal;
+    }
+
+  }
+
+}

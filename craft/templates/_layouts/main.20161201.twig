@@ -1,0 +1,204 @@
+{% cache unless craft.config.devMode %}
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8"/>
+
+  <title>{% if title is defined %}{{ title }} - {% elseif entry is defined and entry.pageTitle is not empty %}{{ entry.pageTitle }} - {% elseif entry is defined %}{{ entry.title }} - {% endif %}{{ siteName }}</title>
+
+  <meta name="description" content="{% if metaDescription is defined %}{{ metaDescription }}{% elseif entry is defined and entry.metaDescription is not empty %}{{ entry.metaDescription }}{% endif %}">
+  <meta name="keywords" content="{% if metaKeywords is defined %}{{ metaKeywords }}{% elseif entry is defined and entry.metaKeywords is not empty %}{{ entry.metaKeywords }}{% endif %}">
+
+  <!--[if lt IE 9]>
+    <script src="/scripts/dist/html5shiv.js"></script>
+  <![endif]-->
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="568">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#00a099">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <script type="text/javascript">
+  /* grunticon Stylesheet Loader | https://github.com/filamentgroup/grunticon | (c) 2012 Scott Jehl, Filament Group, Inc. | MIT license. */
+  window.grunticon=function(e){if(e&&3===e.length){var t=window,n=!(!t.document.createElementNS||!t.document.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect||!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image","1.1")||window.opera&&-1===navigator.userAgent.indexOf("Chrome")),o=function(o){var r=t.document.createElement("link"),a=t.document.getElementsByTagName("script")[0];r.rel="stylesheet",r.href=e[o&&n?0:o?1:2],a.parentNode.insertBefore(r,a)},r=new t.Image;r.onerror=function(){o(!1)},r.onload=function(){o(1===r.width&&1===r.height)},r.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="}};
+  grunticon( [ "/styles/css/icons.data.svg.css", "/styles/css/icons.data.png.css", "/styles/css/icons.fallback.css" ] );
+  </script>
+  <noscript><link rel="stylesheet" type="text/css" href="/styles/css/icons.fallback.css"></noscript>
+
+  <link rel="stylesheet" href="/styles/css/palm.min.css">
+  <link rel="stylesheet" href="/styles/css/lap_and_up.min.css" media="(min-width:571px)">
+
+  <!--[if (lt IE 9) & (!IEMobile)]>
+    <link rel="stylesheet" href="/styles/css/lap_and_up.min.css">
+  <![endif]-->
+
+  <!--[if lte IE 7]>
+    <link rel="stylesheet" href="/styles/css/ie.min.css">
+  <![endif]-->
+
+  <link rel="alternate" type="application/rss+xml" title="Free UK Genealogy Feed" href="{{ url('blog/rss') }}">
+
+  {% block head %}{% endblock %}
+
+  {% if entry is defined and entry.headContent is not empty %}
+    {{ entry.headContent | raw }}
+  {% endif %}
+</head>
+<body ontouchstart class="offcanvas  offcanvas--rev">
+
+  <div class="cookie-notice">
+    <p>This site uses cookies. Some of the cookies we use are essential for parts of the site to operate and have already been set. You may delete and block all cookies from this site, but parts of the site may no longer work. To find out more about cookies on this website, see our <a href="{{ url('about/constitution-and-policies/cookie-policy') }}">cookie policy</a>.</p>
+    <a role="button" class="btn  btn--grey">I accept</a>
+  </div>
+
+  <nav class="site__header__palm-nav  offcanvas__secondary">
+    <ul>
+      {% include '_includes/navs/main' %}
+      <li><a href="{{ url('search') }}">Search</a></li>
+    </ul>
+  </nav>
+
+  <div class="offcanvas__primary">
+
+    <header class="site__header" role="banner">
+
+      <div class="container">
+        <button type="button" class="site__header__menu-btn" data-sc-offcanvas-trigger data-sc-offcanvas-primary=".offcanvas__primary" data-sc-offcanvas-secondary=".offcanvas__secondary">
+          <span>Menu</span>
+          <i class="icon__cancel" aria-hidden="true"></i>
+        </button>
+
+        <a href="/" class="site__header__logo  icon__freeukgen-strap"><h1 class="accessibility">FreeReg</h1></a>
+        <a href="/" class="site__header__logo-small  icon__freeukgen"></a>
+
+        <nav class="site__header__nav" role="navigation">
+          <ul>
+            {% include '_includes/navs/main' %}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+
+    <main role="main" class="site__content  icon__honeycomb--top-right{% if containsArticle is defined %}  site__content--has-article{% endif %}{% if (entry.hideTitleBar is defined and entry.hideTitleBar == '1') and (entry.hideTitle is defined and entry.hideTitle == '1') and (entry.article is defined and entry.article.first().type != 'background') %}  site__content--no-furniture{% endif %}">
+
+      <div class="container">
+
+        {% spaceless %}
+
+          {% block main %}
+
+            {% include '_includes/article' %}
+
+          {% endblock %}
+
+        {% endspaceless %}
+
+      </div>
+
+    </main>
+
+
+    <footer class="site__footer" role="contentinfo">
+
+      <div class="island  island--white  flush--bottom  icon__honeycomb--bottom-left">
+        <h5 class="flush--bottom  text--center">FreeUKGenealogy Projects</h5>
+
+        <ul class="project-links">
+          <li>
+            <a href="http://www.freebmd.org.uk">
+              <i class="icon__freebmd" aria-hidden="true"></i>
+              <span class="accessibility">FreeBMD</span>
+            </a>
+          </li>
+          <li>
+            <a href="http://www.freereg.org.uk">
+              <i class="icon__freereg" aria-hidden="true"></i>
+              <span class="accessibility">FreeREG</span>
+            </a>
+          </li>
+          <li>
+            <a href="http://www.freecen.org.uk">
+              <i class="icon__freecen" aria-hidden="true"></i>
+              <span class="accessibility">FreeCEN</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="island  island--dark  flush--bottom">
+        <div class="container">
+          <ul class="site__footer__nav">
+            {% for item in footer.menu %}
+            {% switch item.type %}
+              {% case 'internalLink' %}
+                {% set page = item.internalLink.first %}
+                {% if page | length %}
+                <li{% if page.url == craft.request.url %} class="active"{% endif %}>
+                  <a href="{{ page.url }}">{{ page.title }}</a>
+                </li>
+                {% endif %}
+
+              {% case 'externalLink' %}
+                <li>
+                  <a href="{{ item.linkUrl }}" target="_blank">{{ item.label }}</a>
+                </li>
+            {% endswitch %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="island  island--grey  flush--bottom">
+        <div class="container  text--center">
+          <p class="micro">{{ include(template_from_string(footer.copyright)) }}</p>
+        </div>
+      </div>
+
+    </footer>
+
+  </div>
+
+  <script type="text/javascript" src="/scripts/dist/lib.min.js"></script>
+  <script type="text/javascript" src="/scripts/dist/main.min.js"></script>
+
+  <!--[if lte IE 7]>
+    <script src="/scripts/dist/lte-ie7-polyfills.min.js"></script>
+  <![endif]-->
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-57560657-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+  {% block foot %}{% endblock %}
+</body>
+</html>
+{% endcache %}

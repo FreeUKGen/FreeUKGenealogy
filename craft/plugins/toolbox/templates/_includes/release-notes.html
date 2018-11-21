@@ -1,0 +1,34 @@
+<ul class="toolbox__release-notes">
+{% for release in releaseNotes %}
+  <li>
+    <h2 class="toolbox__title">Version {{ release.version }}</h2>
+    <time datetime="{{ release.date | date('Y-m-d') }}">{{ release.date | date('l jS F Y') }}</time>
+
+    <ul>
+    {% for note in release.notes %}
+      <li>
+        {% switch note.type %}
+
+          {% case 'added' %}
+            <strong class="toolbox__release-notes__flag  toolbox__release-notes__flag--green">Added</strong>
+
+          {% case 'upgraded' %}
+            <strong class="toolbox__release-notes__flag  toolbox__release-notes__flag--blue">Upgraded</strong>
+
+          {% case 'improved' %}
+            <strong class="toolbox__release-notes__flag  toolbox__release-notes__flag--orange">Improved</strong>
+
+          {% case 'fixed' %}
+            <strong class="toolbox__release-notes__flag  toolbox__release-notes__flag--red">Fixed</strong>
+
+          {% default %}
+            <strong class="toolbox__release-notes__flag">&nbsp;</strong>
+
+        {% endswitch %}
+        <span>{{ note.message | raw }}</span>
+      </li>
+    {% endfor %}
+    </ul>
+  </li>
+{% endfor %}
+</ul>

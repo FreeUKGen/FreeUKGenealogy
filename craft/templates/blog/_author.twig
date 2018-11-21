@@ -1,0 +1,44 @@
+{% extends '_layouts/main' %}
+
+{% set titleBarEntry = craft.entries.section('blog').first() %}
+
+{% set activeAuthor = craft.users.username(username).first() %}
+
+{% if not activeAuthor %}
+  {% exit 404 %}
+{% endif %}
+
+{% set breadcrumb = [
+  {
+    'url'   : url('news/author/' ~ activeAuthor.username ),
+    'title' : activeAuthor.fullName
+  }
+] %}
+
+{% set title = activeAuthor.fullName ~ ' - ' ~ (titleBarEntry.pageTitle is not empty ? titleBarEntry.pageTitle : titleBarEntry.title) %}
+
+{% if craft.request.getPageNum() != 1 %}
+  {% set title =  'Page ' ~ craft.request.getPageNum() ~ ' - ' ~ title %}
+{% endif %}
+
+{% block main %}
+
+  {% include '_includes/title-bar' %}
+
+  <div class="grid">
+
+    <div class="grid__item  two-thirds  palm-one-whole">
+      {% include 'blog/_includes/list' with {
+        criteria : {
+          author: activeAuthor
+        }
+      } %}
+    </div>
+
+    <div class="grid__item  one-third  palm-one-whole">
+      {% include 'blog/_includes/sidebar' %}
+    </div>
+
+  </div>
+
+{% endblock %}

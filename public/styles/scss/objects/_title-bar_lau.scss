@@ -1,0 +1,266 @@
+/*------------------------------------*\
+    $TITLE-BAR
+\*------------------------------------*/
+.title-bar {
+
+  display: block;
+  background: transparent;
+  margin-bottom: $b;
+  height: 46px;
+  overflow: hidden;
+  position: relative;
+
+  .title-bar__inner {
+
+    background: #fff;
+    border: 1px solid $lesslight;
+    overflow: hidden;
+    margin-right: 240px;
+    height: 46px;
+
+    h1 {
+
+      @include font-size(18px);
+      text-transform: uppercase;
+      font-weight: bold;
+      color: $teal;
+      float: left;
+      padding: 9px $b-half 8px $b-half;
+      margin-bottom: 0;
+
+    }
+
+
+    .breadcrumb {
+
+      // manual %nav
+      list-style: none;
+      margin-left: 0;
+
+      > li {
+
+          &,
+          > a {
+              display:inline-block;
+             *display:inline;
+              zoom:1;
+          }
+      }
+
+      float: left;
+      padding: 9px $b-half;
+      margin-bottom: 0;
+
+      text-transform: lowercase;
+      color: #a3a3a3;
+      @include font-size(18px);
+
+      > li + li:before {
+        content: "/";
+      }
+
+      a {
+        color: #a3a3a3;
+        &:active,
+        &:hover {
+          color: $teal;
+        }
+      }
+
+    }
+
+
+    .search {
+      float: right;
+
+      input {
+        @include font-size(18px, false);
+        float: left;
+        background-color: transparent;
+        border: 0;
+        height: 40px;
+        width: 62px;
+        padding-bottom: 4px;
+        padding-left: $b-half;
+        padding-right: $b-quarter;
+        color: #fff;
+
+        @include vendor(transition, all 0.15s linear);
+
+        &::-webkit-input-placeholder {
+          color: #cccccc;
+        }
+        &:-moz-placeholder {
+          color: #cccccc;
+        }
+        &:-ms-placeholder {
+          color: #cccccc;
+        }
+        &.placeholder {
+          color: #cccccc;
+        }
+
+        &:focus {
+          background-color: $teal;
+          outline: none;
+        }
+
+      }
+
+      &:active input,
+      &:hover input {
+        &::-webkit-input-placeholder {
+          color: #7c7c7c;
+        }
+        &:-moz-placeholder {
+          color: #7c7c7c;
+        }
+        &:-ms-placeholder {
+          color: #7c7c7c;
+        }
+        &.placeholder {
+          color: #7c7c7c;
+        }
+      }
+
+      .icon__search {
+        float: left;
+        height: 46px;
+        width: 46px;
+        margin-top: -2px;
+        background-position: center center;
+        &:active,
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      button {
+        display: none;
+        border: 0;
+        background: none;
+        padding: 0;
+        margin: 0;
+        height: 46px;
+        width: 46px;
+        padding-top: 2px;
+        &:focus {
+          outline: none;
+        }
+      }
+
+    }
+
+  }
+
+  .social-links {
+
+    // manual %nav
+    list-style: none;
+    margin-left: 0;
+    margin-bottom: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    > li {
+
+      margin-left: 2px;
+      float: left;
+      height: 46px;
+
+    }
+
+    a {
+      background-color: #fff;
+      display: block;
+      height: 46px;
+    }
+
+  }
+
+  .parsley-errors-list {
+    display: none;
+  }
+
+}
+
+
+
+
+.title-bar--active {
+
+
+  .title-bar__inner {
+    .search {
+      background: $teal;
+      position: absolute;
+      right: 240px;
+      box-shadow: 0 0 40px 10px #fff;
+      margin-top: -1px; // suck over top `.islet--bordered`
+
+      input {
+        width: 300px;
+      }
+
+      input,
+      &:active input,
+      &:hover input {
+        &::-webkit-input-placeholder {
+          color: #fff;
+        }
+        &:-moz-placeholder {
+          color: #fff;
+        }
+        &:-ms-placeholder {
+          color: #fff;
+        }
+        &.placeholder {
+          color: #fff;
+        }
+      }
+
+      button {
+        display: block;
+        @include opacity(0.8);
+        &:focus,
+        &:active,
+        &:hover {
+          @include opacity(1);
+        }
+      }
+
+      .icon__search {
+        display: none;
+      }
+
+    }
+
+    h1, .breadcrumb, .social-links {
+      @include opacity(0.3);
+    }
+
+    .parsley-errors-list {
+      display: block;
+      margin: 0;
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: 46px;
+
+      // manual %nav
+      list-style: none;
+      margin-left: 0;
+
+      li {
+        display: block;
+        background: $magenta;
+        padding: ($b / 8) $b-half;
+        color: #fff;
+        @include font-size(15px);
+      }
+    }
+
+  }
+
+}

@@ -1,0 +1,19 @@
+{% extends '_layouts/main' %}
+
+{% set titleBarEntry = craft.entries.section('blog').first() %}
+
+{% block main %}
+
+  {% include '_includes/title-bar' %}
+
+  <div class="grid">
+
+    <aside class="grid__item  one-third  palm-one-whole  float--right  palm-push--top">
+        {% include 'blog/_includes/sidebar' %}
+    </aside>
+
+    {% include 'blog/_includes/post' %}
+
+  </div>
+
+{% endblock %}

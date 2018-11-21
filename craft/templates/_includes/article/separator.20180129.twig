@@ -1,0 +1,11 @@
+{#
+ # Separator block type
+ #}
+
+{% if block.colour == 'invisible' %}
+<div class="cf"></div>
+{% else %}
+<section class="article__separator  article__separator--{{ block.colour }}  {{ block.width }}  grid__item">
+  <hr>
+</section>
+{% endif %}

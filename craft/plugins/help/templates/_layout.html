@@ -1,0 +1,34 @@
+{% extends "_layouts/cp" %}
+
+{% includeCssResource "help/css/style.css" %}
+
+{% if title is not defined %}
+  {% set title = 'Help'|t %}
+{% endif %}
+
+{% set docsMenu = [
+  { label: "Getting Started"|t, url: url('help') },
+  { label: "Site Sections"|t, url: url('help/siteSections') },
+  { label: "Images"|t, url: url('help/images') },
+  { label: "Article Layout"|t, url: url('help/articleLayout') },
+  { label: "Forms"|t, url: url('help/forms') },
+  { label: "Administration"|t, url: url('help/admin') },
+  { label: "Tips for power users"|t, url: url('help/powerusers') },
+  { label: "Editorial style guide"|t, url: url('help/styleGuide') },
+] %}
+
+
+{% set content %}
+  <div class="docs-sidebar">
+    <h5>Documentation</h5>
+    <ul class="page-list">
+      {% for m in docsMenu %}
+      <li><a href="{{ m.url }}"{% if craft.request.url == m.url %} class="active"{% endif %}>{{ m.label }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="docs-content">
+    {{ content | markdown | anchors('h1,h2') }}
+  </div>
+{% endset %}

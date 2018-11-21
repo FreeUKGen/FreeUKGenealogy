@@ -1,0 +1,45 @@
+{% extends "help/_layout" %}
+
+{% set content %}
+
+#Site Sections
+
+<header>
+  <p>Click ‘Entries’ in the main menu to show all of the site’s content and pages.
+The items in the list should match your user group privileges.</p>
+</header>
+
+**Note: Dashboard widgets can help to group relevant sections together.**
+
+The sections list is split into three:
+*Singles - include one-off static pages. You can’t create or delete singles, only edit what’s there.
+*Channels - are sections of repeating, automatically listed content, such as News, where entries don’t have any inherent relationship with each other.
+*Structures - are groups of pages that do have an inherent relationship with one another; they can be both sorted and nested inside other pages, to create a site hierarchy.
+
+##Section Specifics
+
+* Singles
+* News Articles
+* Pages
+
+
+##Singles
+Singles contain a number of top-level static pages. This includes things like the Homepage.
+
+Each Single has its own specific set of fields. Singles also tend to use their own specific template, which may include lists of content from a related section (e.g. The single ‘News Page’ includes a list of ‘News Articles’).
+
+All ‘Singles’ include the Article field, allowing you lots of flexibility to add content to the page.
+
+
+##Channels
+
+###News Articles
+Straightforward news items. New items appear in reverse date order (most recent first). There’s no need to ‘archive’ News items as they automatically drop down in priority as new News is added.
+
+
+##Structures
+
+###Pages
+Pages make up all of the general pages found across the site. They can be nested within other pages to create multiple levels of content.
+
+{% endset %}

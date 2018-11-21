@@ -1,0 +1,286 @@
+/**
+ * Bit of a reset
+ */
+#page-header,
+.toolbox_dashboard > h2,
+.toolbox_dashboard.pane { display: none; }
+#main { margin-top: 10px; }
+
+/* fix it all */
+.toolbox_dashboard .body * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+/**
+ * A tiny, nestable grid!
+ */
+.toolbox-grid {
+  margin-left: -24px;
+  margin-top: -24px;
+}
+  .toolbox-grid__item {
+    padding-left: 24px;
+    margin-top: 24px;
+    float: left;
+  }
+  /* smaller gutters */
+  .toolbox-grid--sml {
+    margin-left: -12px;
+    margin-top: -12px;
+  }
+  .toolbox-grid--sml > .toolbox-grid__item {
+    padding-left: 12px;
+    margin-top: 12px;
+  }
+
+/* some simple width classes */
+.one-whole      { width: 100%;     }
+.one-half       { width: 50%;      }
+.one-third      { width: 33.3333%; }
+.one-quarter    { width: 25%;      }
+.three-quarters { width: 75%;      }
+.two-thirds     { width: 66.6666%; }
+
+
+/* this is a bit crazy but fine for us... */
+@media only screen and (max-width : 1160px) {
+  .toolbox-grid--sml > .one-half { width: 100%; }
+}
+@media only screen and (max-width : 920px) {
+  .one-third,
+  .two-thirds { width: 50%; }
+
+  .one-quarter,
+  .three-quarters { width: 100%; }
+}
+@media only screen and (max-width : 620px) {
+  .one-third,
+  .two-thirds,
+  .one-half    { width: 100%; }
+  .one-quarter { width: 50%;  }
+
+  .toolbox-grid .toolbox-grid > .one-third { width: 50%; }
+}
+
+/**
+ * Titles
+ */
+h1.toolbox__title {
+  text-align: center;
+  margin-top: 12px !important;
+}
+h2.toolbox__title {
+  font-family: HelveticaNeue-Light, HelveticaNeue, sans-serif;
+  text-transform: uppercase;
+  color: #444;
+  font-weight: normal;
+  font-size: 13px;
+}
+
+
+/**
+ * Buttons
+ */
+.toolbox__btn {
+  /* stolen from .pane */
+  background: #fff;
+  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 8px -2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 8px -2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 8px -2px rgba(0, 0, 0, 0.1);
+  position: relative;
+  padding: 12px;
+  border-radius: 3px;
+  word-wrap: break-word;
+  overflow: hidden;
+
+  display: block;
+  width: 100%;
+  font-family: HelveticaNeue-Light, HelveticaNeue, sans-serif;
+  font-size: 18px;
+  text-align: center;
+}
+  .toolbox__btn i {
+    font-size: 30px;
+    margin-right: 12px;
+  }
+.toolbox__btn:hover {
+  text-decoration: none;
+  color: #fff;
+  background: #0d78f2;
+}
+
+
+/**
+ * Header
+ */
+.toolbox__header h1 {
+  margin-top: 10px;
+  margin-bottom: 0;
+  float: left;
+}
+.toolbox__header__profile-link {
+  margin-top: -24px;
+  margin-right: -24px;
+  margin-bottom: -24px;
+  float: right;
+}
+  .toolbox__header__profile-link img { float: right; }
+  .toolbox__header__profile-link div {
+    float: right;
+    margin-top: 32px;
+    margin-right: 12px;
+  }
+  .toolbox__header__profile-link span {
+    font-family: HelveticaNeue-Light, HelveticaNeue, sans-serif;
+    display: block;
+    text-align: right;
+    color: #aaa;
+  }
+.toolbox__header__profile-link:hover span { color: #0d78f2; }
+
+
+/**
+ * Sections
+ */
+.toolbox__sections__main li { text-align: center; }
+.toolbox__sections__main a {
+  color: #444;
+  font-weight: bold;
+  font-size: 14px;
+}
+.toolbox__sections__main a:hover {
+  color: #0d78f2;
+  text-decoration: none;
+}
+  .toolbox__sections__main a div {
+    font-size: 72px;
+    margin-bottom: 12px;
+  }
+
+.toolbox__sections__secondary .buttons { margin-left: 25px; }
+@media only screen and (max-width : 920px) {
+  .toolbox__sections__secondary .buttons { margin-left: 0; }
+}
+
+.toolbox__sections__secondary__inner {
+  border-left: 1px solid #ccc;
+  padding-left: 24px;
+  overflow: hidden;
+}
+@media only screen and (max-width : 920px) {
+  .toolbox__sections__secondary__inner {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+  .toolbox__sections__secondary__inner li { margin-bottom: 6px; }
+  .toolbox__sections__secondary__inner li:last-child { margin-bottom: 0; }
+  .toolbox__sections__secondary__inner a {
+    color: #aaa;
+    font-family: HelveticaNeue-Light, HelveticaNeue, sans-serif;
+  }
+
+
+/**
+ * Notices
+ */
+.toolbox__notice-links {
+  background: #da5a47;
+  padding: 0;
+}
+.toolbox__notice-links li {
+  line-height: 48px;
+}
+.toolbox__notice-links a {
+  font-family: HelveticaNeue-Light, HelveticaNeue, sans-serif;
+  color: #fff;
+  font-size: 20px;
+
+  display: block;
+  overflow: hidden;
+  padding: 12px;
+}
+  .toolbox__notice-links a span {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+
+    font-size: 36px;
+    vertical-align: top;
+    width: 72px;
+    text-align: center;
+  }
+  .toolbox__notice-links a i {
+    float: right;
+    font-size: 36px;
+    margin-top: -4px;
+  }
+.toolbox__notice-links a:hover {
+  text-decoration: none;
+  background: #0d78f2;
+}
+
+
+/**
+ * Release notes
+ */
+.toolbox__release-notes__wrapper {
+  padding: 0;
+  height: 300px;
+  overflow: auto;
+}
+  .toolbox__release-notes__inner { padding: 24px; }
+.toolbox__release-notes > li {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+}
+.toolbox__release-notes > li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.toolbox__release-notes time {
+  font-style: italic;
+  color: #888;
+  display: block;
+  margin-bottom: 12px;
+  margin-top: -12px;
+}
+
+.toolbox__release-notes ul li {
+  margin-bottom: 9px;
+  border-bottom: 1px dotted #ccc;
+  padding-left: 78px;
+  padding-bottom: 9px;
+}
+.toolbox__release-notes ul li:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.toolbox__release-notes__flag {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+
+  background: #444;
+  color: #fff;
+  font-size: 10px;
+  text-transform: uppercase;
+  padding: 2px 3px;
+  float: left;
+  width: 66px;
+  text-align: center;
+  margin-right: 6px;
+  margin-left: -78px;
+  margin-top: -2px;
+}
+  .toolbox__release-notes__flag--green  { background: #00AF37; }
+  .toolbox__release-notes__flag--orange { background: #EC812C; }
+  .toolbox__release-notes__flag--red    { background: #da5a47; }
+  .toolbox__release-notes__flag--blue   { background: #0d78f2; }

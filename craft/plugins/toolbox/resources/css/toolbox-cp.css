@@ -1,0 +1,12 @@
+/**
+ * Freshdesk
+ */
+#header-actions .support:before { font-size: 22px; }
+#freshwidget .spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -10px;
+  margin-left: -10px;
+}
+#freshwidget iframe { position: relative; }

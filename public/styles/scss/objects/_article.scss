@@ -1,0 +1,294 @@
+/*------------------------------------*\
+    $ARTICLE
+\*------------------------------------*/
+
+.article {}
+
+
+  /**
+   * Forms
+   */
+  .article__form {
+
+    form {
+      @extend %island;
+      background-color: $light;
+      color: #666;
+    }
+
+
+    /**
+     * fields
+     */
+    input.text,
+    textarea.text {
+      @extend %text-input;
+      background-position: right top;
+    }
+
+    label.required {
+      &:after {
+        content: "*";
+      }
+    }
+
+    .multiselect select {
+      @extend %text-input;
+      background-position: right top;
+      height: auto;
+      overflow: auto;
+    }
+
+    .checkboxes,
+    .radiobuttons {
+      .input label {
+        font-weight: normal;
+      }
+
+      input {
+        margin-right: $b-quarter;
+      }
+    }
+
+    .select {
+      // reset flipping normal .select stuff
+      text-indent: 0;
+      @include media-query(palm) { text-indent: 0; }
+      margin: 0;
+      padding: 0;
+      background-color: transparent;
+      border: 0;
+
+      select {
+        // manually re-do select again
+        @include vendor(appearance, none);
+        // -moz doesn't work yet, so hack in the next two lines
+        text-indent: 0.01px;
+        text-overflow: '';
+
+        // Firefox >= 30 is so rubbish we'll just not have a nice select arrow
+        // on any version of FF. Thanks moz.
+        @-moz-document url-prefix() { background-image: none !important; }
+
+        // firefox mobile needs this
+        @include media-query(palm) { text-indent: 5px; }
+
+        // take off any border-radius
+        @include vendor(border-radius, 0);
+
+        // style it the same as inputs
+        @extend %text-input;
+
+        // moz moz moz
+        &:-moz-focusring {
+          color: transparent;
+          text-shadow: 0 0 0 #000;
+        }
+
+        // ms ms ms
+        &::-ms-expand {
+          display: none;
+        }
+
+        // for icon
+        background-position: right top;
+      }
+
+    }
+
+
+    /**
+     * furniture
+     */
+    .submit input {
+      @extend %btn;
+      float: right;
+    }
+
+    .tab > h3 {
+      @include font-size($h2-size);
+      color: $magenta;
+    }
+
+    .instructions {
+      @include font-size(14px);
+      font-weight: normal;
+      margin-top: - $b-half;
+      margin-bottom: $b-half;
+    }
+
+  }
+
+
+  /**
+   * Modules
+   */
+  .show-mailchimp-form {
+    background-position: left bottom;
+    @include vendor(background-size, 82%);
+    width: 100%;
+    height: auto;
+
+    h2 {
+      @include font-size(26px);
+    }
+
+  }
+
+
+  /**
+   * Highlights
+   */
+  .article__highlight {
+
+    h2 {
+      @include font-size(52px);
+      font-weight: lighter;
+    }
+
+  }
+
+
+  /**
+   * Third party content
+   */
+  .article__embed,
+  .article__html {
+    margin-bottom: $b;
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+
+    // force the content to be fluid
+    .fetch {
+      > * {
+        display: block;
+        width: 100% !important;
+      }
+    }
+
+    > img {
+      display: block;
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    // tweets
+    .fetch--twitter {
+      > * {
+        margin-top: 0 !important;
+        min-width: 0 !important;
+      }
+    }
+
+    // videos, assume they are all 16:9
+    .fetch--youtube,
+    .fetch--vimeo {
+      position: relative;
+      padding-bottom: 56.25%; // 16:9
+      height: 0;
+      > * {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+
+  /**
+   * Separator
+   */
+  .article__separator {
+
+    hr {
+      height: 4px;
+      width: 100%;
+      border: 0;
+      background: transparent;
+    }
+
+  }
+    @each $colour in $colours {
+      .article__separator--#{nth($colour, 1)} hr {
+        background: nth($colour, 2);
+      }
+    }
+
+
+
+  /**
+   * Backgrounds with honey
+   */
+  .article__background {
+    display: block;
+    height: auto;
+    width: 100%;
+    background-position: left bottom;
+
+    overflow-y: hidden;
+    padding-top: $b;
+    padding-bottom: $b;
+    margin-bottom: 0;
+    position: relative;
+
+    @include media-query(palm) {
+      background-image: none;
+    }
+
+    .article > .grid__item:last-child {
+      margin-bottom: 0;
+      > :last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .icon__honeycomb-bg--top-right {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+
+      @include media-query(palm) {
+        display: block;
+        width: 100%;
+        background-position: right top;
+        @include vendor(background-size, 90%);
+      }
+    }
+    > .container {
+      position: relative;
+      z-index: 2;
+    }
+  }
+
+  // colours
+  .article__background--grey  { background-color: #e7e7e7; }
+  .article__background--white { background-color: #fff;    }
+  .article__background--magenta {
+    background-color: $magenta;
+    &, * {
+      color: #fff;
+      a {
+        color: #fff;
+        text-decoration: underline;
+        &:active,
+        &:hover { color: #fff; }
+      }
+    }
+  }
+  .article__background--teal {
+    background-color: $teal;
+    &, * {
+      color: #fff;
+      a {
+        color: #fff;
+        text-decoration: underline;
+        &:active,
+        &:hover { color: #fff; }
+      }
+    }
+  }

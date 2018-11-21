@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>{{ siteName }}</title>
+        <link>{{ siteUrl }}</link>
+        <atom:link href="{{ craft.request.url }}" rel="self" type="application/rss+xml" />
+        <description>{{ craft.entries.section('blog').first().metaDescription }}</description>
+        <language>en-gb</language>
+        <pubDate>{{ now.rss }}</pubDate>
+        <lastBuildDate>{{ now.rss }}</lastBuildDate>
+
+        {% for entry in craft.entries.section('blogPost').find() %}
+            <item>
+                <title>{{ entry.title }}</title>
+                <link>{{ entry.url }}</link>
+                <pubDate>{{ entry.postDate.rss }}</pubDate>
+                <author>{{ entry.author }}</author>
+                <guid>{{ entry.url }}</guid>
+                <description><![CDATA[
+                  {% for block in entry.post %}
+
+                    {% switch block.type %}
+
+                      {% case 'text' %}
+                        {{ block.text }}
+
+                      {% case 'images' %}
+                        {% for image in block.images %}
+                          <img src="{{ image.getUrl() }}">
+                        {% endfor %}
+
+                      {% case 'embed' %}
+                        {{ block.embedUrl.html }}
+
+                      {% case 'blockqoute' %}
+                        <blockquote>
+                          {{ block.quote }}
+                          {% if block.sourceHeading != '' and block.sourceUrl != '' %}
+                            <footer><a href="{{ block.sourceUrl }}">{{ block.sourceHeading }}</a></footer>
+                          {% elseif block.sourceHeading != '' %}
+                            <footer>{{ block.sourceHeading }}</footer>
+                          {% elseif block.sourceUrl != '' %}
+                            <footer>{{ block.sourceUrl }}</footer>
+                          {% endif %}
+                        </blockquote>
+
+                      {% case 'html' %}
+                        {{ block.html | raw }}
+
+                    {% endswitch %}
+
+                  {% endfor %}
+                ]]></description>
+            </item>
+        {% endfor %}
+    </channel>
+</rss>

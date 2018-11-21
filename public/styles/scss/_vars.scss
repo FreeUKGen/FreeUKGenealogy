@@ -1,0 +1,20 @@
+/*------------------------------------*\
+    $VARS
+\*------------------------------------*/
+
+$colours:(
+  "brand" $brand-color $brand-color-brighter $brand-color-lighter #fff,
+  "positive" $positive $positive-brighter $positive-lighter #fff,
+  "negative" $negative $negative-brighter $negative-lighter #fff,
+  "neutral" #9B9B9B #677270 #aaa #fff,
+  "alert" $alert $alert-brighter $alert-lighter #fff,
+  "navy" $navy $navy-brighter $navy-lighter #fff,
+  "brown" $brown $brown-brighter $brown-lighter #fff,
+  "magenta" $magenta $magenta-brighter $magenta-lighter #fff,
+  "teal" $teal $teal-brighter $teal-lighter #fff,
+  "blue" $blue $blue-brighter $blue-lighter #fff,
+  "orange" $orange $orange-brighter $orange-lighter #fff,
+  "light" $light $light $light #666,
+  "white" #fff #fff #fff #444,
+  "grey" #444 #555 #333 #fff
+);

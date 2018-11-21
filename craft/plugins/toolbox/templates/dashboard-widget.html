@@ -1,0 +1,183 @@
+{#----------#}
+{# SECTIONS #}
+{#----------#}
+
+{% set sections = craft.sections.getEditableSections() %}
+{% set newEntrySections = [] %}
+
+{% for section in sections %}
+	{% if section.type != 'single' and currentUser.can('createEntries:'~section.id) %}
+		{% set newEntrySections = newEntrySections|merge([section]) %}
+	{% endif %}
+{% endfor %}
+
+{% set mainSections = [
+  {
+    'title' : 'Blog',
+    'path'  : 'entries/blog',
+    'icon'  : 'section'
+  },
+  {
+    'title' : 'Pages',
+    'path'  : 'entries/pages',
+    'icon'  : 'layout'
+  }
+] %}
+
+
+{% set secondarySections = [
+  {
+    'title' : 'Homepage',
+    'path'  : 'entries/home/105-home'
+  },
+  {
+    'title' : 'Blog',
+    'path'  : 'entries/blog/5-blog'
+  }
+] %}
+
+
+{#---------#}
+{# NOTICES #}
+{#---------#}
+{% set notices = [
+  {
+    'data'   : '30',
+    'string' : 'new comments',
+    'path'   : 'some/path/thing'
+  },
+  {
+    'data'   : '3',
+    'string' : 'new enquiries',
+    'path'   : 'some/path/thing'
+  },
+  {
+    'data'   : '203',
+    'string' : 'events imported',
+    'path'   : 'some/path/thing'
+  }
+] %}
+
+
+{#---------#}
+{# SUPPORT #}
+{#---------#}
+{% set helpUrl = url('help') %}
+{% set freshDesk = true %}
+
+{#---------------#}
+{# RELEASE NOTES #}
+{#---------------#}
+{% set releaseNotes = craft.toolbox.getReleaseNotes('10') %}
+
+
+{#--------#}
+{# MARKUP #}
+{#--------#}
+<div class="toolbox-grid">
+
+  <div class="toolbox-grid__item  one-whole">
+    <div class="pane  toolbox__header">
+      <h1>Howdy {{ user.firstName }}!</h1>
+
+      <a href="{{ url('myaccount') }}#profile" class="toolbox__header__profile-link">
+        <img src="{{ user.photoUrl ? user.photoUrl : url('resources/defaultuserphoto/100') }}" />
+        <div>
+          <span>Edit Profile</span>
+          <span>Change Password</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="toolbox-grid__item  two-thirds">
+    <h1 class="toolbox__title">Sections</h1>
+
+    <div class="pane">
+
+
+      <div class="toolbox__sections  toolbox-grid">
+
+        <div class="toolbox-grid__item  three-quarters  toolbox__sections__main">
+          <ul class="toolbox-grid">
+            {% for i in mainSections %}
+            <li class="toolbox-grid__item  one-third">
+              <a href="{{ url(i.path) }}">
+                <div data-icon="{{ i.icon }}"></div>
+                {{ i.title }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+          <div class="clear"></div>
+        </div>
+
+        <div class="toolbox-grid__item  one-quarter  toolbox__sections__secondary">
+
+          {% if newEntrySections|length %}
+          <div class="buttons">
+            {% if newEntrySections|length > 1 %}
+            <div class="btngroup submit">
+              <div class="btn submit menubtn add icon">{{ "New Entry"|t }}</div>
+              <div class="menu">
+                <ul>
+                  {% for section in newEntrySections %}
+                  <li><a href="{{ url('entries/'~section.handle~'/new') }}">{{ section.name|t }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+            {% else %}
+            <a class="btn submit add icon" href="{{ url('entries/'~newEntrySections[0].handle~'/new') }}">{{ "New " ~ newEntrySections[0].name ~ " Entry"|t }}</a>
+            {% endif %}
+          </div>
+          {% endif %}
+
+          <div class="toolbox__sections__secondary__inner">
+            <h2 class="toolbox__title">Landing Pages</h2>
+            <ul>
+              {% for i in secondarySections %}
+              <li>
+                <a href="{{ url(i.path) }}">
+                  {{ i.title }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbox-grid__item  one-third">
+
+    <ul class="toolbox-grid  toolbox-grid--sml">
+    {% if helpUrl is defined and helpUrl is not empty %}
+      <li class="toolbox-grid__item  one-half"><a href="{{ helpUrl }}" class="toolbox__btn"><i data-icon="info"></i>Help docs</a></li>
+    {% endif %}
+
+    </ul>
+    <div class="clear"></div>
+
+  </div>
+
+  <div class="clear"></div>
+
+
+  {% if releaseNotes is defined and releaseNotes | length %}
+  <div class="toolbox-grid__item  one-third">
+    <h1 class="toolbox__title">Updates</h1>
+
+    <div class="pane  toolbox__release-notes__wrapper">
+      <div class="toolbox__release-notes__inner">
+        {% include 'toolbox/_includes/release-notes' %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+<div class="clear"></div>

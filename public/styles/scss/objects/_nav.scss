@@ -1,0 +1,165 @@
+/*------------------------------------*\
+    $NAV
+\*------------------------------------*/
+
+
+/**
+ * Bigger stacked list
+ */
+.nav--double-stacked {
+  @extend %nav--stacked;
+
+  li {
+    margin-bottom: $b-double;
+  }
+
+}
+
+
+/**
+ * Adjust standard subnav to cope with Craft
+ */
+.sub-nav {
+
+  // hide all sub navs on palm
+  display: none;
+
+  // hide nested navs by default
+  ul {
+    display: none;
+  }
+
+
+  // only show immediately nested navs
+  li.open > ul,
+  li.active > ul {
+    display: block;
+  }
+
+
+  // paddings to 5 levels deep, no more.
+  > li > ul > li {
+
+    a {
+      padding-left: $b-half;
+    }
+
+    > ul > li {
+
+      a {
+        padding-left: $b;
+      }
+
+      > ul > li a {
+        padding-left: $b * 1.5;
+      }
+
+    }
+
+  }
+
+}
+
+.sub-nav--open ul {
+  display: block;
+}
+
+// show sub nav on active
+.sub-nav--active {
+  display: block;
+}
+
+.show-sub-nav {
+
+  float: right;
+  padding-top: 2px;
+  height: 22px;
+
+  .icon__cancel {
+    display: none;
+  }
+
+  &:active,
+  &:hover {
+    cursor: pointer;
+  }
+
+}
+
+.show-sub-nav--active {
+
+  .icon__cancel {
+    display: block;
+  }
+
+  .icon__burger {
+    display: none;
+  }
+
+}
+
+
+
+
+
+/**
+ * Used in the header of the blog post
+ */
+.category-nav {
+  @extend %nav;
+  @extend .breadcrumb;
+  margin-bottom: $b-half;
+
+  > li + li:before {
+    @include font-size(22px);
+    color: #a3a3a3;
+    font-weight: lighter;
+    margin-top: -1px;
+    content: "|";
+  }
+
+
+  a {
+    @include font-size(22px);
+    color: #a3a3a3;
+    font-weight: lighter;
+    &:active,
+    &:hover {
+      color: #808080;
+    }
+  }
+
+}
+
+
+
+/**
+ * A simple list of blog posts
+ */
+.latest-posts {
+  @extend %nav;
+  @extend %nav--stacked;
+
+  h3 {
+    @include font-size(18px);
+    margin: 0;
+    font-weight: lighter;
+  }
+
+  time {
+    @include font-size(14px);
+    color: #999999;
+    display: block;
+  }
+
+  li {
+    border-bottom: 1px solid $lesslight;
+    margin-bottom: $b-half;
+    padding-bottom: $b-half;
+    &:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+}
