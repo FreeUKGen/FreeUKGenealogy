@@ -1,0 +1,87 @@
+{% extends '_layouts/main' %}
+
+{% set titleBarEntry = {
+  url : url('search'),
+  title : 'Search'
+} %}
+
+
+{% set title = 'Search' %}
+
+
+{# get q #}
+{% set q = craft.request.getParam('q') %}
+
+{# fuzzy match for q #}
+{% set fq = '*' ~ q | replace(' ', '* *') ~ '*' %}
+
+{# get results #}
+{% set results = craft.entries.search(fq) %}
+
+{% set form %}
+<form action="{{ url('search') }}" method="get" class="grid">
+
+  <div class="grid__item  four-fifths  palm-two-thirds">
+    <input type="input" name="q" value="{{ craft.request.getParam('q') }}" class="text-input" placeholder="e.g. “Free REG”">
+  </div>
+
+  <div class="grid__item  one-fifth  palm-one-third">
+    <input type="submit" value="Search" class="btn  btn--full  caps">
+  </div>
+
+</form>
+{% endset %}
+
+
+{% block main %}
+
+
+
+
+
+    {% if q is not defined or q is empty %}
+
+      <header>
+        <h1 class="title">Please enter a search term.</h1>
+        {{ form }}
+      </header>
+
+    {% elseif results | length %}
+      <header>
+        <h1 class="title">Showing results for “{{ craft.request.getParam('q') }}”.</h1>
+        {{ form }}
+      </header>
+
+      <section>
+        {% paginate results.limit(2) as entries %}
+
+          <ul class="nav  nav--double-stacked">
+          {% for entry in entries %}
+            <li class="push-double--bottom">
+              {% if entry.section.handle == 'blogPost' or entry.section.handle == 'blog' %}<h3 class="delta  caps  flush--bottom">Blog</h3>{% endif %}
+              <h2 class="gamma  push-half--bottom"><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
+              {% if entry.post.type('text').first() %}
+                <p class="delta">{{ entry.post.type('text').first().text | hacksaw(words = "60", append = "&hellip;") }}</p>
+              {% elseif entry.article.type('text').first() %}
+                <p class="delta">{{ entry.article.type('text').first().text | hacksaw(words = "60", append = "&hellip;") }}</p>
+              {% endif %}
+            </li>
+          {% endfor %}
+          </ul>
+
+          {% include "_includes/pagination" %}
+
+        {% endpaginate %}
+      </section>
+    {% else %}
+      <header>
+        <h1 class="title">Nothing could be found for “{{ craft.request.getParam('q') }}”.</h1>
+        {{ form }}
+      </header>
+      <section>
+        <p>Maybe try something less specific or use the <a href="{{ url('sitemap') }}">sitemap</a>.</p>
+      </section>
+    {% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{#
+ # Download block type
+ #}
+{% if block.file is not empty %}
+
+{% set downloadTitle %}
+  {% if block.label is not empty %}
+    <h4>{{ block.label }}</h4>
+  {% else %}
+    <h4>Download</h4>
+  {% endif %}
+{% endset %}
+
+{% set downloadBtn %}
+  <a href="{{ block.file.first.url }}" title="Download {{ block.label }}">Download</a>
+  <span class="file-info">{{ block.file.first.kind }} {{ block.file.first.size | filesize }}</span>
+{% endset %}
+
+<section class="article__download  grid__item  {{ block.width }}  palm-one-whole">
+  {% switch block.width %}
+
+    {% case 'one-third' %}
+      <div class="grid__item one-whole">
+        {{ downloadTitle }}
+      </div>
+      <div class="grid__item one-whole text--center ">
+        {{ downloadBtn }}
+      </div>
+
+    {% case 'two-thirds' %}
+      <div class="grid__item two-thirds palm-one-whole">
+        {{ downloadTitle }}
+      </div>
+      <div class="grid__item one-third palm-one-whole text--center ">
+        {{ downloadBtn }}
+      </div>
+
+    {% case 'one-whole' %}
+      <div class="grid__item three-quarters palm-one-whole">
+        {{ downloadTitle }}
+      </div>
+      <div class="grid__item one-quarter palm-one-whole text--center ">
+        {{ downloadBtn }}
+      </div>
+
+  {% endswitch %}
+</section>
+{% endif %}

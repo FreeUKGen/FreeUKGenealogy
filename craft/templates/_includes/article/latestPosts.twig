@@ -1,0 +1,19 @@
+{#
+ # Latest posts block type
+ #}
+<section class="article__lastest-posts  grid__item  {{ block.width }}  palm-one-whole">
+  <aside class="islet  islet--bordered">
+    <h2 class="title-block">Latest Posts</h2>
+    <ul class="latest-posts">
+    {% for post in craft.entries({
+      limit : block.numberOfPosts,
+      section : 'blogPost'
+    }) %}
+      <li>
+        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+        <time datetime="{{ post.postDate }}">{{ post.postDate | date('jS F Y') }}</time>
+      </li>
+    {% endfor %}
+    </ul>
+  </aside>
+</section>

@@ -1,0 +1,44 @@
+{#
+ # Adds the appropriate width and clear classes for a normal grid
+ #}
+{%- macro classes(width, loop) -%}
+
+  {%- if width ends with 'one-third' -%}
+
+    {% set extra = width != 'one-third' ? width|split('one-third')[0] : 'lap-and-up-' %}
+
+    {{- width }}  {{ cycle([extra ~ 'clear--left', '', ''], loop) -}}
+
+  {%- elseif width ends with 'one-half' -%}
+
+    {% set extra = width != 'one-half' ? width|split('one-half')[0] : 'lap-and-up-' %}
+
+    {{- width }}  {{ cycle([extra ~ 'clear--left', ''], loop) -}}
+
+  {%- else -%}
+
+    {{- width -}}
+
+  {%- endif -%}
+
+{%- endmacro -%}
+
+
+
+{#
+ # Adds the correct classes for a grid within a grid.
+ #}
+{%- macro innerClasses(width, loop) -%}
+  {% switch width %}
+
+    {% case 'one-whole' %}
+      one-third  {{ cycle(['clear--left', '', ''], loop) }}
+
+    {% case 'two-thirds' %}
+      one-half  {{ cycle(['clear--left', ''], loop) }}
+
+    {% default %}
+      one-whole
+
+  {% endswitch %}
+{%- endmacro -%}

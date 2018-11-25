@@ -1,0 +1,17 @@
+{#
+ # A simple macro to loop the blocks in our given article
+ # field and assign them a template
+ #}
+{% macro loop(entry, field, fieldHandle) %}
+
+  {% if field | length %}
+
+    {% for block in field %}
+
+      {% include '_includes/' ~ fieldHandle|default('article') ~ '/' ~ block.type %}
+
+    {% endfor %}
+
+  {% endif %}
+
+{% endmacro %}

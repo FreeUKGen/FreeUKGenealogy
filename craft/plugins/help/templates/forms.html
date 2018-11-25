@@ -1,0 +1,73 @@
+{% extends "help/_layout" %}
+{% set title = "Help | Forms"|t %}
+
+{% set content %}
+
+
+#Forms
+
+<header>
+  <p>
+    The Forms section allows you to build basic forms! These can then be added to any page with an article field by pasting the form’s ‘Handle’ into the text box.
+  </p>
+</header>
+
+Access to this section is limited to certain member groups.
+Forms are useful for many kinds of data collection. Website forms can be publicly accessed by any user, and submitted to the website’s control panel.
+
+
+##The form-builder
+The forms section is only accessible to those users with Admin access.
+Every form has the following tabs:
+
+- **Entries** - When people have filled-out and submitted your form, the information they’ve filled-in appears here.
+- **Fields** - Where you create and edit fields. (You can see a selection of fields below.)
+- **Notifications** - Choose the email address which a notification should be sent to every time a new entry is added (i.e. when a form has been filled-in and submitted).
+- **Settings** - Allows you to change the name of your form and its ‘Handle’, as well as choosing a suitable redirect page.
+
+**WARNING: Changing the name or ‘Handle’ of a form after it has been published may break any/all links to that form**
+
+
+###Fields
+
+
+* **Name** - The label that appears above the field. (This could be ‘Name’, ‘Email address’, ‘Message’ etc.)
+* **Handle** - The unique identifier for the field. Handles should be lowercase, use alpha-numeric characters and must not contain any spaces.
+* **Instructions** - Some fields may benefit from a brief set of instructions.
+* **Type** - Choose type of field (i.e. text input, check box, radio button etc.).
+* **Placeholder text** - This appears inside text fields, as an example. (So, for a field where you’re asking for an email address, the placeholder text might be ‘your name@gmail.com’)
+* **Max length** - You may wish to limit the character length of an answer.
+* **Validation** - This helps to reduce errors. We’ve given you a check-list:
+        required - The form can’t be submitted unless a required field is completed.
+        numerical - The user needs to input a number rather than text (i.e. ‘1977’ rather than ‘nineteen seventy-seven’)
+        url - This will need to be an appropriately formatted url (uniform resource locator),  most commonly this will be used for a web address.
+        email - Needs to be an appropriately formatted email address (though this can’t check that an email address has been spelt correctly, for example).
+
+###Notifications
+The system can automatically send an email notification to a particular email address or email addresses, when it receives a new entry.
+
+
+###Publish
+Publish settings provide some options for pasting HTML code into a webpage. This is useful if you want to embed the form on another website.
+For adding the form to your site, take a look below.
+
+###Settings
+- **Form name** - Give your form a human-readable name (e.g. Contact, Competition, Job Application)
+- **Form Handle** - This is the unique identifier for the form. Do not change this once you have published the form or added it to your webpage, as it will break the link to the form.
+- **Redirect page** -  The page the form redirects the user to once they’ve submitted the form (e.g. job-application/thank-you). Create the redirect page in the ‘Pages’ section first, then add the page address here. The page should include some sort of confirmation message, and indicate whether any further action is required from the user. If this is left blank the form will simply return to the original form page.
+
+<hr>
+
+##Adding forms to articles
+
+You can add forms to any page on the site that includes an ‘article’ field.
+
+1. Firstly, copy the form’s ‘Handle’.
+
+2. Go to the page you’d like to add the form to, or create a new page.
+
+3. Within the ‘Article’ field, choose ‘Form’ from the ‘Add a block’ menu.
+
+4. Paste the form’s ‘Handle’ into the field, select a width, and save!
+
+{% endset %}

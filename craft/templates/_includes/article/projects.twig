@@ -1,0 +1,34 @@
+{#
+ # Projects block type
+ #}
+{% if block.projects | length %}
+<section class="article__projects  grid__item  {{ block.width }}  palm-one-whole">
+  <ul class="project-links">
+  {% for project in block.projects %}
+    <li>
+      {% switch project.value %}
+
+        {% case 'freereg' %}
+          <a href="https://www.freereg.org.uk">
+            <i class="icon__freereg" aria-hidden="true"></i>
+            <span class="accessibility">FreeREG</span>
+          </a>
+
+        {% case 'freebmd' %}
+          <a href="https://www.freebmd.org.uk">
+            <i class="icon__freebmd" aria-hidden="true"></i>
+            <span class="accessibility">FreeBMD</span>
+          </a>
+
+        {% case 'freecen' %}
+          <a href="https://www.freecen.org.uk">
+            <i class="icon__freecen" aria-hidden="true"></i>
+            <span class="accessibility">FreeCEN</span>
+          </a>
+
+      {% endswitch %}
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+{% endif %}

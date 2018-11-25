@@ -1,0 +1,79 @@
+{% extends "help/_layout" %}
+
+{% set content %}
+
+#Tips for Power Users
+
+<header>
+<p>Here are some quick tips, for those using the site frequently.</p>
+</header>
+
+
+
+##Keyboard Shortcuts
+
+When editing an entry …
+
+**Cmd + S** will save the page.
+
+When in a rich text field …
+
+
+<table class="data" style="width: 100%;">
+  <thead>
+    <th></th>
+    <th>OS X</th>
+    <th>Windows</th>
+  </thead>
+  <tr><td>Undo</td><td>Cmd + z</td><td>Ctrl + z</td></tr>
+  <tr><td>Redo</td><td>Cmd + Shift + z</td><td>Ctrl + Shift + z</td></tr>
+  <tr><td>Increase indent</td><td>Tab</td><td>Tab</td></tr>
+  <tr><td>Decrease indent</td><td>Shift + Tab</td><td>Shift + Tab</td></tr>
+  <tr><td>Clear formatting</td><td>Cmd + m</td><td>Ctrl + m</td></tr>
+  <tr><td>Bold</td><td>Cmd + b</td><td>Ctrl + b</td></tr>
+  <tr><td>Italic</td><td>Cmd + i</td><td>Ctrl + i</td></tr>
+  <tr><td>Numbered list</td><td>Cmd + k</td><td>Ctrl + k</td></tr>
+  <tr><td>Bulleted list</td><td>Cmd + j</td><td>Ctrl + j</td></tr>
+  <tr><td>Superscript</td><td>Cmd + h</td><td>Ctrl + h</td></tr>
+  <tr><td>Subscript</td><td>Cmd + l</td><td>Ctrl + l</td></tr>
+  <tr><td>Normal text</td><td>Cmd + Alt + 0</td><td>Ctrl + Alt + 0</td></tr>
+  <tr><td>Header 1</td><td>Cmd + Alt + 1</td><td>Ctrl + Alt + 1</td></tr>
+  <tr><td>Header 2</td><td>Cmd + Alt + 2</td><td>Ctrl + Alt + 2</td></tr>
+  <tr><td>Header 3</td><td>Cmd + Alt + 3</td><td>Ctrl + Alt + 3</td></tr>
+  <tr><td>Header 4</td><td>Cmd + Alt + 4</td><td>Ctrl + Alt + 4</td></tr>
+  <tr><td>Header 5</td><td>Cmd + Alt + 5</td><td>Ctrl + Alt + 5</td></tr>
+  <tr><td>Header 6</td><td>Cmd + Alt + 6</td><td>Ctrl + Alt + 6</td></tr>
+</table>
+
+
+##Searching
+
+Search within the CMS is a little basic at the moment, but there are several ways to make it easier to find things …
+
+###Fuzzy searching
+By default, the search box within the entries section performs an ‘exact match’ search.
+For example a search of ‘cat’ would not return any results for ‘catfish’ or ‘cat-flap’.
+
+However it is possible to do a ‘fuzzy search’ by adding an asterisk before and after your keyword.
+e.g. \*cat* would return ‘catfish’ and ‘cat-flap’
+
+###Page searching
+For pages with lots of content, like a long list of entries for example, make use of your browser’s page search function. (Cmd + F on Mac, Ctrl + F on Windows)
+
+###Frontend searching
+The frontend of the site provides a more powerful search tool. If you’re struggling to find the content you’re looking for, try using the main site search.
+If you’re logged in as an administrator we’ve added some quick links through to the Control Panel edit page for many of the articles.
+
+
+##Live Preview
+When posting entries, do make use of ‘Live Preview’ button (top right hand side of the edit page). This lets you see any changes to the page as you make them, without the need to save and refresh the front of the site in a separate window.
+
+But always remember to close Live Preview and press ‘Save’ when you’re finished, or your changes will be forgotten!
+
+
+##Related Entries
+
+You can edit related entries from within a parent entry. Just double-click the related child entry from within the list, and a small edit window will pop-up allowing you to make changes before saving. This is really useful for editing instance status from within an event.
+
+
+{% endset %}

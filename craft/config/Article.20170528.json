@@ -1,0 +1,7 @@
+{
+  buttons: ['formatting','|','bold','italic','|','unorderedlist','orderedlist','|','link','|','html'],
+  plugins: ['fullscreen','pagebreak'],
+  cleanup: true,
+  pastePlainText: true,
+  formattingTags: ['p', 'h1', 'h2', 'h3', 'h4']
+}

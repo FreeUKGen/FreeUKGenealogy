@@ -1,0 +1,21 @@
+{% extends "_layouts/main" %}
+
+{% set title = 'Page Not Found' %}
+
+{% import "_macros/article" as article %}
+
+{% block main %}
+
+  <article class="article  grid">
+    {{ article.loop(fourOhFour, fourOhFour.article) }}
+  </article>
+
+{% endblock %}
+
+{% block foot %}
+  <script type="text/javascript">
+    if ( typeof ga !== 'undefined' ) {
+      ga('send', 'event', 'Error Pages', '404', 'URL: '+ window.location.href );
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,62 @@
+{%- set submitValue = (form.submitButtonText ? form.submitButtonText : "Submit") -%}
+{%- set submitAction = (form.submitAction ? form.submitAction : "sproutForms/entries/saveEntry") -%}
+
+{% if form.submitAction %}
+
+{# Submit form to third party #}
+<form method="post" accept-charset="utf-8" enctype="multipart/form-data" onSubmit="return check();">
+	<input type="hidden" name="action" value="{{ submitAction }}">
+
+{% else %}
+
+{# Submit form to Sprout Forms #}
+<form method="post" accept-charset="UTF-8" onSubmit="return check();">
+	{{ getCsrfInput() }}
+	<input type="hidden" name="action" value="{{ submitAction }}">
+	<input type="hidden" name="handle" value="{{ form.handle }}">
+
+{% endif %}
+	
+	{% if form.redirectUri %}
+	<input type="hidden" name="redirect" value="{{ form.redirectUri }}">
+	{% endif %}
+
+	<div class="fields">
+	{{ body | raw }}
+	</div>
+
+	{% hook 'sproutForms.modifyForm' %}
+	
+	<div>
+		<textarea id="address" name="address" class="text nicetext fullwidth" style="background-color: lightyellow; font-weight: bold; overflow: hidden; margin: 10px auto" rows="2" onfocus='this.select()'>Use backspace to delete all text in this field</textarea>
+	</div>
+	<div id="promoDiv">
+		<input type="text" id="promocode" name="promocode">
+	</div>
+
+	<div class="submit">
+		<input type="submit" value="{{ submitValue }}">
+	</div>
+
+	<script>
+	(function () {
+		var e = document.getElementById("promocode");
+		e.parentNode.removeChild(e);
+
+		var hash = '';
+		var d = new Date();
+		var code = d.toLocaleString('en-GB', {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', timeZone: 'Europe/London'});
+		for (i=0, len=code.length; i<len; i++) {
+			hash = ((hash << 5) - hash) + i;
+			hash |= 0;
+		}
+
+		var newinput = document.createElement('input');
+		newinput.setAttribute('id', "promocode");
+		newinput.setAttribute('value', hash);
+		document.getElementById("promoDiv").appendChild(newinput);
+		document.getElementById('promocode').style.display = 'none';
+	})();
+	</script>
+
+</form>

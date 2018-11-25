@@ -1,0 +1,12 @@
+.DS_Store
+*.sublime-workspace
+
+/public/icomoon-phantomjs-debug.png
+/public/test.html
+/public/.sass-cache
+/public/files
+/public/icon.png
+/public/node_modules
+/public/bower_components
+
+/craft/storage

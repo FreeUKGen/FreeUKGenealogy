@@ -1,0 +1,110 @@
+/*------------------------------------*\
+    $MODAL
+\*------------------------------------*/
+
+.modal {
+
+}
+  //
+  // .modal-inner {
+  //
+  // }
+
+  .modal-close {
+    top: $b / 2.5;
+    right: $b / 2.5;
+  }
+
+  .icon__cancel-white,
+  .icon__cancel-white:hover,
+  .icon__cancel-white:active {
+    @include sizeSvgIcon(26px);
+  }
+
+
+/**
+ * Owls inside modals
+ */
+.owl-theme .owl-controls .owl-nav {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .owl-next,
+  .owl-prev {
+    position: absolute;
+    bottom: $b-quarter;
+    padding: 0;
+    margin: 0;
+    background: none;
+    display: block;
+    height: 26px;
+    &:hover { background: none; }
+  }
+  .owl-prev { left: $b-quarter; }
+  .owl-next { right: $b-quarter; }
+
+
+  .icon__chevron-alt-left,
+  .icon__chevron-alt-left:hover,
+  .icon__chevron-alt-left:active,
+  .icon__chevron-alt-right,
+  .icon__chevron-alt-right:hover,
+  .icon__chevron-alt-right:active {
+    @include sizeSvgIcon(26px);
+  }
+}
+
+.owl-dots {
+
+}
+
+.owl-item {
+  figcaption {
+    bottom: 0;
+  }
+}
+
+
+
+/**
+ * Mailchimp modal
+ */
+.modal--mailchimp {
+
+
+  .modal-inner {
+    top: 50%;
+    margin-top: -165px;
+    left: 50%;
+    margin-left: -350px;
+    right: auto;
+    bottom: auto;
+
+    width: 700px;
+
+    // media query
+  }
+
+  .modal-close {
+    top: $b * 1.5;
+    right: $b * 1.5;
+  }
+
+  .text-input {
+    width: 420px;
+  }
+
+  .btn {
+    float: right;
+    margin-top: - ($b * 1.6);
+  }
+
+  .email {
+    margin-bottom: 0;
+  }
+
+
+}

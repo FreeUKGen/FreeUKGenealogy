@@ -1,0 +1,31 @@
+/*------------------------------------*\
+    $COOKIE-NOTICE
+\*------------------------------------*/
+.cookie-notice {
+	text-align: center;
+	background: $brand-color;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	color: #fff;
+	z-index: 200;
+	display: none;
+
+	padding: $b 10%;
+
+	p {
+		@include font-size(26px, false);
+		line-height: 29px;
+
+		a {
+			color: #444;
+
+			&:active,
+			&:hover {
+				color: #333;
+				text-decoration: underline;
+			}
+		}
+	}
+}

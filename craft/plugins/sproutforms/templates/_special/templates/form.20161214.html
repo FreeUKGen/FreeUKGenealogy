@@ -1,0 +1,53 @@
+{%- set submitValue = (form.submitButtonText ? form.submitButtonText : "Submit") -%}
+{%- set submitAction = (form.submitAction ? form.submitAction : "sproutForms/entries/saveEntry") -%}
+
+{% if form.submitAction %}
+
+{# Submit form to third party #}
+<form method="post" accept-charset="utf-8" enctype="multipart/form-data" onSubmit="return check();">
+	<input type="hidden" name="action" value="{{ submitAction }}">
+
+{% else %}
+
+{# Submit form to Sprout Forms #}
+<script type="text/javascript" src="/scripts/extra/main.js"></script>
+<form method="post" accept-charset="UTF-8" onSubmit="return check();" class="myform">
+	{{ getCsrfInput() }}
+	<input type="hidden" name="action" value="{{ submitAction }}">
+	<input type="hidden" name="handle" value="{{ form.handle }}">
+
+{% endif %}
+	
+	{% if form.redirectUri %}
+	<input type="hidden" name="redirect" value="{{ form.redirectUri }}">
+	{% endif %}
+
+	<div class="fields">
+	{{ body | raw }}
+	</div>
+
+	{% hook 'sproutForms.modifyForm' %}
+	
+	<div>
+		<textarea id="address" name="address" class="text nicetext fullwidth" style="background-color: lightyellow; font-weight: bold; overflow: hidden; margin: 10px auto" rows="2" onfocus='this.select()'>Use backspace to delete all text in this field</textarea>
+	</div>
+	<div id="promoDiv">
+		<input type="text" id="promocode" name="promocode" placeholder="enter your promo code">
+		<input type="text" id="expiredate" name="expiredate">
+	</div>
+	<div id="sproutform-modal" class="modal-sproutform">
+		<div class="modal-sp-content"><p>Thank you - your message has been submitted and you should receive a response in 4-5 working days</p></div>
+	</div>
+
+	<div class="submit">
+		<input type="submit" value="{{ submitValue }}">
+	</div>
+
+	<script>
+	(function () {
+		initCsrf();
+		loadform();
+	})();
+	</script>
+
+</form>

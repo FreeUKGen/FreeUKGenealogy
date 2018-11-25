@@ -1,0 +1,124 @@
+/*------------------------------------*\
+    $MODAL
+\*------------------------------------*/
+
+.modal {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: #000 url(/images/spinner.gif) center center no-repeat;
+}
+
+  .modal-inner {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: $b * 1.5;
+  }
+
+  .modal-close {
+    position: absolute;
+    z-index: 300;
+    top: $b-half;
+    right: $b-half;
+    border: 0;
+    background-color: transparent;
+    outline: 0;
+  }
+  .icon__cancel-white,
+  .icon__cancel-white:hover,
+  .icon__cancel-white:active {
+    @include sizeSvgIcon(20px);
+  }
+
+
+/**
+ * Owls inside modals
+ */
+.owl-theme .owl-controls .owl-nav {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: - ($b * 1.5);
+}
+
+.owl-dots {
+  margin-top: $b-half;
+}
+
+.owl-item {
+  figure {
+    margin-bottom: 0;
+  }
+  figcaption {
+    position: absolute;
+    bottom: $b-double;
+    left: 0;
+    right: 0;
+
+    background: rgba(0,0,0,0.7);
+    padding: $b-half;
+    text-align: center;
+    color: #fff;
+  }
+}
+
+
+/**
+ * Mailchimp modal
+ */
+.modal--mailchimp {
+  background: #fff;
+  color: #fff;
+
+  .modal-inner {
+    top: $b;
+    left: $b;
+    right: $b;
+    bottom: $b;
+
+    background: $teal;
+    padding: $b;
+    @include vendor(border-radius, 3px);
+  }
+
+  .modal-close {
+    display: none;
+  }
+  .mailchimp-close {
+    @extend .modal-close;
+    display: block;
+    top: $b-half;
+    right: $b-half;
+    position: absolute;
+  }
+
+  .text-input {
+    background-position: right top;
+  }
+
+
+  h1, p {
+    text-align: center;
+  }
+
+  h1 {
+    @include font-size(28px);
+  }
+
+  p {
+    @include font-size(18px);
+    font-weight: bold;
+  }
+
+  .parsley-errors-list li {
+    color: #fff;
+    margin-bottom: $b / 4;
+  }
+
+}

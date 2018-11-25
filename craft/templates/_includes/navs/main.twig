@@ -1,0 +1,16 @@
+{% for item in header.menu %}
+{% switch item.type %}
+  {% case 'internalLink' %}
+    {% set page = item.internalLink.first %}
+    {% if page | length %}
+    <li{% if page.url == craft.request.url %} class="active"{% endif %}>
+      <a href="{{ page.url }}">{{ page.title }}</a>
+    </li>
+    {% endif %}
+
+  {% case 'externalLink' %}
+    <li>
+      <a href="{{ item.linkUrl }}" target="_blank">{{ item.label }}</a>
+    </li>
+{% endswitch %}
+{% endfor %}
