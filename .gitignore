@@ -9,4 +9,6 @@
 /public/node_modules
 /public/bower_components
 
+/craft/config/db*
+/craft/config/license*
 /craft/storage
