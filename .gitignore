@@ -8,6 +8,7 @@
 /public/icon.png
 /public/node_modules
 /public/bower_components
+/public/log/recaptcha.log
 
 /craft/config/db*
 /craft/config/license*
