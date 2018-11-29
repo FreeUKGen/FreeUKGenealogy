@@ -10405,7 +10405,7 @@ return jQuery;
   w.addEventListener( "devicemotion", checkTilt, false );
 
 })( this );;/*!
- * JavaScript Cookie v2.0.3
+ * JavaScript Cookie v2.0.4
  * https://github.com/js-cookie/js-cookie
  *
  * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
@@ -10418,7 +10418,7 @@ return jQuery;
 		module.exports = factory();
 	} else {
 		var _OldCookies = window.Cookies;
-		var api = window.Cookies = factory(window.jQuery);
+		var api = window.Cookies = factory();
 		api.noConflict = function () {
 			window.Cookies = _OldCookies;
 			return api;
@@ -15273,20 +15273,22 @@ $.widget( "ui.tabs", {
      * @return {Object} Current instance of EventEmitter for chaining.
      */
     proto.emitEvent = function emitEvent(evt, args) {
-        var listeners = this.getListenersAsObject(evt);
+        var listenersMap = this.getListenersAsObject(evt);
+        var listeners;
         var listener;
         var i;
         var key;
         var response;
 
-        for (key in listeners) {
-            if (listeners.hasOwnProperty(key)) {
-                i = listeners[key].length;
+        for (key in listenersMap) {
+            if (listenersMap.hasOwnProperty(key)) {
+                listeners = listenersMap[key].slice(0);
+                i = listeners.length;
 
                 while (i--) {
                     // If the listener returns true then it shall be removed from the event
                     // The function is executed either with a basic call or an apply if there is an args array
-                    listener = listeners[key][i];
+                    listener = listeners[i];
 
                     if (listener.once === true) {
                         this.removeListener(evt, listener.listener);

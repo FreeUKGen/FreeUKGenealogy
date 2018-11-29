@@ -65,10 +65,6 @@
    */
   .site__header__palm-nav { display: none; }
   .site__header__nav {
-    display: block;
-    position: absolute;
-    right: 0;
-    bottom: 31px;
 
     @include media-query('portable') {
       right: $b-half;
@@ -81,6 +77,8 @@
     }
 
     li {
+      height: 44px;
+      line-height: 44px;
       margin-left: $b * 1.5;
       float: left;
     }
