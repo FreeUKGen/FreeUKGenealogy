@@ -635,6 +635,30 @@ input.parsley-error,textarea.parsley-error,.multiselect select.parsley-error,
 
 
 
+.icon__search-ic-dark {
+  background-image: url('../../images/png/search-ic-dark.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
+.icon__search-ic {
+  background-image: url('../../images/png/search-ic.png');
+  background-repeat: no-repeat;
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+ *display: inline;
+  zoom: 1;
+}
+
+
+
 .icon__search {
   background-image: url('../../images/png/search.png');
   background-repeat: no-repeat;
@@ -745,27 +769,6 @@ input.parsley-success,textarea.parsley-success,.multiselect select.parsley-succe
 
 .icon__twitter {
   background-image: url('../../images/png/twitter.png');
-  background-repeat: no-repeat;
-  width: 46px;
-  height: 46px;
-  display: inline-block;
- *display: inline;
-  zoom: 1;
-}
-
-.icon__search-btn:hover,.icon__search-btn:active,
-.icon__search-btn--dark {
-  background-image: url('../../images/png/search-ic-dark.png.png');
-  background-repeat: no-repeat;
-  width: 46px;
-  height: 46px;
-  display: inline-block;
- *display: inline;
-  zoom: 1;
-}
-
-.icon__search-btn{
-  background-image: url('../../images/png/search-ic.png');
   background-repeat: no-repeat;
   width: 46px;
   height: 46px;
