@@ -23,7 +23,7 @@ class SproutInvisibleCaptcha_TimeMethodService extends BaseApplicationComponent 
 		// added to fileter spam words in message
 		$arr = array(
 			'href=',
-			'link='
+			'link=',
 			'url=',
 			'viagra',
 			'yourls.site'
