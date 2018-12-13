@@ -12,6 +12,6 @@ You will need access to the production server to complete this guide.
 6. `mysql` + `CREATE DATABASE freeukgenealogy;` - Log in to your local MySQL instance and create a database for the Craft CMS installation
 7. `mysql freeukgenealogy < "$( ls ./FreeUKGenealogy/craft/storage/backups/ | tail -n1 )"` - Import the most recent database backup
 8. `sudo a2enmod rewrite && sudo a2enmod ssl && sudo cp ./FreeUKGenealogy/etc/localhost/local.freeukgenealogy.conf /etc/apache2/sites-available && a2ensite local.freeukgenealogy && sudo apache2ctl restart` - Enable Apache2 mods, copy the site configuration, enable the site, and restart `apache2`
-9. `sudo echo -e "127.0.0.1\tfreeukgenealogy.local" > /etc/hosts` - Add an `/etc/hosts` directive for your local instance
+9. `sudo echo -e "\n\n# freeukgenealogy.org.uk\n127.0.0.1\tfreeukgenealogy.local" >> /etc/hosts` - Add an `/etc/hosts` directive for your local instance
 
 If everything worked as expected, you should now be able to browse to `https://freeukgenealogy.local/` to work on the site and manage code changes using `git`.
