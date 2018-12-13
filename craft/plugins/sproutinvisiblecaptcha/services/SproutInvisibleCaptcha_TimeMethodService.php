@@ -21,7 +21,13 @@ class SproutInvisibleCaptcha_TimeMethodService extends BaseApplicationComponent 
 		$verified = (bool) ($diff > $min);
 
 		// added to fileter spam words in message
-		$arr = array('viagra', 'href=', 'url=', 'link=');
+		$arr = array(
+			'href=',
+			'link='
+			'url=',
+			'viagra',
+			'yourls.site'
+		);
 		$spamword = false;
 		$emptymsg = false;
 		$validemail = true;
@@ -35,7 +41,7 @@ class SproutInvisibleCaptcha_TimeMethodService extends BaseApplicationComponent 
 					$msg = trim($val);
 					if ($msg != '') {
 						foreach ($arr as $arr_value)
-							if (strpos($_POST['fields']['message'], $arr_value) !== false) $spamword = true;
+							if (stripos($_POST['fields']['message'], $arr_value) !== false) $spamword = true;
 					}
 					else $emptymsg = true;
 					break;
