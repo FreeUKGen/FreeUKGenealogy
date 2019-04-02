@@ -192,6 +192,12 @@ FileETag None
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 
+	#
+	# 190402 gray temporary maintenance rewrite (prevent POST)
+	#RewriteCond %{REQUEST_METHOD} POST
+	#RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
+	#RewriteRule .* /maintenance.html [R=302,L]
+
 	# Remove index.php
 	RewriteCond %{THE_REQUEST} ^GET.*index\.php [NC]
 	RewriteCond %{REQUEST_URI} !^/index\.php/admin\b [NC]
