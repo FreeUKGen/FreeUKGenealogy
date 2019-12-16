@@ -12,6 +12,8 @@ Ensure you let us know what idea or issue you might like to help develop, or ind
 
 If you are interested in the next Google’s Summer of Code, please read and apply here: https://summerofcode.withgoogle.com/get-started/.
 
+Next, head over to sign our CLA agreement, <a href="https://www.clahub.com/agreements/FreeUKGen/FreeUKGenealogy">sign the Contributor License Agreement</a>.
+
 ## Our Code of Conduct
 
 Free UK Genealogy, including its software development team, operates 
