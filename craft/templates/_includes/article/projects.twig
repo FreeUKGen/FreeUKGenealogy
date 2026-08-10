@@ -2,7 +2,7 @@
  # Projects block type
  #}
 {% if block.projects | length %}
-<section class="article__projects  grid__item  {{ block.width }}  palm-one-whole">
+<section class="article__projects  grid__item  {{ ' ' ~ block.width }}  palm-one-whole">
   <ul class="project-links">
   {% for project in block.projects %}
     <li>

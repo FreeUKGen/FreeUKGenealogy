@@ -12,11 +12,11 @@
 {% endset %}
 
 {% set downloadBtn %}
-  <a href="{{ block.file.first.url }}" title="Download {{ block.label }}">Download</a>
-  <span class="file-info">{{ block.file.first.kind }} {{ block.file.first.size | filesize }}</span>
+  <a href="{{ block.file.first.url }}" title="Download{{ ' ' ~ block.label }}">Download</a>
+  <span class="file-info">{{ block.file.first.kind }}{{ ' ' ~ (block.file.first.size | filesize) }}</span>
 {% endset %}
 
-<section class="article__download  grid__item  {{ block.width }}  palm-one-whole">
+<section class="article__download  grid__item  {{ ' ' ~ block.width }}  palm-one-whole">
   {% switch block.width %}
 
     {% case 'one-third' %}

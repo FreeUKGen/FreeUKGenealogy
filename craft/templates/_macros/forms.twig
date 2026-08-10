@@ -5,7 +5,7 @@
 
 {% macro input(name, label, placeholder, value, type, attr, hideLabel, classes) %}
   <label for="{{ name }}"{% if hideLabel %} class="accessibility"{% endif %}>{{ label }}</label>
-  <input type="{{ type|default('text') }}" name="{{ name }}" id="{{ name }}" value="{{ value|e }}" class="text-input  {{ classes }}" {{ attr }} placeholder="{{ placeholder }}" />
+  <input type="{{ type|default('text') }}" name="{{ name }}" id="{{ name }}" value="{{ value|e }}" class="text-input  {{ ' ' ~ classes }}" {{ attr }} placeholder="{{ placeholder }}" />
 {% endmacro %}
 
 
@@ -19,7 +19,7 @@
 
 {% macro select(name, label, options, value, optFallbackLabel, hideLabel, classes) %}
   <label for="{{ name }}"{% if hideLabel %} class="accessibility"{% endif %}>{{ label }}</label>
-  <select class="select-dropdown  {{ classes }}" name="{{ name }}" id="{{ name }}">
+  <select class="select-dropdown  {{ ' ' ~ classes }}" name="{{ name }}" id="{{ name }}">
   {% for opt in options %}
     <option value="{{ opt.value }}"{% if value == opt.value %} selected{% endif %}>{{ opt.label ? opt.label : optFallbackLabel }}</option>
   {% endfor %}

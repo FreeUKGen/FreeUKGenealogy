@@ -100,7 +100,7 @@
   {% if block.images | length == 1 %}
 
     {% set image = block.images.first %}
-    <figure class="article__image  grid__item  {{ block.width }}  palm-one-whole  img--{{ block.align }}">
+    <figure class="article__image  grid__item  {{ ' ' ~ block.width }}  palm-one-whole  img--{{ block.align }}">
       {% if block.images.first.width > articleImageTransform.width %}
         <center><img src="{{ image.getUrl(articleImageTransform) }}" alt="{{ block.images.first.altText }}" title="{{ block.images.first.caption }}" itemprop="photo"></center>
 
@@ -111,7 +111,7 @@
 
   {% elseif block.galleryType == 'slideshow' %}
 
-    <div class="article__image  grid__item  {{ block.width }}  palm-one-whole  push--bottom  img--{{ block.align }}">
+    <div class="article__image  grid__item  {{ ' ' ~ block.width }}  palm-one-whole  push--bottom  img--{{ block.align }}">
 
       {% if block.width == 'one-third' %}
         <div data-sc-gallery="fade">
@@ -156,7 +156,7 @@
 
   {% elseif block.galleryType == 'lightbox' %}
 
-    <aside class="article__image  grid__item  {{ block.width }}  palm-one-whole  text--{{ block.align }}">
+    <aside class="article__image  grid__item  {{ ' ' ~ block.width }}  palm-one-whole  text--{{ block.align }}">
 
       <ul class="gallery-thumbs" data-sc-gallery="lightbox" data-sc-gallery-fitImages="true">
       {% for image in block.images %}

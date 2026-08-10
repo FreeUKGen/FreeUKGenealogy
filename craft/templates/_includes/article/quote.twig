@@ -1,7 +1,7 @@
 {#
  # Quote block type
  #}
-<div class="article__quote  grid__item  quote--{{ block.quoteSize }} {{ block.width }}  palm-one-whole">
+<div class="article__quote  grid__item  quote--{{ block.quoteSize }}{{ ' ' ~ block.width }}  palm-one-whole">
   <blockquote class="blockquote">
     {{ block.quote }}
     {% if block.sourceHeading != '' and block.sourceUrl != '' %}
