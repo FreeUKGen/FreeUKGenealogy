@@ -1,4 +1,4 @@
-# FreeUK Genealogy Security Reporting Policy
+# FreeUKGenealogy Security Reporting Policy
 
 1. We encourage security experts to find bugs, vulnerabilities and privacy issues in our websites, servers or other systems, and report them to [security@freeukgenealogy.org.uk](mailto:security@freeukgenealogy.org.uk). We try to respond to all reports with 7 days.  
 2. Currently, we do not have a bug bounty program since we are a charity, and need our limited income to achieve our aims.  
